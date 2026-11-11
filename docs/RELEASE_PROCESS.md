@@ -147,11 +147,11 @@ already exist. A re-run of `publish-packages` rebuilds the image, checks its
 identity, re-smokes it, and pushes a fresh tested digest over `:X.Y.Z`, `:X.Y`
 and `:latest` before finishing npm. The fresh digest is inferred from the logged
 provenance `builder-id`, which includes the run attempt; no second attempt was run
-([#303](https://github.com/rookslog/zlibrary-mcp/issues/303)). The identity check
+([#303](https://github.com/rookslog/hyperlibrary-mcp/issues/303)). The identity check
 and smoke still gate every push. An npm failure leaves the verified image in GHCR
 and no GitHub Release. On a re-run,
 `scripts/publish-npm-idempotent.mjs` hashes the exact tarball and queries
-`npm view zlibrary-mcp@$V dist.integrity`: identical SHA-512 integrity skips npm
+`npm view hyperlibrary-mcp@$V dist.integrity`: identical SHA-512 integrity skips npm
 publication; an absent version (explicit E404) permits publishing with provenance.
 Different or missing integrity on an existing version, lookup/auth/network errors,
 and malformed responses stop the job rather than republishing unknown bytes.

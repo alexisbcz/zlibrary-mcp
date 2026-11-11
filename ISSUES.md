@@ -4,7 +4,7 @@
 
 > **Contributing?** This file is the maintainer's internal issue ledger (history,
 > evidence, resolutions). For anything you want to report or pick up, use
-> [GitHub Issues](https://github.com/rookslog/zlibrary-mcp/issues) — issues
+> [GitHub Issues](https://github.com/rookslog/hyperlibrary-mcp/issues) — issues
 > labeled `good first issue` and `help wanted` are curated entry points.
 
 ## Executive Summary
@@ -41,7 +41,7 @@ is removed and the job now fails on any non-MCP line.
 
 **Severity**: Was CRITICAL
 **Impact**: npm served 1.0.0 (2025-04-11) while README recommended `npm install -g
-zlibrary-mcp`. All four publish runs failed at `npm install -g npm@latest`, whose
+hyperlibrary-mcp`. All four publish runs failed at `npm install -g npm@latest`, whose
 engines field outran the Node 22 runner. Build and tests passed every time.
 **Resolution** (2026-07-24): Step removed — `--provenance` has shipped in npm since
 9.5 and Node 22 bundles npm 10.x. Added a tag/package.json version check and a GHCR
@@ -224,7 +224,7 @@ or password"}` even for valid credentials, recovering after a cooldown. The
   a residential network can distinguish IP blocking from a global outage.
   **Probe correction (#125, 2026-10-14)**: the operator observed
   `GET /eapi/info/domains` returning 200 on `z-library.sk` while searches returned
-  307 then 513 ([evidence](https://github.com/rookslog/zlibrary-mcp/issues/125#issuecomment-6175979418)).
+  307 then 513 ([evidence](https://github.com/rookslog/hyperlibrary-mcp/issues/125#issuecomment-6175979418)).
   The probe now exercises the guarded search endpoint with a one-row query and no
   credentials or redirects. Non-200 responses, DiamWall pages and non-search JSON
   fail the probe, so advertised walled domains are skipped before switching.

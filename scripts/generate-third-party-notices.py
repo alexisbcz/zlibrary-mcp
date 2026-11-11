@@ -38,7 +38,7 @@ def sha(data):
 
 def runtime_records(lock):
     packages = [dict(p, version=p.get("version", "editable")) for p in lock["package"]]
-    pending = [(p, ()) for p in packages if p["name"] == "zlibrary-mcp"]
+    pending = [(p, ()) for p in packages if p["name"] == "hyperlibrary-mcp"]
     visited = set()
     found = {}
     while pending:
@@ -68,7 +68,7 @@ def runtime_records(lock):
             if not matches:
                 raise ValueError(f"Unresolved lock dependency: {dependency}")
             pending.extend((p, dependency.get("extra", ())) for p in matches)
-    return [p for key, p in sorted(found.items()) if key[0] != "zlibrary-mcp"]
+    return [p for key, p in sorted(found.items()) if key[0] != "hyperlibrary-mcp"]
 
 
 def is_notice(path):

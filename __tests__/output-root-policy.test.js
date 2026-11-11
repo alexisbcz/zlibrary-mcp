@@ -65,7 +65,7 @@ test('startup writes one warning per notice to stderr and reports the new data r
     expect(running).not.toBeNull();
     const lines = log.mock.calls.map(args => args.join(' '));
     expect(lines.filter(line => line.includes('ZLIBRARY_UNRESTRICTED_OUTPUT'))).toHaveLength(1);
-    expect(lines.filter(line => line.includes(path.join(cwd, 'zlibrary-mcp', 'downloads')))).toHaveLength(1);
+    expect(lines.filter(line => line.includes(path.join(cwd, 'hyperlibrary-mcp', 'downloads')))).toHaveLength(1);
     expect(lines.find(line => line.includes('ZLIBRARY_UNRESTRICTED_OUTPUT'))).toMatch(/\[warn\]/);
   } finally {
     await running?.server.close();

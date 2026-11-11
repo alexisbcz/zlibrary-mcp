@@ -9,7 +9,7 @@ async function layout(omit, run) {
   const root = await mkdtemp(path.join(tmpdir(), 'packed-layout-'));
   try {
     const manifest = {
-      bin: { 'zlibrary-mcp': 'dist/index.js' },
+      bin: { 'hyperlibrary-mcp': 'dist/index.js' },
       scripts: {
         doctor: 'uv run --no-dev python scripts/check_upstream.py && node scripts/release-audit.mjs',
         validate: 'node scripts/validate-python-bridge.js',
@@ -37,7 +37,7 @@ test.each([
   ['scripts/check_upstream.py', 'Advertised target missing (doctor): scripts/check_upstream.py'],
   ['scripts/release-audit.mjs', 'Advertised target missing (doctor): scripts/release-audit.mjs'],
   ['scripts/validate-python-bridge.js', 'Advertised target missing (validate): scripts/validate-python-bridge.js'],
-  ['dist/index.js', 'Advertised target missing (bin:zlibrary-mcp): dist/index.js'],
+  ['dist/index.js', 'Advertised target missing (bin:hyperlibrary-mcp): dist/index.js'],
 ])('refuses an installed package missing %s', async (file, message) => {
   await layout(file, async root => {
     await expect(inspectInstalledPackage(root)).rejects.toThrow(message);

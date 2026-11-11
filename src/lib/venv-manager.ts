@@ -6,7 +6,7 @@
  *
  * MIGRATION NOTES:
  * - Replaces 406 lines of cache venv management with ~45 lines
- * - No cache directory at ~/.cache/zlibrary-mcp/
+ * - No cache directory at ~/.cache/hyperlibrary-mcp/
  * - No .venv_config file
  * - No programmatic pip installation
  * - UV handles all dependency management

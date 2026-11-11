@@ -16,7 +16,7 @@ companion records have been removed; the historical measurements below are
 unchanged and must not be used as current checkout sizes or dependencies.
 
 **Date:** 2026-08-12
-**Scope:** issue [#105](https://github.com/rookslog/zlibrary-mcp/issues/105), current
+**Scope:** issue [#105](https://github.com/rookslog/hyperlibrary-mcp/issues/105), current
 `docs/105-pdf-fixture-audit` checkout only. This is an audit and plan, not a
 cleanup change. No fixture, ground truth, script, Git history, or LFS object was
 changed.
@@ -45,8 +45,8 @@ The checks would have been weakened by an alias, a generated-at-runtime filename
 an ignored path, a different checkout, or Git history not present in
 the local refs; those surfaces remain outside this literal-reference conclusion.
 
-The audit also read the live issue bodies for [#85](https://github.com/rookslog/zlibrary-mcp/issues/85)
-and [#105](https://github.com/rookslog/zlibrary-mcp/issues/105), the pytest
+The audit also read the live issue bodies for [#85](https://github.com/rookslog/hyperlibrary-mcp/issues/85)
+and [#105](https://github.com/rookslog/hyperlibrary-mcp/issues/105), the pytest
 configuration, the relevant tests/scripts, current Git/LFS metadata, and an
 `npm pack --dry-run --json` manifest. The first pack attempt was blocked because
 the sandbox could not write its normal cache or the shared Git config; rerunning
@@ -75,7 +75,7 @@ matches the actual working-tree sizes, not the rounded figures in #105.
 | Baseline companion data | `test_files/ground_truth/baseline_texts/HeideggerMartin_TheQuestionOfBeing_964793.pdf.txt` is tracked (223,517 bytes). Equivalent tracked companion text files were not found for the Derrida or Margins full books. | **observed:** `test_no_body_text_recall_loss` skips an entry without its companion text; `test_body_text_not_shorter` still processes every baseline entry. Therefore the hydrated slow suite presently processes Heidegger in both checks and Derrida/Margins in the length check. |
 | Baseline generator | `scripts/generate_recall_baseline.py` globs every top-level `test_files/*.pdf` and writes both the JSON and a companion text file. | **corroborated-for-this-decision:** retaining this generator unchanged would reintroduce entries for any full-book PDFs present when it runs. It does not establish how an intended replacement should be named or compared. |
 | Page-extract generator | `scripts/extraction/extract_specific_pages.py` reads the Derrida full book to create `derrida_pages_110_135.pdf`, and the Heidegger full book to create `heidegger_pages_79-88.pdf`. | **observed:** this is provenance/generation coupling for exactly two derivative fixtures. It does not generate the Kant, Margins, `derrida_footnote_pages_120_125.pdf`, or other page fixtures. |
-| Archived manual analyses | [`scripts/archive/search_sous_rature.py`](https://github.com/rookslog/zlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/scripts/archive/search_sous_rature.py), [`scripts/archive/test_specific_pages_analysis.py`](https://github.com/rookslog/zlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/scripts/archive/test_specific_pages_analysis.py), and [`scripts/archive/test_strikethrough_detection.py`](https://github.com/rookslog/zlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/scripts/archive/test_strikethrough_detection.py) each name the Derrida and Heidegger full books. | **source-supported:** pytest discovery is restricted to `__tests__/python` by `pytest.ini`; these archive scripts are not part of the normal Python suite. Those scripts have since left the default tree; the links preserve the audited versions as historical evidence. |
+| Archived manual analyses | [`scripts/archive/search_sous_rature.py`](https://github.com/rookslog/hyperlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/scripts/archive/search_sous_rature.py), [`scripts/archive/test_specific_pages_analysis.py`](https://github.com/rookslog/hyperlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/scripts/archive/test_specific_pages_analysis.py), and [`scripts/archive/test_strikethrough_detection.py`](https://github.com/rookslog/hyperlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/scripts/archive/test_strikethrough_detection.py) each name the Derrida and Heidegger full books. | **source-supported:** pytest discovery is restricted to `__tests__/python` by `pytest.ini`; these archive scripts are not part of the normal Python suite. Those scripts have since left the default tree; the links preserve the audited versions as historical evidence. |
 | Active manual analysis | `scripts/test_marginalia_detection.py` names the Kant full book under its `__main__` path. | **observed:** this is a direct future break if the Kant file is removed without redirecting or retiring the script. |
 | Ground-truth schema/loader claim in #105 | `test_schema_validation.py` explicitly excludes `body_text_baseline.json`; `ground_truth_loader.py` reads per-test ground-truth JSON, not the recall-baseline manifest. | **corroborated-for-this-decision:** #105’s assertion that those two components consume the full-book baseline is not supported by their current source. |
 | Production/runtime package | Exact-name search found no match in `src/` or `lib/`. `npm pack --dry-run --json` listed no `test_files/` path. | **corroborated-for-this-decision:** the four PDFs do not ship in the current npm tarball. This says nothing about source clones, forks, or external archives. |

@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `zlibrary login`, `status`, `logout`, and `mcp` commands, including hidden
   credential prompts, `--password-stdin`, and secret-free JSON status. Both
-  the existing `zlibrary-mcp` bin and no-argument entrypoint still start MCP.
+  the existing `hyperlibrary-mcp` bin and no-argument entrypoint still start MCP.
 - A Python-owned POSIX file login backend with private permissions, atomic
   replacement, writer locking, and increasing generations. Saved logins take
   precedence over environment credentials when usable, unless `ZLIBRARY_PREFER_ENV=1`.
@@ -169,10 +169,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   set and copy-route tie preference), `BOOK_SOURCE_SEARCH_WAIT_MS` and
   `BOOK_FORMAT_PREFERENCE`; there is no implicit preferred source.
 - **Breaking: download location.** Downloads are contained by default in the
-  platform data directory's `zlibrary-mcp/downloads`, configurable with absolute
+  platform data directory's `hyperlibrary-mcp/downloads`, configurable with absolute
   `ZLIBRARY_OUTPUT_ROOT`. Relative `output_dir` values resolve under that root.
   To retain the old location, set an absolute path, for example
-  `"ZLIBRARY_OUTPUT_ROOT": "/home/user/zlibrary-mcp/downloads"` in a JSON client
+  `"ZLIBRARY_OUTPUT_ROOT": "/home/user/hyperlibrary-mcp/downloads"` in a JSON client
   environment config. JSON does not expand `$PWD`; a literal `$PWD/downloads`
   is relative and fails startup. Opt into outside absolute paths with
   `ZLIBRARY_UNRESTRICTED_OUTPUT=1`. Traversal
@@ -207,7 +207,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   processing arguments are no longer MCP inputs. Even a saved false processing
   flag is rejected by the new MCP surface; the internal legacy API is unchanged.
 - Source-neutral server identity and tool descriptions; package/executable/client
-  keys are unchanged. See [tool migration](https://github.com/rookslog/zlibrary-mcp/blob/master/docs/interface-migration.md) and ADR-012.
+  keys are unchanged. See [tool migration](https://github.com/rookslog/hyperlibrary-mcp/blob/master/docs/interface-migration.md) and ADR-012.
 
 ### Breaking: acquisition-only 2.0
 
@@ -469,11 +469,11 @@ source is privileged").
 
 ### Fixed
 
-- **`zlibrary-mcp` bin never started under a global npm install**: npm installs the
+- **`hyperlibrary-mcp` bin never started under a global npm install**: npm installs the
   bin as a symlink into `<prefix>/bin`, so `argv[1]` is the link path while
   `import.meta.url` is the real file — the ESM entry guard's lexical path
   comparison never matched and the server exited silently, making
-  `"command": "zlibrary-mcp"` in an MCP client config a no-op. The guard now
+  `"command": "hyperlibrary-mcp"` in an MCP client config a no-op. The guard now
   canonicalises both sides with `realpathSync` (falling back to lexical
   resolution for paths that do not exist). Verified end-to-end: a symlinked
   invocation now answers `initialize` over stdio.
@@ -678,12 +678,12 @@ source is privileged").
 - BUG-X/FIX comments cleaned from production code
 - Debug print statements converted to proper logging
 
-[Unreleased]: https://github.com/rookslog/zlibrary-mcp/compare/v1.4.0...HEAD
-[1.4.0]: https://github.com/rookslog/zlibrary-mcp/compare/v1.3.2...v1.4.0
-[1.3.2]: https://github.com/rookslog/zlibrary-mcp/compare/v1.3.1...v1.3.2
-[1.3.1]: https://github.com/rookslog/zlibrary-mcp/compare/v1.3.0...v1.3.1
-[1.3.0]: https://github.com/rookslog/zlibrary-mcp/compare/v1.2.1...v1.3.0
-[1.2.1]: https://github.com/rookslog/zlibrary-mcp/compare/v1.2.0...v1.2.1
-[1.2.0]: https://github.com/rookslog/zlibrary-mcp/compare/v1.1...v1.2.0
-[1.1.0]: https://github.com/rookslog/zlibrary-mcp/compare/v1.0...v1.1
-[1.0.0]: https://github.com/rookslog/zlibrary-mcp/releases/tag/v1.0
+[Unreleased]: https://github.com/rookslog/hyperlibrary-mcp/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/rookslog/hyperlibrary-mcp/compare/v1.3.2...v1.4.0
+[1.3.2]: https://github.com/rookslog/hyperlibrary-mcp/compare/v1.3.1...v1.3.2
+[1.3.1]: https://github.com/rookslog/hyperlibrary-mcp/compare/v1.3.0...v1.3.1
+[1.3.0]: https://github.com/rookslog/hyperlibrary-mcp/compare/v1.2.1...v1.3.0
+[1.2.1]: https://github.com/rookslog/hyperlibrary-mcp/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/rookslog/hyperlibrary-mcp/compare/v1.1...v1.2.0
+[1.1.0]: https://github.com/rookslog/hyperlibrary-mcp/compare/v1.0...v1.1
+[1.0.0]: https://github.com/rookslog/hyperlibrary-mcp/releases/tag/v1.0

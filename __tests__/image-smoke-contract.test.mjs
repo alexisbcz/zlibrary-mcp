@@ -27,7 +27,7 @@ for (const scenario of [
       await mkdir(path.join(state, 'package'));
       await writeFile(
         path.join(state, 'package/package.json'),
-        JSON.stringify({ name: 'zlibrary-mcp', version: '1.4.0' }),
+        JSON.stringify({ name: 'hyperlibrary-mcp', version: '1.4.0' }),
       );
       const tarball = path.join(state, 'release with spaces.tgz');
       await run('tar', ['-czf', tarball, '-C', state, 'package']);
@@ -92,7 +92,7 @@ if (args[0] === 'view') {
         .trim()
         .split('\n')
         .map((s) => JSON.parse(s));
-      assert.deepEqual(calls[0], ['view', 'zlibrary-mcp@1.4.0', 'dist.integrity', '--json']);
+      assert.deepEqual(calls[0], ['view', 'hyperlibrary-mcp@1.4.0', 'dist.integrity', '--json']);
       assert.deepEqual(
         calls.slice(1),
         ['absent', 'publish-error'].includes(scenario)
@@ -271,7 +271,7 @@ else if (args[0] === 'image' || args.includes('--format')) {
       try {
         const child = spawn(
           process.execPath,
-          ['scripts/push-tested-image.mjs', 'zlibrary-mcp:smoke', digest],
+          ['scripts/push-tested-image.mjs', 'hyperlibrary-mcp:smoke', digest],
           {
             cwd: root,
             stdio: ['ignore', output.fd, errors.fd],

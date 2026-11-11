@@ -6,7 +6,7 @@ Quick reference for adding Hyperlibrary MCP server to your projects.
 
 ## Shared Checkout (System-Wide Installation)
 
-**Example Installation Location**: `/home/your-user/mcp-servers/zlibrary-mcp/`.
+**Example Installation Location**: `/home/your-user/mcp-servers/hyperlibrary-mcp/`.
 Replace it with your checkout's absolute path. The account variables shown below
 are needed only for Hyperlibrary operations; omit the `env` block for LibGen-only use.
 
@@ -19,7 +19,7 @@ are needed only for Hyperlibrary operations; omit the `env` block for LibGen-onl
   "mcpServers": {
     "zlibrary": {
       "command": "node",
-      "args": ["/home/your-user/mcp-servers/zlibrary-mcp/dist/index.js"],
+      "args": ["/home/your-user/mcp-servers/hyperlibrary-mcp/dist/index.js"],
       "env": {
         "ZLIBRARY_EMAIL": "your@email.com",
         "ZLIBRARY_PASSWORD": "your_password"
@@ -107,7 +107,7 @@ cat > .mcp.json << 'EOF'
   "mcpServers": {
     "zlibrary": {
       "command": "node",
-      "args": ["/home/your-user/mcp-servers/zlibrary-mcp/dist/index.js"],
+      "args": ["/home/your-user/mcp-servers/hyperlibrary-mcp/dist/index.js"],
       "env": {
         "ZLIBRARY_EMAIL": "your@email.com",
         "ZLIBRARY_PASSWORD": "your_password"
@@ -139,7 +139,7 @@ You can combine multiple MCP servers:
   "mcpServers": {
     "zlibrary": {
       "command": "node",
-      "args": ["/home/your-user/mcp-servers/zlibrary-mcp/dist/index.js"],
+      "args": ["/home/your-user/mcp-servers/hyperlibrary-mcp/dist/index.js"],
       "env": {
         "ZLIBRARY_EMAIL": "your@email.com",
         "ZLIBRARY_PASSWORD": "your_password"
@@ -184,7 +184,7 @@ Each server provides its own tools. Use what you need!
 
 ## Summary
 
-**Example Location**: `/home/your-user/mcp-servers/zlibrary-mcp/`
+**Example Location**: `/home/your-user/mcp-servers/hyperlibrary-mcp/`
 
 **How to Use**:
 

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/rookslog/zlibrary-mcp/master/docs/schemas/acq-record-v1.schema.json",
+  "$id": "https://raw.githubusercontent.com/rookslog/hyperlibrary-mcp/master/docs/schemas/acq-record-v1.schema.json",
   "title": "Acquisition receipt v1",
   "description": "Persisted acquisition records, including initial/hashed intents and complete records. Validate files separately before use.",
   "type": "object",

@@ -2764,7 +2764,7 @@ requires-dist = [
 ]
 
 [[package]]
-name = "zlibrary-mcp"
+name = "hyperlibrary-mcp"
 version = "2.0.0"
 source = { virtual = "." }
 dependencies = [

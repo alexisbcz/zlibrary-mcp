@@ -126,9 +126,9 @@ export async function main(args = process.argv.slice(2)) {
     };
     const tarball = await packArtifact(artifacts, env);
     const report = { candidateSha256: digest(await readFile(tarball)), stages: {} };
-    const installed = path.join(prefix, 'node_modules/zlibrary-mcp');
+    const installed = path.join(prefix, 'node_modules/hyperlibrary-mcp');
     const python = path.join(installed, '.venv/bin/python');
-    const bin = path.join(prefix, 'node_modules/.bin/zlibrary-mcp');
+    const bin = path.join(prefix, 'node_modules/.bin/hyperlibrary-mcp');
     async function install(target) {
       await run(
         'npm',
@@ -145,7 +145,7 @@ export async function main(args = process.argv.slice(2)) {
         { cwd: prefix, env },
       );
     }
-    await install('zlibrary-mcp@1.4.0');
+    await install('hyperlibrary-mcp@1.4.0');
     const oldEntry = digest(await readFile(path.join(installed, 'dist/index.js')));
     report.legacyRuntimeSha256 = oldEntry;
     assert.equal(JSON.parse(await readFile(path.join(installed, 'package.json'))).version, '1.4.0');
@@ -385,7 +385,7 @@ export async function main(args = process.argv.slice(2)) {
       const rollbackFiles = await snapshotState(home);
       for (const name of Object.keys(rollbackFiles))
         if (name === 'egress.txt' || name.startsWith('logs' + path.sep)) delete rollbackFiles[name];
-      await install('zlibrary-mcp@1.4.0');
+      await install('hyperlibrary-mcp@1.4.0');
       assert.equal(
         digest(await readFile(path.join(installed, 'dist/index.js'))),
         oldEntry,

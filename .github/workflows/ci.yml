@@ -152,7 +152,7 @@ jobs:
         shell: bash
         run: |
           npm pack
-          TARBALL=$(ls zlibrary-mcp-*.tgz | head -1)
+          TARBALL=$(ls hyperlibrary-mcp-*.tgz | head -1)
           SIZE=$(stat --format="%s" "$TARBALL")
           echo "Tarball: $TARBALL, size: $SIZE bytes"
           if [ "$SIZE" -gt 10485760 ]; then
@@ -180,7 +180,7 @@ jobs:
       - name: Verify documented core setup works in the packed layout
         shell: bash
         run: |
-          TARBALL=$(ls zlibrary-mcp-*.tgz | head -1)
+          TARBALL=$(ls hyperlibrary-mcp-*.tgz | head -1)
           EXTRACT=$(mktemp -d)
           tar xzf "$TARBALL" -C "$EXTRACT"
           rm -f "$TARBALL"
@@ -317,20 +317,20 @@ jobs:
           push: false
           provenance: mode=min
           tags: |
-            zlibrary-mcp:ci
-            localhost:5000/zlibrary-mcp:ci
+            hyperlibrary-mcp:ci
+            localhost:5000/hyperlibrary-mcp:ci
       - name: Bind the loaded attested index to the build digest
         env:
           TESTED_DIGEST: ${{ steps.build.outputs.digest }}
-        run: node scripts/image-identity.mjs zlibrary-mcp:ci "$TESTED_DIGEST"
+        run: node scripts/image-identity.mjs hyperlibrary-mcp:ci "$TESTED_DIGEST"
       - name: Offline SDK-to-container-Python journey
-        run: node scripts/image-smoke.mjs zlibrary-mcp:ci
+        run: node scripts/image-smoke.mjs hyperlibrary-mcp:ci
 
       - name: Rehearse tested-image push and registry digest/provenance checks
         env:
-          IMAGE_TAGS: localhost:5000/zlibrary-mcp:ci
+          IMAGE_TAGS: localhost:5000/hyperlibrary-mcp:ci
           TESTED_DIGEST: ${{ steps.build.outputs.digest }}
-        run: node scripts/push-tested-image.mjs zlibrary-mcp:ci "$TESTED_DIGEST"
+        run: node scripts/push-tested-image.mjs hyperlibrary-mcp:ci "$TESTED_DIGEST"
 
   acquisition-windows:
     name: Offline acquisition leases (Windows)

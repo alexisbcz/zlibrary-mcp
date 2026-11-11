@@ -3,7 +3,7 @@
 Common issues and solutions for the Hyperlibrary MCP server.
 
 > **Note**: The project uses [UV](https://docs.astral.sh/uv/) with a
-> project-local `.venv/`. There is **no** cache venv at `~/.cache/zlibrary-mcp/` and no
+> project-local `.venv/`. There is **no** cache venv at `~/.cache/hyperlibrary-mcp/` and no
 > `.venv_config` file — if a guide mentions those, it predates the UV migration.
 
 ---
@@ -173,7 +173,7 @@ optional failures usually mean a secondary source is unreachable.
   "mcpServers": {
     "zlibrary": {
       "command": "node",
-      "args": ["/absolute/path/to/zlibrary-mcp/dist/index.js"],
+      "args": ["/absolute/path/to/hyperlibrary-mcp/dist/index.js"],
       "env": {
         "ZLIBRARY_EMAIL": "your-email@example.com",
         "ZLIBRARY_PASSWORD": "your-password"
@@ -239,7 +239,7 @@ uv run pytest -m "not slow and not integration and not performance"  # fast Pyth
 ## Getting Help
 
 1. Run `npm run doctor` and `npm run validate` and capture the output.
-2. Check existing issues: https://github.com/rookslog/zlibrary-mcp/issues
+2. Check existing issues: https://github.com/rookslog/hyperlibrary-mcp/issues
 3. Open a bug report — the issue template asks for the doctor output and your
    OS/client; scrub any credentials from pasted stderr logs first.
 

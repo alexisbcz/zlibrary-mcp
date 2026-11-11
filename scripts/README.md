@@ -87,7 +87,7 @@ From a built source checkout:
 node scripts/check-install-upgrades.mjs --matrix all --offline-providers
 ```
 
-Installs **published `zlibrary-mcp@1.4.0` from npm**, runs its documented
+Installs **published `hyperlibrary-mcp@1.4.0` from npm**, runs its documented
 `bash setup-uv.sh`, prepares its public NLTK Punkt resources, then starts the
 actual npm bin against the rehearsal fake. It downloads a synthetic TXT and
 uses the old processing tool to produce real extracted text and metadata.

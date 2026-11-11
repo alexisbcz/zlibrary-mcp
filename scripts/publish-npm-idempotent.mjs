@@ -17,7 +17,7 @@ async function main(args) {
     .digest('base64')}`;
   const { stdout: metadata } = await run('tar', ['-xOf', tarball, 'package/package.json']);
   const { name, version } = JSON.parse(metadata);
-  assert.equal(name, 'zlibrary-mcp', 'expected the release package');
+  assert.equal(name, 'hyperlibrary-mcp', 'expected the release package');
   assert.match(
     version,
     /^\d+\.\d+\.\d+(?:-[\da-zA-Z.-]+)?(?:\+[\da-zA-Z.-]+)?$/,

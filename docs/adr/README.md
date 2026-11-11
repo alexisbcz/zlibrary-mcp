@@ -160,8 +160,8 @@ Stage 3: OCR Recovery (Tesseract re-processing)
 
 **Related**:
 - [ADR-007](ADR-007-Phase-2-Integration-Complete.md) - Phase 2 integration
-- Specifications: [docs/specifications/SELECTIVE_OCR_STRATEGY.md](https://github.com/rookslog/zlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/docs/specifications/SELECTIVE_OCR_STRATEGY.md)
-- Specifications: [docs/specifications/SOUS_RATURE_RECOVERY_STRATEGY.md](https://github.com/rookslog/zlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/docs/specifications/SOUS_RATURE_RECOVERY_STRATEGY.md)
+- Specifications: [docs/specifications/SELECTIVE_OCR_STRATEGY.md](https://github.com/rookslog/hyperlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/docs/specifications/SELECTIVE_OCR_STRATEGY.md)
+- Specifications: [docs/specifications/SOUS_RATURE_RECOVERY_STRATEGY.md](https://github.com/rookslog/hyperlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/docs/specifications/SOUS_RATURE_RECOVERY_STRATEGY.md)
 - Implementation: `lib/garbled_text_detection.py`, `lib/rag_processing.py`
 
 ---
@@ -259,7 +259,7 @@ IF garbled detected (Stage 1 OR custom threshold)
 **Related**:
 - [ADR-002](ADR-002-Download-Workflow-Redesign.md) - Search-result-first acquisition
 - [ADR-005](ADR-005-EAPI-Migration.md) - Current Hyperlibrary EAPI mechanism
-- [Issue #40](https://github.com/rookslog/zlibrary-mcp/issues/40) - Implementation work
+- [Issue #40](https://github.com/rookslog/hyperlibrary-mcp/issues/40) - Implementation work
 
 ---
 

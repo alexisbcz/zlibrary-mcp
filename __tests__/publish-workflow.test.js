@@ -127,13 +127,13 @@ function assertImageGate(jobs) {
   expect(steps[build].with.provenance).toBe('mode=min');
   expect(steps[build].id).toBe('build');
   expect(steps[identity].run).toBe(
-    'node scripts/image-identity.mjs zlibrary-mcp:smoke "$TESTED_DIGEST"',
+    'node scripts/image-identity.mjs hyperlibrary-mcp:smoke "$TESTED_DIGEST"',
   );
   expect(steps[identity].env.TESTED_DIGEST).toBe('${{ steps.build.outputs.digest }}');
-  expect(steps[smoke].run).toBe('node scripts/image-smoke.mjs zlibrary-mcp:smoke');
+  expect(steps[smoke].run).toBe('node scripts/image-smoke.mjs hyperlibrary-mcp:smoke');
   expect(steps[push].env.TESTED_DIGEST).toBe('${{ steps.build.outputs.digest }}');
   expect(steps[push].env.IMAGE_TAGS).toBe('${{ steps.meta.outputs.tags }}');
-  expect(steps[build].with.tags).toContain('zlibrary-mcp:smoke');
+  expect(steps[build].with.tags).toContain('hyperlibrary-mcp:smoke');
   expect(steps[build].with.context).toBe('${{ runner.temp }}/image-context');
   expect(steps[build].with['build-args']).toBe('BUILD_INPUT=packed');
   const docker = steps.find((s) => s.uses?.startsWith('docker/setup-docker-action@'));
@@ -266,8 +266,8 @@ test('PR Docker CI rehearses the pinned attested build and local-registry public
     provenance: 'mode=min',
   });
   expect(steps[build].with.tags.trim().split('\n')).toEqual([
-    'zlibrary-mcp:ci',
-    'localhost:5000/zlibrary-mcp:ci',
+    'hyperlibrary-mcp:ci',
+    'localhost:5000/hyperlibrary-mcp:ci',
   ]);
   for (const i of [setup, build, identity, smoke, push]) {
     expect(steps[i].if).toBeUndefined();
@@ -275,8 +275,8 @@ test('PR Docker CI rehearses the pinned attested build and local-registry public
   }
   for (const i of [identity, push]) {
     expect(steps[i].env.TESTED_DIGEST).toBe('${{ steps.build.outputs.digest }}');
-    expect(steps[i].run).toContain('zlibrary-mcp:ci "$TESTED_DIGEST"');
+    expect(steps[i].run).toContain('hyperlibrary-mcp:ci "$TESTED_DIGEST"');
   }
-  expect(steps[smoke].run).toBe('node scripts/image-smoke.mjs zlibrary-mcp:ci');
-  expect(steps[push].env.IMAGE_TAGS).toBe('localhost:5000/zlibrary-mcp:ci');
+  expect(steps[smoke].run).toBe('node scripts/image-smoke.mjs hyperlibrary-mcp:ci');
+  expect(steps[push].env.IMAGE_TAGS).toBe('localhost:5000/hyperlibrary-mcp:ci');
 });

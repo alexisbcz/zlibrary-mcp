@@ -170,7 +170,7 @@ residual DOM-fragile surfaces in the codebase are `lib/sources/annas.py`.
 ## Directory Structure
 
 ```
-zlibrary-mcp/
+hyperlibrary-mcp/
 +-- src/                          # Node.js MCP server
 |   +-- index.ts                  # Entry point (five tools via SDK Server)
 |   +-- lib/                      # Server utilities

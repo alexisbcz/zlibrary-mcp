@@ -22,7 +22,7 @@ def test_default_root_is_data_directory_independent_of_cwd(tmp_path, monkeypatch
     expected = (
         tmp_path
         / ("local" if os.name == "nt" else "data")
-        / "zlibrary-mcp"
+        / "hyperlibrary-mcp"
         / "downloads"
     )
     for name in ("first", "second"):
@@ -34,7 +34,7 @@ def test_default_root_is_data_directory_independent_of_cwd(tmp_path, monkeypatch
         monkeypatch.delenv("XDG_DATA_HOME")
         assert (
             acquisition.output_directory(None)
-            == Path.home() / ".local/share/zlibrary-mcp/downloads"
+            == Path.home() / ".local/share/hyperlibrary-mcp/downloads"
         )
 
 

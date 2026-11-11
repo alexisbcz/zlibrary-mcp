@@ -75,7 +75,7 @@ describe('distribution boundaries', () => {
       {
         cwd: projectRoot,
         encoding: 'utf8',
-        env: { ...process.env, npm_config_cache: '/tmp/zlibrary-mcp-npm-cache' },
+        env: { ...process.env, npm_config_cache: '/tmp/hyperlibrary-mcp-npm-cache' },
       },
     );
     const [{ files }] = JSON.parse(output);

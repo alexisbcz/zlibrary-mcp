@@ -1,5 +1,5 @@
 {
-  "name": "zlibrary-mcp",
+  "name": "hyperlibrary-mcp",
   "version": "1.4.0",
   "description": "Hyperlibrary MCP server for AI assistants (UV-based)",
   "main": "dist/index.js",
@@ -9,7 +9,7 @@
     "./lib/*": "./dist/lib/*"
   },
   "bin": {
-    "zlibrary-mcp": "dist/index.js",
+    "hyperlibrary-mcp": "dist/index.js",
     "zlibrary": "dist/index.js"
   },
   "scripts": {
@@ -85,12 +85,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rookslog/zlibrary-mcp.git"
+    "url": "git+https://github.com/rookslog/hyperlibrary-mcp.git"
   },
   "bugs": {
-    "url": "https://github.com/rookslog/zlibrary-mcp/issues"
+    "url": "https://github.com/rookslog/hyperlibrary-mcp/issues"
   },
-  "homepage": "https://github.com/rookslog/zlibrary-mcp#readme",
+  "homepage": "https://github.com/rookslog/hyperlibrary-mcp#readme",
   "engines": {
     "node": ">=22"
   },

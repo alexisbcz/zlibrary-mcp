@@ -6,7 +6,7 @@
 
 ## Context
 
-The initial implementation of book downloading within the `zlibrary-mcp` project, particularly concerning the RAG pipeline integration (`feature/rag-file-output` branch), faced issues (Ref: Integration Issue INT-RAG-003). User feedback and integration failures highlighted that simply using Book IDs or assuming direct download URLs constructed from IDs is unreliable due to website changes (e.g., required slugs in URLs, non-functional ID searches).
+The initial implementation of book downloading within the `hyperlibrary-mcp` project, particularly concerning the RAG pipeline integration (`feature/rag-file-output` branch), faced issues (Ref: Integration Issue INT-RAG-003). User feedback and integration failures highlighted that simply using Book IDs or assuming direct download URLs constructed from IDs is unreliable due to website changes (e.g., required slugs in URLs, non-functional ID searches).
 
 A strategic shift was mandated: the download workflow must first obtain the specific book page URL, scrape that page to find the *actual* download link `href`, and then initiate the download using the scraped link.
 

@@ -28,7 +28,7 @@ Acknowledge the external limitation and **deprecate the `get_book_by_id` MCP too
 
 ## Consequences
 
-*   Consumers of the `zlibrary-mcp` server (e.g., AI agents) must adapt their workflows. To get book details, they **must** use the `search_books` tool, which returns results containing the book ID, title, author, page URL, and other necessary metadata.
+*   Consumers of the `hyperlibrary-mcp` server (e.g., AI agents) must adapt their workflows. To get book details, they **must** use the `search_books` tool, which returns results containing the book ID, title, author, page URL, and other necessary metadata.
 *   The `get_book_by_id` function in `lib/python_bridge.py` and `src/lib/zlibrary-api.ts`, along with its associated tests and tool registration in `src/index.ts`, should be removed in a subsequent cleanup task.
 *   Documentation (e.g., README, tool references) needs to be updated to reflect the deprecation.
 

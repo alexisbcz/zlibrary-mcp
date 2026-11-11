@@ -7,7 +7,7 @@
 
 ## 1. Overview
 
-This document outlines the architecture for the Retrieval-Augmented Generation (RAG) document processing pipeline within the `zlibrary-mcp` server. The goal is to enable AI agents to download documents (initially EPUB, TXT, PDF) from Hyperlibrary, extract their text content, save it to a file, and use the file path for RAG workflows.
+This document outlines the architecture for the Retrieval-Augmented Generation (RAG) document processing pipeline within the `hyperlibrary-mcp` server. The goal is to enable AI agents to download documents (initially EPUB, TXT, PDF) from Hyperlibrary, extract their text content, save it to a file, and use the file path for RAG workflows.
 
 **Reason for Update (v2):** Original design returned raw text, causing agent instability with large documents. This version modifies the pipeline to save processed text to a file and return the file path instead.
 
@@ -19,27 +19,27 @@ Two primary workflows are supported:
 
 1.  **Agent:** Uses `search_books` (existing tool) to find a document and obtain the `bookDetails` object.
 2.  **Agent:** Calls `download_book_to_file` (updated tool), specifying `book_id`, `outputDir` (optional), and setting `process_for_rag: true`. Can optionally specify `processed_output_format`.
-3.  **Server (`zlibrary-mcp`):** Receives the request.
+3.  **Server (`hyperlibrary-mcp`):** Receives the request.
     *   Node.js layer calls the Python bridge.
     *   Python bridge downloads the file using `zlibrary` to the specified `outputDir` (or the configured output root).
     *   Python bridge immediately processes the downloaded file (EPUB/TXT/PDF) to extract text.
     *   Python bridge saves the extracted text to a designated file in `./processed_rag_output/`.
     *   Python bridge returns the original `file_path` and the new `processed_file_path` to Node.js.
-4.  **Server (`zlibrary-mcp`):** Returns the `file_path` and `processed_file_path` to the agent.
+4.  **Server (`hyperlibrary-mcp`):** Returns the `file_path` and `processed_file_path` to the agent.
 5.  **Agent:** Uses the `processed_file_path` to access the text for its RAG process.
 
 **Workflow 2: Separate Download & Process** (Flexible for existing files)
 
 1.  **Agent:** Uses `search_books` (existing tool) to obtain the `bookDetails` object.
 2.  **Agent:** Calls `download_book_to_file` (updated tool), specifying `book_id` and `outputDir` (optional) (leaving `process_for_rag` as `false` or omitting it).
-3.  **Server (`zlibrary-mcp`):** Downloads the file via the Python bridge and returns only the `file_path` to the agent.
+3.  **Server (`hyperlibrary-mcp`):** Downloads the file via the Python bridge and returns only the `file_path` to the agent.
 4.  **Agent:** (At a later time, or with an existing file) Calls `process_document_for_rag` (updated tool), providing the `file_path`. Can optionally specify `output_format`.
-5.  **Server (`zlibrary-mcp`):** Receives the request.
+5.  **Server (`hyperlibrary-mcp`):** Receives the request.
     *   Node.js layer calls the Python bridge.
     *   Python bridge processes the specified file (EPUB/TXT/PDF) to extract text.
     *   Python bridge saves the extracted text to a designated file in `./processed_rag_output/`.
     *   Python bridge returns the `processed_file_path` to Node.js.
-6.  **Server (`zlibrary-mcp`):** Returns the `processed_file_path` to the agent.
+6.  **Server (`hyperlibrary-mcp`):** Returns the `processed_file_path` to the agent.
 7.  **Agent:** Uses the `processed_file_path` to access the text for its RAG process.
 
 ## 3. Architecture Diagram (Updated)
@@ -48,7 +48,7 @@ Two primary workflows are supported:
 graph TD
     subgraph Agent Workflow
         A[Agent: Search/Select Book] --> B1(Agent: Call download_book_to_file);
-        B1 -- process_for_rag=true --> C{zlibrary-mcp Server};
+        B1 -- process_for_rag=true --> C{hyperlibrary-mcp Server};
         C -- Result: Orig Path & Processed Path --> E[Agent: Use Processed Path for RAG];
 
         A --> B2(Agent: Call download_book_to_file);
@@ -58,7 +58,7 @@ graph TD
         C -- Result: Processed File Path --> E;
     end
 
-    subgraph "zlibrary-mcp Server (Node.js)"
+    subgraph "hyperlibrary-mcp Server (Node.js)"
         F[MCP Tool: download_book_to_file] --> G[lib/zlibrary-api.js: downloadBookToFile];
         G --> H(Python Bridge Call);
         I[MCP Tool: process_document_for_rag] --> J[lib/zlibrary-api.js: processDocumentForRag];
@@ -91,7 +91,7 @@ graph TD
     V -- processed_path --> H;
 
     style Agent Workflow fill:#f9f,stroke:#333,stroke-width:2px
-    style "zlibrary-mcp Server (Node.js)" fill:#ccf,stroke:#333,stroke-width:2px
+    style "hyperlibrary-mcp Server (Node.js)" fill:#ccf,stroke:#333,stroke-width:2px
     style "Python Bridge (python-bridge.py in Venv)" fill:#cfc,stroke:#333,stroke-width:2px
 ```
 

@@ -27,7 +27,7 @@ describe('Path Resolution Helpers', () => {
     });
 
     // Identity is checked by what the directory CONTAINS, never by what it is
-    // NAMED. `expect(root).toContain('zlibrary-mcp')` was a claim about the
+    // NAMED. `expect(root).toContain('hyperlibrary-mcp')` was a claim about the
     // checkout's directory name, so it failed in every worktree at a neutral
     // path — and on 2026-08-17 a delegated lane made its environment pass by
     // loosening the assertion instead. Caught in review and reverted, but the
@@ -40,7 +40,7 @@ describe('Path Resolution Helpers', () => {
       expect(existsSync(pkgPath)).toBe(true);
 
       const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
-      expect(pkg.name).toBe('zlibrary-mcp');
+      expect(pkg.name).toBe('hyperlibrary-mcp');
     });
 
     test('project root should contain dist/ directory', () => {
@@ -122,7 +122,7 @@ describe('Path Resolution Helpers', () => {
       const content = readFileSync(pkgPath, 'utf8');
       const pkg = JSON.parse(content);
 
-      expect(pkg.name).toBe('zlibrary-mcp');
+      expect(pkg.name).toBe('hyperlibrary-mcp');
       expect(pkg.version).toBeTruthy();
     });
   });

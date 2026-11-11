@@ -4,7 +4,7 @@ The 2.0 server exposes exactly five tools using SDK 1.32.2 and protocol
 2025-11-25. Every result is a JSON object in `structuredContent` and a text
 block containing the identical JSON. Every tool declares success and error
 output schemas. Arguments are strict: unknown or removed fields return a typed
-`invalid_argument` before provider contact. See [migration](https://github.com/rookslog/zlibrary-mcp/blob/master/docs/interface-migration.md).
+`invalid_argument` before provider contact. See [migration](https://github.com/rookslog/hyperlibrary-mcp/blob/master/docs/interface-migration.md).
 
 ## search
 
@@ -225,7 +225,7 @@ a matching verified receipt, or a modified receipt artifact, is refused with
 `output_refused` before intent, authentication or transfer; the file and prior
 receipt stay unchanged. Move or rename that file or choose another `output_dir`.
 A different filename/directory creates a new destination. `record` points to
-`<path>.acq.json`; see the [receipt v1 contract](https://github.com/rookslog/zlibrary-mcp/blob/master/docs/receipt-format.md)
+`<path>.acq.json`; see the [receipt v1 contract](https://github.com/rookslog/hyperlibrary-mcp/blob/master/docs/receipt-format.md)
 and its schema for downstream readers. One exception: while the source's breaker is open, a receipt
 hit is served without writing any file. If that receipt still needs repair (for
 example, it still says `intent`, or only the alias at the requested name exists),
@@ -263,8 +263,8 @@ unlink; a remaining file is not a held lease. Unsupported locking returns
 `output_refused`; there is no silent uncoalesced fallback. Network-filesystem lock
 semantics are not established here.
 The output root is `ZLIBRARY_OUTPUT_ROOT` (absolute, with home expansion), or
-`${XDG_DATA_HOME:-~/.local/share}/zlibrary-mcp/downloads` on Linux/macOS and
-`%LOCALAPPDATA%\zlibrary-mcp\downloads` on Windows. A relative configured root
+`${XDG_DATA_HOME:-~/.local/share}/hyperlibrary-mcp/downloads` on Linux/macOS and
+`%LOCALAPPDATA%\hyperlibrary-mcp\downloads` on Windows. A relative configured root
 fails startup. `ZLIBRARY_UNRESTRICTED_OUTPUT` accepts only `1`, `0` or unset;
 `1` lifts containment only and logs a startup warning on stderr. Refusals return
 `output_refused` with `request_issued: false` before provider contact. Checks

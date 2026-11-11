@@ -888,7 +888,7 @@ async def run_probes() -> list[ProbeResult]:
     async with httpx.AsyncClient(
         timeout=TIMEOUT,
         follow_redirects=True,
-        headers={"User-Agent": "zlibrary-mcp-upstream-check"},
+        headers={"User-Agent": "hyperlibrary-mcp-upstream-check"},
     ) as client:
         probes = [
             ("zlibrary:probe", probe_zlibrary_eapi(client)),

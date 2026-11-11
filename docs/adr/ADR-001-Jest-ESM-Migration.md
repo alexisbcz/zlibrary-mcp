@@ -6,7 +6,7 @@
 
 ## Context
 
-The `zlibrary-mcp` project has been migrated to use TypeScript compiled to ES Modules (ESM), with `"type": "module"` set in `package.json` and `"module": "NodeNext"` in `tsconfig.json`.
+The `hyperlibrary-mcp` project has been migrated to use TypeScript compiled to ES Modules (ESM), with `"type": "module"` set in `package.json` and `"module": "NodeNext"` in `tsconfig.json`.
 
 Following the resolution of INT-001 (MCP tool listing failure), an attempt to run the test suite via `npm test` failed during the configuration loading phase with the error: `ReferenceError: module is not defined in ES module scope`.
 

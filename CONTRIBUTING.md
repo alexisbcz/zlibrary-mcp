@@ -14,8 +14,8 @@ Thank you for your interest in contributing! This guide covers everything you ne
 ### Clone and Setup
 
 ```bash
-git clone https://github.com/rookslog/zlibrary-mcp.git
-cd zlibrary-mcp
+git clone https://github.com/rookslog/hyperlibrary-mcp.git
+cd hyperlibrary-mcp
 
 # Setup acquisition dependencies and contributor tools.
 bash setup-uv.sh
@@ -51,7 +51,7 @@ uv run pip-audit
 npm audit --omit=dev --audit-level=critical
 ```
 
-See [SECURITY.md](https://github.com/rookslog/zlibrary-mcp/blob/master/SECURITY.md) for the existing advisory-exception policy.
+See [SECURITY.md](https://github.com/rookslog/hyperlibrary-mcp/blob/master/SECURITY.md) for the existing advisory-exception policy.
 
 ## Project Architecture
 
@@ -169,7 +169,7 @@ git checkout -b docs/topic                   # Documentation
 
 Production dependency changes require `npm ci`, `uv sync --frozen --group dev`,
 and `uv run --frozen python scripts/generate-third-party-notices.py --refresh`;
-see [dependency notice inputs](https://github.com/rookslog/zlibrary-mcp/blob/master/scripts/notices/README.md). Dev-only lock updates
+see [dependency notice inputs](https://github.com/rookslog/hyperlibrary-mcp/blob/master/scripts/notices/README.md). Dev-only lock updates
 and unrelated documentation edits do not require a refresh.
 
 ### Commit Messages
@@ -274,7 +274,7 @@ For detailed patterns, see the project's internal documentation in `.claude/PATT
 
 ## Reporting Issues
 
-Use [GitHub Issues](https://github.com/rookslog/zlibrary-mcp/issues) to report bugs or request features.
+Use [GitHub Issues](https://github.com/rookslog/hyperlibrary-mcp/issues) to report bugs or request features.
 
 Include:
 - Node.js version (`node --version`)

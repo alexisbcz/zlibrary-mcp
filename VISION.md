@@ -1,6 +1,6 @@
 # Vision
 
-zlibrary-mcp is the **acquisition layer** for research corpora: it finds books,
+hyperlibrary-mcp is the **acquisition layer** for research corpora: it finds books,
 retrieves them, and turns them into files a pipeline can use. It serves a
 researcher assembling a corpus — and any downstream tool that needs books —
 through the Model Context Protocol.
@@ -45,7 +45,7 @@ Identity is sharpest at its boundary. This project deliberately does **not** do:
   (invariant 3); pooling them is the wrong shape for this tool.
 - **Bundled OCR models.** OCR remains an optional integration (invariant 7).
 - **Direct ID lookup against unstable upstream IDs.** Deprecated by
-  [ADR-003](https://github.com/rookslog/zlibrary-mcp/blob/master/docs/adr/ADR-003-Handle-ID-Lookup-Failure.md) for reasons that
+  [ADR-003](https://github.com/rookslog/hyperlibrary-mcp/blob/master/docs/adr/ADR-003-Handle-ID-Lookup-Failure.md) for reasons that
   have not changed.
 
 ## How releases relate to this document

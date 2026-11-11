@@ -4,7 +4,7 @@ Implementation date: 2026-10-19. This is the one breaking tool-interface change;
 package/executable/repository names and MCP client keys do not change.
 `serverInfo.name` is now `book-acquisition`. No old tool is an alias: each returns
 an `invalid_argument` envelope with a helpful replacement and no provider call.
-See [API reference](api.md) and [ADR-012](https://github.com/rookslog/zlibrary-mcp/blob/master/docs/adr/ADR-012-Acquisition-Tool-Interface.md).
+See [API reference](api.md) and [ADR-012](https://github.com/rookslog/hyperlibrary-mcp/blob/master/docs/adr/ADR-012-Acquisition-Tool-Interface.md).
 
 | Old tool                   | Replacement and arguments                                                                                                                                                                     |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -85,14 +85,14 @@ is not a live reachability check. Live account quota remains explicit.
 Saved full records/IDs must not be replayed as download inputs. Search again and
 choose the edition, then use its current ref. Refs do not survive process
 restart. Durable library integration reads `.acq.json` records using the
-[receipt v1 contract](https://github.com/rookslog/zlibrary-mcp/blob/master/docs/receipt-format.md)
+[receipt v1 contract](https://github.com/rookslog/hyperlibrary-mcp/blob/master/docs/receipt-format.md)
 and its schema, rather than refs or account history. Existing files are not deleted or converted automatically.
 
 ## Download location
 
 2.0 contains downloads in one folder by default. The root is
-`${XDG_DATA_HOME:-~/.local/share}/zlibrary-mcp/downloads` on Linux/macOS or
-`%LOCALAPPDATA%\zlibrary-mcp\downloads` on Windows. Set `ZLIBRARY_OUTPUT_ROOT`
+`${XDG_DATA_HOME:-~/.local/share}/hyperlibrary-mcp/downloads` on Linux/macOS or
+`%LOCALAPPDATA%\hyperlibrary-mcp\downloads` on Windows. Set `ZLIBRARY_OUTPUT_ROOT`
 to an absolute path to choose it (home expansion is allowed); relative values
 fail startup. An empty `ZLIBRARY_OUTPUT_ROOT=` now also fails startup; it used
 to mean unset. To keep the old place, start the server with:

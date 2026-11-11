@@ -2,7 +2,7 @@
 > without automatic retries. Disk receipts are checked before authentication;
 > retry hints are `safe`, `may_spend_quota`, or `no`. Cancellation does not renew
 > intent. The retry settings below still apply to read operations and internal
-> legacy façades. See [API errors](api.md#errors) and [migration](https://github.com/rookslog/zlibrary-mcp/blob/master/docs/interface-migration.md).
+> legacy façades. See [API errors](api.md#errors) and [migration](https://github.com/rookslog/hyperlibrary-mcp/blob/master/docs/interface-migration.md).
 
 # Retry Logic and Circuit Breaker Configuration
 
@@ -360,13 +360,13 @@ These errors fail immediately without retry:
 - Permanent provider state (`configuration_error`, `quota_exhausted`), including
   rejected Anna fast-download credentials and exhausted Anna quota
 
-Under the [ratified #192 rule](https://github.com/rookslog/zlibrary-mcp/issues/192),
+Under the [ratified #192 rule](https://github.com/rookslog/hyperlibrary-mcp/issues/192),
 **any envelope carrying `details` gets no Node retry**, including null, unknown,
 read-timeout, integrity, and mixed permanent/transient details. Python owns its
 provider walk. Transient aggregate leaves still count as dependency-health evidence.
 
 Breakers are independent, one per provider: EAPI, Library Genesis, and Hyperanna
-([ADR-011](https://github.com/rookslog/zlibrary-mcp/blob/master/docs/adr/ADR-011-Hyperlibrary-Source-Adapter.md)). Each 2.0 search or download
+([ADR-011](https://github.com/rookslog/hyperlibrary-mcp/blob/master/docs/adr/ADR-011-Hyperlibrary-Source-Adapter.md)). Each 2.0 search or download
 bridge call names one source, so an Anna's outage never refuses LibGen, nor the
 reverse; an ordered `["annas","libgen"]` search still reaches LibGen while Anna's is
 open. A bridge-level `auto` walk, which no 2.0 tool sends, covers both providers in
@@ -568,9 +568,9 @@ If responses are too slow:
 
 ## Related Documentation
 
-- [PATTERNS.md](https://github.com/rookslog/zlibrary-mcp/blob/master/.claude/PATTERNS.md) - Code patterns and best practices
-- [ISSUES.md](https://github.com/rookslog/zlibrary-mcp/blob/master/ISSUES.md) - Known issues including ISSUE-005 (resolved)
-- [ADR-002](https://github.com/rookslog/zlibrary-mcp/blob/master/docs/adr/ADR-002-Download-Workflow-Redesign.md) - Download workflow architecture
+- [PATTERNS.md](https://github.com/rookslog/hyperlibrary-mcp/blob/master/.claude/PATTERNS.md) - Code patterns and best practices
+- [ISSUES.md](https://github.com/rookslog/hyperlibrary-mcp/blob/master/ISSUES.md) - Known issues including ISSUE-005 (resolved)
+- [ADR-002](https://github.com/rookslog/hyperlibrary-mcp/blob/master/docs/adr/ADR-002-Download-Workflow-Redesign.md) - Download workflow architecture
 
 ## Testing
 

@@ -181,7 +181,7 @@ export async function protocolSmoke(
       capabilities: {},
       clientInfo: { name: 'packed-install-smoke', version: '1' },
     });
-    assert.equal(initialized.serverInfo.name, legacy ? 'zlibrary-mcp' : 'book-acquisition');
+    assert.equal(initialized.serverInfo.name, legacy ? 'hyperlibrary-mcp' : 'book-acquisition');
     assert.equal(initialized.serverInfo.version, version);
     child.stdin.write(
       JSON.stringify({ jsonrpc: '2.0', method: 'notifications/initialized' }) + '\n',
@@ -373,7 +373,7 @@ export async function main(args = process.argv.slice(2)) {
       ],
       { cwd: prefix, env },
     );
-    const installed = path.join(prefix, 'node_modules/zlibrary-mcp');
+    const installed = path.join(prefix, 'node_modules/hyperlibrary-mcp');
     const { manifest, targets } = await inspectInstalledPackage(installed);
     process.stdout.write(`Installed target checks: ${JSON.stringify(targets)}\n`);
     // README Quick Start, with --no-dev: no test/processing extras or hand-added deps.
@@ -436,8 +436,8 @@ export async function main(args = process.argv.slice(2)) {
       { cwd: home, env: runtime },
     );
     await run('npm', ['run', 'validate'], { cwd: installed, env: runtime });
-    const bin = path.join(prefix, 'node_modules/.bin/zlibrary-mcp');
-    assert.equal(await realpath(bin), path.join(installed, manifest.bin['zlibrary-mcp']));
+    const bin = path.join(prefix, 'node_modules/.bin/hyperlibrary-mcp');
+    assert.equal(await realpath(bin), path.join(installed, manifest.bin['hyperlibrary-mcp']));
     const expected = JSON.parse(
       await readFile(path.join(root, '__tests__/fixtures/tools-surface-v2.json'), 'utf8'),
     );

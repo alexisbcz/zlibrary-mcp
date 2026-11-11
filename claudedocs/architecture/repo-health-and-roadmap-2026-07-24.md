@@ -35,7 +35,7 @@ in the **seam between the repo and its users**:
 | | Finding | Status |
 |---|---|---|
 | P0 | Server violated the MCP stdio contract — 13 `console.log` calls wrote to stdout, the JSON-RPC channel | **Fixed** |
-| P0 | Every npm publish since v1.2 failed; npm serves 1.0.0 from April 2025 while README advertises `npx zlibrary-mcp` | **Fixed** (needs a release cut) |
+| P0 | Every npm publish since v1.2 failed; npm serves 1.0.0 from April 2025 while README advertises `npx hyperlibrary-mcp` | **Fixed** (needs a release cut) |
 | P0 | CI red on master since 2026-04-03 — solely the `audit` job, 74 stale dependency advisories | **Fixed** |
 | P1 | Nothing detected upstream drift; 26 live integration tests existed but never ran | **Fixed** |
 | P1 | Windows unusable (3 bugs) — plus an unreported path traversal in the same code | **Fixed** (PR #13 incorporated, with tests) |
@@ -134,9 +134,9 @@ necessary: `--provenance` has shipped in npm since 9.5, and Node 22 bundles npm
 10.x. Consequences worth stating plainly:
 
 - npm has only ever had **1.0.0**, published 2025-04-11.
-- README's "Option A: npm (recommended) — `npm install -g zlibrary-mcp`" installs
+- README's "Option A: npm (recommended) — `npm install -g hyperlibrary-mcp`" installs
   a build 15 months stale.
-- The v1.2 release notes claim "**npm package:** `npx zlibrary-mcp` (v2.0.0)" — a
+- The v1.2 release notes claim "**npm package:** `npx hyperlibrary-mcp` (v2.0.0)" — a
   version that has never existed anywhere.
 - Local `git tag` is empty; five tags exist only on the remote, and a **draft**
   release for v1.2.0 sits at `untagged-2f888cb62d7894f40bf5`.
@@ -353,7 +353,7 @@ CHANGELOG.
 4. **Four overlapping documentation trees** — `docs/` (40+ files), `claudedocs/`,
    `.claude/`, `.planning/` — with real duplication (three roadmaps: `.claude/`,
    `.planning/`, and milestone archives) and stale one-off analyses
-   ([`docs/rag-output-qa-report-rerun-20250429.md`](https://github.com/rookslog/zlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/docs/rag-output-qa-report-rerun-20250429.md)). For a public repo this reads
+   ([`docs/rag-output-qa-report-rerun-20250429.md`](https://github.com/rookslog/hyperlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/docs/rag-output-qa-report-rerun-20250429.md)). For a public repo this reads
    as sprawl and buries the ~6 documents a user actually needs.
 5. **No SECURITY.md, no issue templates** before this pass — for a project that
    handles user credentials.

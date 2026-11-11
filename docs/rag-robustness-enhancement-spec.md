@@ -11,13 +11,13 @@
 
 ## 1. Introduction
 
-This document outlines the functional requirements, constraints, edge cases, and implementation details for enhancing the robustness of the Retrieval-Augmented Generation (RAG) document processing pipeline within the `zlibrary-mcp` project. The primary goal is to improve the reliability and quality of text extraction and processing, particularly for real-world PDF and EPUB documents obtained from sources like Hyperlibrary, with an initial focus on philosophy texts.
+This document outlines the functional requirements, constraints, edge cases, and implementation details for enhancing the robustness of the Retrieval-Augmented Generation (RAG) document processing pipeline within the `hyperlibrary-mcp` project. The primary goal is to improve the reliability and quality of text extraction and processing, particularly for real-world PDF and EPUB documents obtained from sources like Hyperlibrary, with an initial focus on philosophy texts.
 
 This specification builds upon existing work documented in:
-*   [Historical pipeline implementation spec](https://github.com/rookslog/zlibrary-mcp/blob/abbbb1c4b9982d46c3da57d5dd25c553990519a2/docs/rag-pipeline-implementation-spec.md) (v2.1)
-*   [`docs/rag-output-quality-spec.md`](https://github.com/rookslog/zlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/docs/rag-output-quality-spec.md) (v1.0)
-*   [`docs/pdf-processing-implementation-spec.md`](https://github.com/rookslog/zlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/docs/pdf-processing-implementation-spec.md) (v2.0)
-*   [`docs/rag-output-qa-report-rerun-20250429.md`](https://github.com/rookslog/zlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/docs/rag-output-qa-report-rerun-20250429.md) (QA Feedback)
+*   [Historical pipeline implementation spec](https://github.com/rookslog/hyperlibrary-mcp/blob/abbbb1c4b9982d46c3da57d5dd25c553990519a2/docs/rag-pipeline-implementation-spec.md) (v2.1)
+*   [`docs/rag-output-quality-spec.md`](https://github.com/rookslog/hyperlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/docs/rag-output-quality-spec.md) (v1.0)
+*   [`docs/pdf-processing-implementation-spec.md`](https://github.com/rookslog/hyperlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/docs/pdf-processing-implementation-spec.md) (v2.0)
+*   [`docs/rag-output-qa-report-rerun-20250429.md`](https://github.com/rookslog/hyperlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/docs/rag-output-qa-report-rerun-20250429.md) (QA Feedback)
 
 ## 2. Real-World Testing Strategy
 
@@ -44,7 +44,7 @@ This specification builds upon existing work documented in:
     *   **Accuracy:** Character/Word Error Rate (CER/WER) on selected samples compared to ground truth (if available). Target: <5% CER for text-based.
     *   **Noise Level (Text Output):** Qualitative score (1-5, 1=Low, 5=High) assessing presence of headers/footers, artifacts. Target: <= 2.
     *   **Readability (Text Output):** Qualitative score (1-5, 1=Poor, 5=Excellent) assessing paragraph breaks and text flow. Target: >= 4.
-*   **FR-TEST-10:** **Markdown Structure Quality Metrics (Referencing [`rag-output-quality-spec.md`](https://github.com/rookslog/zlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/docs/rag-output-quality-spec.md)):**
+*   **FR-TEST-10:** **Markdown Structure Quality Metrics (Referencing [`rag-output-quality-spec.md`](https://github.com/rookslog/hyperlibrary-mcp/blob/c8798addc98d83e50bb743b98b48d2490476dcb0/docs/rag-output-quality-spec.md)):**
     *   **Heading Accuracy:** % correct level mapping. Target: >80%.
     *   **List Accuracy:** % lists correctly identified and formatted (ordered/unordered). Target: >85%.
     *   **Footnote Accuracy:** % footnotes captured and correctly formatted (ref + def). Target: >90%.
@@ -478,7 +478,7 @@ END FUNCTION
 ```pseudocode
 # File: scripts/run_rag_tests.py
 # Dependencies: argparse, json, pathlib, subprocess (or MCP client if running via tool)
-# Assumes zlibrary-mcp server is running or can be called via python_bridge directly
+# Assumes hyperlibrary-mcp server is running or can be called via python_bridge directly
 
 FUNCTION load_manifest(manifest_path):
   # Load JSON manifest file

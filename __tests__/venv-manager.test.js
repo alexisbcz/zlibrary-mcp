@@ -67,7 +67,7 @@ describe('venv-manager (UV-based)', () => {
       const pythonPath = await getManagedPythonPath();
 
       // Should NOT be in ~/.cache/
-      expect(pythonPath).not.toContain('.cache/zlibrary-mcp');
+      expect(pythonPath).not.toContain('.cache/hyperlibrary-mcp');
 
       // Should be in project directory
       expect(pythonPath).toContain(process.cwd());

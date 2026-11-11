@@ -6,7 +6,7 @@
 
 **Decision owner:** rookslog (accepted by this ADR's merge; implementation remains #40)
 
-**Issue:** [#40](https://github.com/rookslog/zlibrary-mcp/issues/40)
+**Issue:** [#40](https://github.com/rookslog/hyperlibrary-mcp/issues/40)
 
 ## Decision summary
 
@@ -434,7 +434,7 @@ Public search invokes each source in a separate bridge child. The current
 guards allocate provider search/download chains only, not whole tools or
 acquisitions; download resolution is already inside the transfer-chain timeout,
 and OCR is removed. Whole-acquisition composition is deferred to
-[#280](https://github.com/rookslog/zlibrary-mcp/issues/280). See
+[#280](https://github.com/rookslog/hyperlibrary-mcp/issues/280). See
 [the current budgets and short-timer policy](../RETRY_CONFIGURATION.md#multi-source-timeout-configuration)
 for the owning ordinary/long timers and strict margins.
 

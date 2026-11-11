@@ -2,7 +2,7 @@
 # Multi-stage build for minimal runtime image
 #
 # Build from project root:
-#   docker build -t zlibrary-mcp -f docker/Dockerfile .
+#   docker build -t hyperlibrary-mcp -f docker/Dockerfile .
 #
 # Based on PR #9 by @zaggash with fixes applied
 

@@ -10,7 +10,7 @@ examples: replace `/home/your-user` with your own absolute home path.
 Configure each project to launch the same installed checkout. Each server process
 has its own session and row refs; sharing a checkout does not share those refs.
 
-**Location**: `/home/your-user/mcp-servers/zlibrary-mcp/`
+**Location**: `/home/your-user/mcp-servers/hyperlibrary-mcp/`
 
 **Credentials**: Optional for startup and LibGen. Set `ZLIBRARY_EMAIL` and
 `ZLIBRARY_PASSWORD` for Hyperlibrary operations, or `ANNAS_SECRET_KEY` for Anna's
@@ -38,7 +38,7 @@ Create or edit `.mcp.json` in your project root:
   "mcpServers": {
     "zlibrary": {
       "command": "node",
-      "args": ["/home/your-user/mcp-servers/zlibrary-mcp/dist/index.js"],
+      "args": ["/home/your-user/mcp-servers/hyperlibrary-mcp/dist/index.js"],
       "env": {
         "ZLIBRARY_EMAIL": "your@email.com",
         "ZLIBRARY_PASSWORD": "your_password"
@@ -92,7 +92,7 @@ Create or edit `.mcp.json` in your project root:
 ### Updating the Server
 
 ```bash
-cd ~/mcp-servers/zlibrary-mcp
+cd ~/mcp-servers/hyperlibrary-mcp
 git pull origin master
 npm install  # If dependencies changed
 uv sync      # Keep the Python environment in sync too
@@ -103,7 +103,7 @@ npm run build
 ### Checking Status
 
 ```bash
-cd ~/mcp-servers/zlibrary-mcp
+cd ~/mcp-servers/hyperlibrary-mcp
 git log --oneline -5  # See recent commits
 npm test              # Run tests
 git status            # Check for local changes
@@ -142,7 +142,7 @@ IDs are not download inputs. See [interface migration](../interface-migration.md
   "mcpServers": {
     "zlibrary": {
       "command": "node",
-      "args": ["/home/your-user/mcp-servers/zlibrary-mcp/dist/index.js"],
+      "args": ["/home/your-user/mcp-servers/hyperlibrary-mcp/dist/index.js"],
       "env": {
         "ZLIBRARY_EMAIL": "your@email.com",
         "ZLIBRARY_PASSWORD": "your_password"
@@ -160,7 +160,7 @@ IDs are not download inputs. See [interface migration](../interface-migration.md
   "mcpServers": {
     "zlibrary": {
       "command": "node",
-      "args": ["/home/your-user/mcp-servers/zlibrary-mcp/dist/index.js"],
+      "args": ["/home/your-user/mcp-servers/hyperlibrary-mcp/dist/index.js"],
       "env": {
         "ZLIBRARY_EMAIL": "your@email.com",
         "ZLIBRARY_PASSWORD": "your_password"
@@ -208,7 +208,7 @@ Or simply don't create `.mcp.json` at all if no MCP servers needed.
 ✅ **Easy Updates**
 
 ```bash
-cd ~/mcp-servers/zlibrary-mcp
+cd ~/mcp-servers/hyperlibrary-mcp
 git pull && npm run build
 # Restart each MCP client to use the updated build.
 ```
@@ -225,7 +225,7 @@ git pull && npm run build
 
 ```bash
 # Test the server works
-cd ~/mcp-servers/zlibrary-mcp
+cd ~/mcp-servers/hyperlibrary-mcp
 node dist/index.js
 # Should see: "Book acquisition MCP server is running via Stdio."
 # Press Ctrl+C to stop
@@ -245,7 +245,7 @@ cd ~/projects/some-project
 ### "Module not found" errors
 
 ```bash
-cd ~/mcp-servers/zlibrary-mcp
+cd ~/mcp-servers/hyperlibrary-mcp
 npm install
 bash setup-uv.sh --no-dev
 ```
@@ -255,7 +255,7 @@ lint tools. Text processing is removed in 2.0; see [migration](../text-processin
 
 ### "Path not found" in .mcp.json
 
-- Verify path is absolute: `/home/your-user/mcp-servers/zlibrary-mcp/dist/index.js`
+- Verify path is absolute: `/home/your-user/mcp-servers/hyperlibrary-mcp/dist/index.js`
 - Not relative: `~/mcp-servers/...` (expand ~ to full path)
 
 ### Server not loading
@@ -268,7 +268,7 @@ lint tools. Text processing is removed in 2.0; see [migration](../text-processin
 
 ## Summary
 
-**Example Installation Location**: `/home/your-user/mcp-servers/zlibrary-mcp/`
+**Example Installation Location**: `/home/your-user/mcp-servers/hyperlibrary-mcp/`
 
 **How to Use**:
 

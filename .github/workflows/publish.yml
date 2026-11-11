@@ -165,22 +165,22 @@ jobs:
           push: false
           provenance: mode=min
           tags: |
-            zlibrary-mcp:smoke
+            hyperlibrary-mcp:smoke
             ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       - name: Bind the loaded attested index to the build digest
         id: image-identity
         env:
           TESTED_DIGEST: ${{ steps.build.outputs.digest }}
-        run: node scripts/image-identity.mjs zlibrary-mcp:smoke "$TESTED_DIGEST"
+        run: node scripts/image-identity.mjs hyperlibrary-mcp:smoke "$TESTED_DIGEST"
       - name: Gate both publications on the offline SDK-to-Python journey
-        run: node scripts/image-smoke.mjs zlibrary-mcp:smoke
+        run: node scripts/image-smoke.mjs hyperlibrary-mcp:smoke
       # Push the already-tested local image, never rebuild after the smoke.
       - name: Push the tested image
         env:
           IMAGE_TAGS: ${{ steps.meta.outputs.tags }}
           TESTED_DIGEST: ${{ steps.build.outputs.digest }}
-        run: node scripts/push-tested-image.mjs zlibrary-mcp:smoke "$TESTED_DIGEST"
+        run: node scripts/push-tested-image.mjs hyperlibrary-mcp:smoke "$TESTED_DIGEST"
       # npm is last: a failed GHCR push/verification cannot publish npm.
       # Auth comes from this workflow's OIDC trusted publisher; no token.
       - name: Publish npm with provenance unless identical bytes already exist

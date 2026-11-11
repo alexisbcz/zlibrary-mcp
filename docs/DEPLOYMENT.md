@@ -44,11 +44,11 @@ npm start
 
 #### 2. **Development with npm link**
 ```bash
-cd /path/to/zlibrary-mcp
+cd /path/to/hyperlibrary-mcp
 npm link
 
 cd /path/to/your-project
-npm link zlibrary-mcp
+npm link hyperlibrary-mcp
 ```
 
 **Path Resolution**: ✅ Works
@@ -59,8 +59,8 @@ npm link zlibrary-mcp
 
 #### 3. **Clone and Build**
 ```bash
-git clone https://github.com/rookslog/zlibrary-mcp.git
-cd zlibrary-mcp
+git clone https://github.com/rookslog/hyperlibrary-mcp.git
+cd hyperlibrary-mcp
 npm install
 npm run build
 node dist/index.js
@@ -125,8 +125,8 @@ COPY lib/ ./dist/lib/  # Don't do this!
 
 #### Scenario
 ```bash
-npm install -g zlibrary-mcp
-zlibrary-mcp
+npm install -g hyperlibrary-mcp
+hyperlibrary-mcp
 ```
 
 **Status**: ⚠️ **Needs Testing**
@@ -157,8 +157,8 @@ zlibrary-mcp
 Project or lib/ directory is a symbolic link.
 
 ```bash
-ln -s /real/path/to/zlibrary-mcp /symlink/zlibrary-mcp
-cd /symlink/zlibrary-mcp
+ln -s /real/path/to/hyperlibrary-mcp /symlink/hyperlibrary-mcp
+cd /symlink/hyperlibrary-mcp
 npm start
 ```
 
@@ -178,7 +178,7 @@ MCP server as part of larger monorepo (yarn workspaces, pnpm, Lerna, etc.)
 ```
 monorepo/
 ├── packages/
-│   ├── zlibrary-mcp/
+│   ├── hyperlibrary-mcp/
 │   │   ├── dist/
 │   │   ├── lib/
 │   │   └── package.json
@@ -189,7 +189,7 @@ monorepo/
 **Status**: ✅ **Should Work**
 
 **Requirements**:
-- Maintain relative structure within `packages/zlibrary-mcp/`
+- Maintain relative structure within `packages/hyperlibrary-mcp/`
 - Build process respects directory structure
 - Build validation runs per-package
 

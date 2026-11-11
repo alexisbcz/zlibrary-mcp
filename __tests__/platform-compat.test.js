@@ -80,13 +80,13 @@ describe('ESM entry-point detection across platforms', () => {
 
   test('detects the entry point through an npm-style bin symlink', () => {
     // npm installs bins as symlinks into <prefix>/bin: argv[1] is the link,
-    // import.meta.url the real file. This is the global-install/`zlibrary-mcp`
+    // import.meta.url the real file. This is the global-install/`hyperlibrary-mcp`
     // startup path, and a lexical path comparison silently fails it.
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'entry-guard-'));
     try {
       const real = path.join(dir, 'index.js');
       fs.writeFileSync(real, '');
-      const link = path.join(dir, 'zlibrary-mcp');
+      const link = path.join(dir, 'hyperlibrary-mcp');
       fs.symlinkSync(real, link);
       const url = pathToFileURL(real).href;
       expect(isProcessEntryPoint(url, link)).toBe(true);

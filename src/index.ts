@@ -185,7 +185,7 @@ function outputRoot(): string {
       ? process.env.LOCALAPPDATA || outputPath.join(homedir(), 'AppData', 'Local')
       : process.env.XDG_DATA_HOME || outputPath.join(homedir(), '.local', 'share');
   if (!fullyAbsolute(data)) throw new Error('Output data directory must be absolute');
-  return outputPath.join(data, 'zlibrary-mcp', 'downloads');
+  return outputPath.join(data, 'hyperlibrary-mcp', 'downloads');
 }
 function getPackageVersion(): string {
   try {
@@ -229,7 +229,7 @@ export async function start(opts: { testing?: boolean } = {}) {
 }
 export function isProcessEntryPoint(moduleUrl: string, argv1: string | undefined): boolean {
   if (!argv1) return false;
-  // npm installs the `zlibrary-mcp` bin as a symlink into <prefix>/bin, so
+  // npm installs the `hyperlibrary-mcp` bin as a symlink into <prefix>/bin, so
   // argv[1] is the link path while import.meta.url is the real file under the
   // package directory — a plain path.resolve comparison never matches and the
   // server silently refused to auto-start for global-install users. Resolve

@@ -26,7 +26,7 @@ def test_locked_runtime_union_keeps_conditional_versions_and_excludes_dev():
     lock = {
         "package": [
             {
-                "name": "zlibrary-mcp",
+                "name": "hyperlibrary-mcp",
                 "version": "2",
                 "dependencies": [{"name": "dep"}],
                 "dev-dependencies": {"dev": [{"name": "test-only"}]},
@@ -422,7 +422,7 @@ def test_extras_requested_after_first_visit_are_traversed_and_cycles_terminate()
     lock = {
         "package": [
             {
-                "name": "zlibrary-mcp",
+                "name": "hyperlibrary-mcp",
                 "dependencies": [{"name": "requester"}, {"name": "dep"}],
             },
             {
@@ -491,7 +491,7 @@ def test_unmapped_native_libraries_fail_refresh(monkeypatch, tmp_path):
     )
     lock = {
         "package": [
-            {"name": "zlibrary-mcp", "dependencies": [{"name": "ujson"}]},
+            {"name": "hyperlibrary-mcp", "dependencies": [{"name": "ujson"}]},
             {"name": "ujson", "version": distribution.version},
         ]
     }
@@ -505,7 +505,7 @@ def test_bs4_metadata_is_raw_upstream_text():
     distribution = importlib.metadata.distribution("bs4")
     lock = {
         "package": [
-            {"name": "zlibrary-mcp", "dependencies": [{"name": "bs4"}]},
+            {"name": "hyperlibrary-mcp", "dependencies": [{"name": "bs4"}]},
             {"name": "bs4", "version": distribution.version},
         ]
     }
@@ -516,7 +516,7 @@ def test_bs4_metadata_is_raw_upstream_text():
 def test_vendored_declaration_uses_setup_classifier():
     lock = {
         "package": [
-            {"name": "zlibrary-mcp", "dependencies": [{"name": "zlibrary"}]},
+            {"name": "hyperlibrary-mcp", "dependencies": [{"name": "zlibrary"}]},
             {"name": "zlibrary", "source": {"editable": "zlibrary"}},
         ]
     }
@@ -572,7 +572,7 @@ def test_bs4_metadata_from_locked_wheel_stays_raw_without_installed_distribution
     monkeypatch.setattr(mod.tempfile, "gettempdir", lambda: str(tmp_path))
     lock = {
         "package": [
-            {"name": "zlibrary-mcp", "dependencies": [{"name": "bs4"}]},
+            {"name": "hyperlibrary-mcp", "dependencies": [{"name": "bs4"}]},
             {
                 "name": "bs4",
                 "version": "1",
@@ -628,7 +628,7 @@ def test_refresh_checks_image_wheel_from_lock_not_host_distribution(
     monkeypatch.setattr(mod.urllib.request, "urlopen", forbidden)
     lock = {
         "package": [
-            {"name": "zlibrary-mcp", "dependencies": [{"name": "bs4"}]},
+            {"name": "hyperlibrary-mcp", "dependencies": [{"name": "bs4"}]},
             {
                 "name": "bs4",
                 "version": distribution.version,
@@ -667,7 +667,7 @@ def test_image_wheel_hash_is_checked_before_inspecting_native_files(
     monkeypatch.setattr(mod.urllib.request, "urlopen", forbidden)
     lock = {
         "package": [
-            {"name": "zlibrary-mcp", "dependencies": [{"name": "bs4"}]},
+            {"name": "hyperlibrary-mcp", "dependencies": [{"name": "bs4"}]},
             {
                 "name": "bs4",
                 "version": distribution.version,

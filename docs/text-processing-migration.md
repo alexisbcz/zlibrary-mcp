@@ -63,7 +63,7 @@ obsolete provider/authentication code wholesale. The real-document workflow and
 quality criteria remain on the preserved tree.
 
 The following failures move with their tests and are **not fixed** by removal;
-see [issue #245](https://github.com/rookslog/zlibrary-mcp/issues/245):
+see [issue #245](https://github.com/rookslog/hyperlibrary-mcp/issues/245):
 
 | Preserved test | Unresolved finding |
 |---|---|
@@ -155,6 +155,6 @@ accept a proposed milestone, or qualify the old implementation.
   beside positive results when revisiting the preserved work.
 
 Historical detail remains readable in the
-[pre-trim public tree](https://github.com/rookslog/zlibrary-mcp/tree/c8798addc98d83e50bb743b98b48d2490476dcb0/docs/specifications)
-and [scoring review](https://github.com/rookslog/zlibrary-mcp/blob/master/claudedocs/architecture/phase-20-21-review-2026-07-24.md).
+[pre-trim public tree](https://github.com/rookslog/hyperlibrary-mcp/tree/c8798addc98d83e50bb743b98b48d2490476dcb0/docs/specifications)
+and [scoring review](https://github.com/rookslog/hyperlibrary-mcp/blob/master/claudedocs/architecture/phase-20-21-review-2026-07-24.md).
 Use current milestones and public decisions for accepted scope.

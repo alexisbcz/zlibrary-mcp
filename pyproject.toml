@@ -4,7 +4,7 @@
 # Setup: uv sync (creates .venv and installs dependencies)
 
 [project]
-name = "zlibrary-mcp"
+name = "hyperlibrary-mcp"
 version = "2.0.0"
 description = "Hyperlibrary MCP server for AI assistants"
 readme = "README.md"
@@ -15,7 +15,7 @@ authors = [
 keywords = ["mcp", "zlibrary", "ai", "books", "library"]
 license = { text = "MIT" }
 
-# Core dependencies for zlibrary-mcp functionality
+# Core dependencies for hyperlibrary-mcp functionality
 # Based on actual usage from lib/*.py analysis
 dependencies = [
     # Vendored zlibrary (installed from local ./zlibrary directory)
@@ -61,9 +61,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/rookslog/zlibrary-mcp"
-Repository = "https://github.com/rookslog/zlibrary-mcp.git"
-Issues = "https://github.com/rookslog/zlibrary-mcp/issues"
+Homepage = "https://github.com/rookslog/hyperlibrary-mcp"
+Repository = "https://github.com/rookslog/hyperlibrary-mcp.git"
+Issues = "https://github.com/rookslog/hyperlibrary-mcp/issues"
 
 [build-system]
 requires = ["setuptools>=83.0.0", "wheel"]

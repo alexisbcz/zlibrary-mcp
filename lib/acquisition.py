@@ -123,7 +123,7 @@ def output_directory(output_dir):
             if _WINDOWS
             else os.environ.get("XDG_DATA_HOME") or Path.home() / ".local" / "share"
         )
-        root = Path(data) / "zlibrary-mcp" / "downloads"
+        root = Path(data) / "hyperlibrary-mcp" / "downloads"
         if not root.is_absolute():
             raise AcquisitionError(
                 "output_refused", "Output data directory must be absolute"

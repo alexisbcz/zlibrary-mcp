@@ -91,8 +91,8 @@
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/rookslog/zlibrary-mcp.git
-cd zlibrary-mcp
+git clone https://github.com/rookslog/hyperlibrary-mcp.git
+cd hyperlibrary-mcp
 ```
 
 ---
@@ -183,7 +183,7 @@ is what a green unit suite on a developer's laptop cannot tell you.
   "mcpServers": {
     "zlibrary": {
       "command": "node",
-      "args": ["/full/path/to/zlibrary-mcp/dist/index.js"],
+      "args": ["/full/path/to/hyperlibrary-mcp/dist/index.js"],
       "env": {
         "ZLIBRARY_EMAIL": "your@email.com",
         "ZLIBRARY_PASSWORD": "your_password"

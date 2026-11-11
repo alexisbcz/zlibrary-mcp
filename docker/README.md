@@ -20,7 +20,7 @@ The server will be available at `http://localhost:8000`.
 
 ```bash
 # From project root
-docker build -t zlibrary-mcp -f docker/Dockerfile .
+docker build -t hyperlibrary-mcp -f docker/Dockerfile .
 
 # Run standalone
 docker run -d \
@@ -28,7 +28,7 @@ docker run -d \
   -e ZLIBRARY_EMAIL=your@email.com \
   -e ZLIBRARY_PASSWORD=your_password \
   -v $(pwd)/downloads:/app/downloads \
-  zlibrary-mcp
+  hyperlibrary-mcp
 ```
 
 ## Configuration
@@ -78,7 +78,7 @@ http://localhost:8000
 ## Architecture
 
 ```
-[MCP Client] <--HTTP--> [SuperGateway:8000] <--stdio--> [zlibrary-mcp]
+[MCP Client] <--HTTP--> [SuperGateway:8000] <--stdio--> [hyperlibrary-mcp]
 ```
 
 SuperGateway wraps the stdio-based MCP server to provide HTTP transport, enabling:
@@ -105,8 +105,8 @@ npm run build
 IMAGE_CONTEXT=$(mktemp -d)
 bash scripts/prepare-image-context.sh "$IMAGE_CONTEXT"
 docker build --build-arg BUILD_INPUT=packed \
-  -t zlibrary-mcp:smoke -f docker/Dockerfile "$IMAGE_CONTEXT"
-node scripts/image-smoke.mjs zlibrary-mcp:smoke
+  -t hyperlibrary-mcp:smoke -f docker/Dockerfile "$IMAGE_CONTEXT"
+node scripts/image-smoke.mjs hyperlibrary-mcp:smoke
 ```
 
 CI, publishing and these instructions use the same context helper. It requires
@@ -131,9 +131,9 @@ an npm failure leaves the verified image available in GHCR. A re-run of
 pushes a fresh tested digest over `:X.Y.Z`, `:X.Y` and `:latest` before finishing
 npm. The fresh digest is inferred from the logged provenance `builder-id`, which
 includes the run attempt; no second attempt was run
-([#303](https://github.com/rookslog/zlibrary-mcp/issues/303)). The identity check
+([#303](https://github.com/rookslog/hyperlibrary-mcp/issues/303)). The identity check
 and smoke still gate every push. The npm helper compares the tarball's SHA-512
-integrity with `npm view zlibrary-mcp@$V dist.integrity` and skips an identical
+integrity with `npm view hyperlibrary-mcp@$V dist.integrity` and skips an identical
 published version. Only an explicit E404 allows a new npm publication; mismatched
 or missing integrity, authentication/network failures and malformed lookup
 responses fail closed. Recovery must reuse the original release tarball artifact;

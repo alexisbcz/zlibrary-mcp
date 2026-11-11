@@ -30,7 +30,7 @@ const __dirname = path.dirname(__filename);
  *
  * @example
  * const root = getProjectRoot();
- * // /home/user/zlibrary-mcp
+ * // /home/user/hyperlibrary-mcp
  */
 export function getProjectRoot(): string {
   // From dist/lib/paths.js: ../ = dist/, ../ = project root
@@ -48,11 +48,11 @@ export function getProjectRoot(): string {
  *
  * @example
  * const bridgePath = getPythonScriptPath('python_bridge.py');
- * // /home/user/zlibrary-mcp/lib/python_bridge.py
+ * // /home/user/hyperlibrary-mcp/lib/python_bridge.py
  *
  * @example
  * const bridgePath = getPythonScriptPath('python_bridge.py');
- * // /home/user/zlibrary-mcp/lib/python_bridge.py
+ * // /home/user/hyperlibrary-mcp/lib/python_bridge.py
  */
 export function getPythonScriptPath(scriptName: string): string {
   return path.join(getProjectRoot(), 'lib', scriptName);
@@ -65,7 +65,7 @@ export function getPythonScriptPath(scriptName: string): string {
  *
  * @example
  * const libDir = getPythonLibDirectory();
- * // /home/user/zlibrary-mcp/lib
+ * // /home/user/hyperlibrary-mcp/lib
  */
 export function getPythonLibDirectory(): string {
   return path.join(getProjectRoot(), 'lib');
@@ -78,7 +78,7 @@ export function getPythonLibDirectory(): string {
  *
  * @example
  * const pkgPath = getPackageJsonPath();
- * // /home/user/zlibrary-mcp/package.json
+ * // /home/user/hyperlibrary-mcp/package.json
  */
 export function getPackageJsonPath(): string {
   return path.join(getProjectRoot(), 'package.json');
@@ -91,7 +91,7 @@ export function getPackageJsonPath(): string {
  *
  * @example
  * const tomlPath = getPyprojectTomlPath();
- * // /home/user/zlibrary-mcp/pyproject.toml
+ * // /home/user/hyperlibrary-mcp/pyproject.toml
  */
 export function getPyprojectTomlPath(): string {
   return path.join(getProjectRoot(), 'pyproject.toml');
@@ -104,7 +104,7 @@ export function getPyprojectTomlPath(): string {
  *
  * @example
  * const venvPath = getVenvPath();
- * // /home/user/zlibrary-mcp/.venv
+ * // /home/user/hyperlibrary-mcp/.venv
  */
 export function getVenvPath(): string {
   return path.join(getProjectRoot(), '.venv');

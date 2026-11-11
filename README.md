@@ -1,8 +1,8 @@
 # Hyperlibrary MCP Server
 
-[![CI](https://github.com/rookslog/zlibrary-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/rookslog/zlibrary-mcp/actions/workflows/ci.yml)
-[![npm version](https://img.shields.io/npm/v/zlibrary-mcp)](https://www.npmjs.com/package/zlibrary-mcp)
-[![License: MIT](https://img.shields.io/github/license/rookslog/zlibrary-mcp)](LICENSE)
+[![CI](https://github.com/rookslog/hyperlibrary-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/rookslog/hyperlibrary-mcp/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/hyperlibrary-mcp)](https://www.npmjs.com/package/hyperlibrary-mcp)
+[![License: MIT](https://img.shields.io/github/license/rookslog/hyperlibrary-mcp)](LICENSE)
 
 An acquisition server for books and articles: find an edition, inspect its metadata,
 and download the original file. Five MCP tools serve Library Genesis, Hyperlibrary and
@@ -10,29 +10,29 @@ Hyperanna. Book contents never enter the tool response; paths refer to the
 server's disk. See [VISION.md](VISION.md) for the commitments and non-goals.
 
 **Release status:** This README describes the 2.0 interface, which is not yet published on npm or as a Docker image.
-`npm install -g zlibrary-mcp` and the Docker image `ghcr.io/rookslog/zlibrary-mcp:latest`
+`npm install -g hyperlibrary-mcp` and the Docker image `ghcr.io/rookslog/hyperlibrary-mcp:latest`
 currently provide 1.4.0, whose tools differ; use the
-[v1.4.0 README](https://github.com/rookslog/zlibrary-mcp/blob/v1.4.0/README.md) for that release,
+[v1.4.0 README](https://github.com/rookslog/hyperlibrary-mcp/blob/v1.4.0/README.md) for that release,
 or [install from source](#from-source-for-development) for 2.0.
 
 **2.0 is a breaking interface change.** Saved 1.x tool names are not aliases.
-See the complete [migration table](https://github.com/rookslog/zlibrary-mcp/blob/master/docs/interface-migration.md) and
+See the complete [migration table](https://github.com/rookslog/hyperlibrary-mcp/blob/master/docs/interface-migration.md) and
 [API reference](docs/api.md). The npm package, executable, repository and client
 configuration keys keep their existing names; `serverInfo.name` is `book-acquisition`.
 
 ## Quick Start
 
 **Release status:** This README describes the 2.0 interface, which is not yet published on npm or as a Docker image.
-`npm install -g zlibrary-mcp` and the Docker image `ghcr.io/rookslog/zlibrary-mcp:latest`
+`npm install -g hyperlibrary-mcp` and the Docker image `ghcr.io/rookslog/hyperlibrary-mcp:latest`
 currently provide 1.4.0, whose tools differ; use the
-[v1.4.0 README](https://github.com/rookslog/zlibrary-mcp/blob/v1.4.0/README.md) for that release,
+[v1.4.0 README](https://github.com/rookslog/hyperlibrary-mcp/blob/v1.4.0/README.md) for that release,
 or [install from source](#from-source-for-development) for 2.0.
 
 **Prerequisites:** Node.js 22+, Python 3.10+, [uv](https://docs.astral.sh/uv/).
 
 ```bash
-npm install -g zlibrary-mcp
-cd "$(npm root -g)/zlibrary-mcp"
+npm install -g hyperlibrary-mcp
+cd "$(npm root -g)/hyperlibrary-mcp"
 bash setup-uv.sh --no-dev
 ```
 
@@ -42,7 +42,7 @@ Add the server to your MCP client configuration:
 {
   "mcpServers": {
     "zlibrary": {
-      "command": "zlibrary-mcp"
+      "command": "hyperlibrary-mcp"
     }
   }
 }
@@ -52,7 +52,7 @@ No credentials are needed for Library Genesis. The server starts without a
 Hyperlibrary account; it warns on stderr and keeps the other sources available.
 For Hyperlibrary, run `zlibrary login`, or add `ZLIBRARY_EMAIL` and `ZLIBRARY_PASSWORD` in the client's `env`.
 For Hyperanna, `ANNAS_SECRET_KEY` enables member sign-in for search and is
-required for downloads. Anonymous search remains available, but the site's browser check often refuses it ([#139](https://github.com/rookslog/zlibrary-mcp/issues/139)).
+required for downloads. Anonymous search remains available, but the site's browser check often refuses it ([#139](https://github.com/rookslog/hyperlibrary-mcp/issues/139)).
 
 ### Saved Hyperlibrary login
 
@@ -121,7 +121,7 @@ during renewal stops the saved operation with login guidance. A changed identity
 requires a fresh operation. Logout does not cancel the key or remove credentials
 supplied through the environment.
 
-`zlibrary mcp`, `zlibrary-mcp`, and `node dist/index.js` with no arguments start
+`zlibrary mcp`, `hyperlibrary-mcp`, and `node dist/index.js` with no arguments start
 the MCP server. Saved login support does not move the Python environment: after
 an npm upgrade, rerun `bash setup-uv.sh --no-dev` in the installed package before
 using login commands.
@@ -191,7 +191,7 @@ has its own existing handle store and upstream continuation behavior.
 |---|---|---|---|---|
 | `libgen` | None | Yes | Yes | No daily limit |
 | `zlibrary` | Account email and password | With account | With account | Provider daily quota |
-| `annas` | Optional member sign-in; key required for download | Anonymous search often refused by the site's browser check ([#139](https://github.com/rookslog/zlibrary-mcp/issues/139)) | With membership API key | Membership-dependent |
+| `annas` | Optional member sign-in; key required for download | Anonymous search often refused by the site's browser check ([#139](https://github.com/rookslog/hyperlibrary-mcp/issues/139)) | With membership API key | Membership-dependent |
 
 `get_limits` defaults to `mode: "local"`: no network, no account call. It reports
 configuration, search/download availability and supported operations for each
@@ -282,11 +282,11 @@ reuse. Different filenames/directories are different destinations. Pre-2.0 files
 have no receipts. An occupied predicted destination without a matching receipt
 is refused before transfer (`output_refused`, `destination_occupied: true`), even
 if its bytes match. There is no zero-quota adoption path for old files; see
-[existing-download migration](https://github.com/rookslog/zlibrary-mcp/blob/master/docs/interface-migration.md#existing-140-downloads).
+[existing-download migration](https://github.com/rookslog/hyperlibrary-mcp/blob/master/docs/interface-migration.md#existing-140-downloads).
 Different existing bytes and verified foreign identities are never silently overwritten.
 
-Downloads default to `${XDG_DATA_HOME:-~/.local/share}/zlibrary-mcp/downloads`
-on Linux/macOS and `%LOCALAPPDATA%\zlibrary-mcp\downloads` on Windows. Set
+Downloads default to `${XDG_DATA_HOME:-~/.local/share}/hyperlibrary-mcp/downloads`
+on Linux/macOS and `%LOCALAPPDATA%\hyperlibrary-mcp\downloads` on Windows. Set
 `ZLIBRARY_OUTPUT_ROOT` to an absolute path (home expansion allowed) to choose
 another root; a relative configured root fails startup. Relative `output_dir`
 values always resolve under the root. Absolute paths inside it are accepted;
@@ -329,8 +329,8 @@ this does not waive provider rate limits or enable automatic retry.
 ### From Source (for development)
 
 ```bash
-git clone https://github.com/rookslog/zlibrary-mcp.git
-cd zlibrary-mcp
+git clone https://github.com/rookslog/hyperlibrary-mcp.git
+cd hyperlibrary-mcp
 npm install
 uv sync
 npm run build
@@ -346,9 +346,9 @@ Existing downloaded and extracted files are not deleted.
 ### Docker (HTTP transport)
 
 ```bash
-docker run -d --name zlibrary-mcp -p 8000:8000 \
+docker run -d --name hyperlibrary-mcp -p 8000:8000 \
   -v "$PWD/downloads:/app/downloads" \
-  ghcr.io/rookslog/zlibrary-mcp:latest
+  ghcr.io/rookslog/hyperlibrary-mcp:latest
 ```
 
 Add account variables only for the sources you use. The container wraps stdio
