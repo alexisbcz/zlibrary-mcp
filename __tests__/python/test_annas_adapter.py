@@ -1,4 +1,4 @@
-"""TDD tests for Anna's Archive adapter.
+"""TDD tests for Hyperanna adapter.
 
 Tests cover:
 1. Search functionality via HTML scraping
@@ -24,7 +24,7 @@ pytestmark = pytest.mark.unit
 MOCK_SEARCH_HTML = """
 <!DOCTYPE html>
 <html>
-<head><title>Search - Anna's Archive</title></head>
+<head><title>Search - Hyperanna</title></head>
 <body>
 <div class="search-results">
   <a href="/md5/abc123def456">Python Programming Guide</a>
@@ -53,7 +53,7 @@ MOCK_ERROR_RESPONSE = {
 
 
 class TestAnnasArchiveSearch:
-    """Test cases for Anna's Archive search functionality."""
+    """Test cases for Hyperanna search functionality."""
 
     @pytest.mark.asyncio
     async def test_search_returns_results(self):
@@ -187,7 +187,7 @@ class TestAnnasArchiveSearch:
 
 
 class TestAnnasArchiveFastDownload:
-    """Test cases for Anna's Archive fast download API."""
+    """Test cases for Hyperanna fast download API."""
 
     @pytest.mark.asyncio
     async def test_get_download_url_returns_result(self):
@@ -591,7 +591,7 @@ class TestQuotaExhaustedError:
 class TestSecretKeyHostAllowlist:
     """Regression tests for the secret-key host allowlist.
 
-    Anna's Archive domains lapse and get re-registered by squatters
+    Hyperanna domains lapse and get re-registered by squatters
     (annas-archive.li became a Trellian parking page in 2026-03), and the
     fast-download API sends ANNAS_SECRET_KEY as a URL query parameter. The
     adapter must never attach the key to a host outside ANNAS_TRUSTED_HOSTS.

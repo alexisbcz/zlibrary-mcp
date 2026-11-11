@@ -1,4 +1,4 @@
-# Z-Library MCP - Code Patterns & Best Practices
+# Hyperlibrary MCP - Code Patterns & Best Practices
 
 Diagnostics in TypeScript server modules use the shared `logger` from
 `src/lib/logger.ts` (adjust the relative import for the calling module). It writes
@@ -556,7 +556,7 @@ class TestHelper {
   }
 
   private async initialize() {
-    // Set up mock Z-Library server
+    // Set up mock Hyperlibrary server
     this.mockServer = await MockServer.create({
       port: 8080,
       responses: {

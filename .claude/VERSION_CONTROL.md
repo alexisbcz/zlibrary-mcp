@@ -10,7 +10,7 @@
 
 ## Overview
 
-This document defines the Git workflow, branching strategy, commit conventions, and version control best practices for the Z-Library MCP project.
+This document defines the Git workflow, branching strategy, commit conventions, and version control best practices for the Hyperlibrary MCP project.
 
 > **For external contributors:** [CONTRIBUTING.md](../CONTRIBUTING.md) at the repo root
 > is the authoritative guide. This document is the internal, more detailed reference.
@@ -105,7 +105,7 @@ The scope should be the area of the codebase affected:
 - `tests` - Test suite
 - `docs` - Documentation
 - `deps` - Dependencies
-- `zlib` - Z-Library integration
+- `zlib` - Hyperlibrary integration
 
 ### Subject
 
@@ -781,6 +781,6 @@ git rebase --abort
 
 **Last Updated**: 2026-02-01
 **Version**: 1.1.0
-**Maintained By**: Z-Library MCP Team
+**Maintained By**: Hyperlibrary MCP Team
 
 **Note**: A comprehensive 7-phase cleanup (Jan-Feb 2026) was completed on master branch, modernizing the codebase with EAPI transport, MCP SDK 1.25+, and decomposed Python modules. Work proceeds on short-lived topic branches from master.

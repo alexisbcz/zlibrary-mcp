@@ -1,6 +1,6 @@
 # Troubleshooting Guide
 
-Common issues and solutions for the Z-Library MCP server.
+Common issues and solutions for the Hyperlibrary MCP server.
 
 > **Note**: The project uses [UV](https://docs.astral.sh/uv/) with a
 > project-local `.venv/`. There is **no** cache venv at `~/.cache/zlibrary-mcp/` and no
@@ -25,10 +25,10 @@ The MCP client reports the server disconnected, or `node dist/index.js` exits at
    bash setup-uv.sh --no-dev   # creates .venv/ with the end-user core
    ```
 3. **Node version**: Node 22+ is required (see `engines` in `package.json` / `.nvmrc`).
-4. **Z-Library credentials**: missing `ZLIBRARY_EMAIL` / `ZLIBRARY_PASSWORD`
+4. **Hyperlibrary credentials**: missing `ZLIBRARY_EMAIL` / `ZLIBRARY_PASSWORD`
    do not stop startup. The server warns on stderr and keeps LibGen available
    without an account. Set both variables in the environment or the client's
-   `.mcp.json` `env` block only when using Z-Library operations.
+   `.mcp.json` `env` block only when using Hyperlibrary operations.
 
 A healthy start prints (to **stderr**):
 ```
@@ -107,14 +107,14 @@ See `docs/adr/ADR-004-Python-Bridge-Path-Resolution.md` for how resolution works
 npm run doctor
 ```
 
-It probes the live endpoints the server actually uses (Z-Library EAPI, Anna's Archive,
+It probes the live endpoints the server actually uses (Hyperlibrary EAPI, Hyperanna,
 LibGen) and reports OK/WARN/FAIL per surface. Required failures point at real breakage;
 optional failures usually mean a secondary source is unreachable.
 
 ### Common causes
 
-- **Anti-bot wall on a Z-Library domain** (`redirect_refused` or `diamwall_blocked` in the health check, or
-  the doctor reporting "DiamWall anti-bot wall"): some Z-Library domains (notably
+- **Anti-bot wall on a Hyperlibrary domain** (`redirect_refused` or `diamwall_blocked` in the health check, or
+  the doctor reporting "DiamWall anti-bot wall"): some Hyperlibrary domains (notably
   `z-library.sk` and `1lib.sk` since 2026-07) block programmatic `/eapi` access with
   the DiamWall wall — a 307 self-redirect before the wall's 513/517 "Access Denied".
   Credential-bearing requests now stop at that 307 with `Redirect refused` rather
@@ -145,7 +145,7 @@ optional failures usually mean a secondary source is unreachable.
   a manual retry may spend more. Wait for a usable direct link or choose another
   configured source. Anna's member page GETs are the bounded exception: at most
   five same-origin hops; its account POST and key-bearing API calls follow none.
-- **Region blocking**: Z-Library domains are blocked on some networks. Domain discovery
+- **Region blocking**: Hyperlibrary domains are blocked on some networks. Domain discovery
   ("hydra mode") normally finds a working mirror at runtime; you can pin one explicitly:
   ```bash
   ZLIBRARY_EAPI_DOMAIN=<working-domain> npm run doctor

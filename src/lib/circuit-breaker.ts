@@ -1,5 +1,5 @@
 /**
- * Circuit Breaker pattern implementation for Z-Library MCP
+ * Circuit Breaker pattern implementation for Hyperlibrary MCP
  * Implements the pattern from .claude/PATTERNS.md
  * Prevents cascading failures by opening circuit after repeated failures
  */

@@ -1,5 +1,5 @@
 #!/bin/bash
-# UV-based setup script for Z-Library MCP server (v2.0.0)
+# UV-based setup script for Hyperlibrary MCP server (v2.0.0)
 #
 # This script sets up the Python environment using UV (modern Python package manager)
 # Replaces the old setup_venv.sh which used cache venv
@@ -22,7 +22,7 @@ if ! python3 -c 'import sys; sys.exit(sys.version_info < (3, 10))'; then
 fi
 echo "Python $PYTHON_VERSION detected (>= $REQUIRED required)"
 
-echo "🚀 Z-Library MCP - UV Setup (v2.0.0)"
+echo "🚀 Hyperlibrary MCP - UV Setup (v2.0.0)"
 echo "====================================="
 echo ""
 

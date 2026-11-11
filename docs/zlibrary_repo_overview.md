@@ -14,7 +14,7 @@
         *   `BooklistItemPaginator`: Represents a single booklist and handles fetching *all* books within that specific list. It uses a different API endpoint (`papi/booklist/{id}/get-books`) that returns JSON, parsing that instead of HTML to get the full list of books. It also provides pagination (`next`/`prev`) for the books *within* that list.
 
 3.  **`booklists.py`**:
-    *   **Purpose**: Provides an interface specifically for searching Z-Library's booklists feature.
+    *   **Purpose**: Provides an interface specifically for searching Hyperlibrary's booklists feature.
     *   **Contents & Responsibilities**:
         *   `Booklists` class: Contains methods `search_public()` and `search_private()` which construct the appropriate URLs and initialize a `BooklistPaginator` (from `abs.py`) to handle the actual fetching and parsing of booklist search results.
 
@@ -27,10 +27,10 @@
 
 5.  **`exception.py`**:
     *   **Purpose**: Defines custom exception classes for specific error conditions encountered by the library.
-    *   **Contents & Responsibilities**: Defines several exception types (e.g., `LoopError`, `ParseError`, `LoginFailed`, `NoDomainError`, `EmptyQueryError`, `ProxyNotMatchError`, `NoProfileError`, `NoIdError`) that inherit from Python's base `Exception`. This allows code using the library to catch specific Z-Library related errors.
+    *   **Contents & Responsibilities**: Defines several exception types (e.g., `LoopError`, `ParseError`, `LoginFailed`, `NoDomainError`, `EmptyQueryError`, `ProxyNotMatchError`, `NoProfileError`, `NoIdError`) that inherit from Python's base `Exception`. This allows code using the library to catch specific Hyperlibrary related errors.
 
 6.  **`libasync.py`**:
-    *   **Purpose**: This is the main entry point and core logic file for the asynchronous Z-Library client.
+    *   **Purpose**: This is the main entry point and core logic file for the asynchronous Hyperlibrary client.
     *   **Contents & Responsibilities**:
         *   `AsyncZlib` class:
             *   Initialization (`__init__`): Sets up whether to use Tor domains, proxy settings, and an optional `asyncio.Semaphore` to limit concurrent requests.
@@ -56,7 +56,7 @@
 
 9.  **`util.py`**:
     *   **Purpose**: Contains utility functions for making asynchronous HTTP requests.
-    *   **Contents & Responsibilities**: Provides asynchronous functions (`GET_request`, `GET_request_cookies`, `POST_request`, `HEAD_request`) built on top of the `aiohttp` library. They handle setting user-agent headers, timeouts, cookie management (`aiohttp.CookieJar`), and optional proxy support via `aiohttp_socks`. These functions are used by other modules (`libasync.py`, `abs.py`) to interact with the Z-Library website/API.
+    *   **Contents & Responsibilities**: Provides asynchronous functions (`GET_request`, `GET_request_cookies`, `POST_request`, `HEAD_request`) built on top of the `aiohttp` library. They handle setting user-agent headers, timeouts, cookie management (`aiohttp.CookieJar`), and optional proxy support via `aiohttp_socks`. These functions are used by other modules (`libasync.py`, `abs.py`) to interact with the Hyperlibrary website/API.
 
 
 ## Example Workflow
@@ -67,7 +67,7 @@ Here is typical workflow of searching for a book by name and downloading it usin
 
 *   You have installed the necessary libraries (`aiohttp`, `aiohttp_socks`, `beautifulsoup4`).
 *   You are running this within an `async` Python environment (e.g., inside an `async def` function, using `asyncio.run()`).
-*   You have valid Z-Library login credentials (`your_email`, `your_password`).
+*   You have valid Hyperlibrary login credentials (`your_email`, `your_password`).
 *   The book you're searching for is "The Hitchhiker's Guide to the Galaxy".
 
 **Workflow Steps & Underlying Logic:**
@@ -108,7 +108,7 @@ Here is typical workflow of searching for a book by name and downloading it usin
         *   The response (expected to be JSON) and the resulting cookie jar are returned.
         *   `login` parses the JSON response. It checks for `validationError` and raises `LoginFailed` (from `exception.py`) if authentication fails.
         *   If successful, it extracts the cookies (like `remix_userkey`, `remix_userid`) from the returned `aiohttp` cookie jar and stores them in `client.cookies`.
-        *   It determines and sets the `client.mirror` (the main Z-Library domain to use for subsequent requests). This might involve an extra GET request if using Tor to confirm the correct domain with session cookies.
+        *   It determines and sets the `client.mirror` (the main Hyperlibrary domain to use for subsequent requests). This might involve an extra GET request if using Tor to confirm the correct domain with session cookies.
         *   It initializes and returns a `ZlibProfile` object (`profile.py`), passing it the internal request function (`_r`), the obtained cookies, and the mirror URL. This profile object is also stored in `client.profile`.
 
 3.  **Search for the Book:**
@@ -278,7 +278,7 @@ Here is typical workflow of searching for a book by name and downloading it usin
     *   **Logic**:
         *   This step is *outside* the `sertraline/zlibrary` library's direct functions but relies heavily on its output (`download_link` and `client.cookies`).
         *   You need a separate HTTP client (like `aiohttp` shown here, or `requests` in a synchronous context) to make a GET request to the `download_link`.
-        *   **Crucially**, you *must* include the authentication cookies (`client.cookies`) in this request. Z-Library uses these cookies to verify you are logged in and authorized to download the file.
+        *   **Crucially**, you *must* include the authentication cookies (`client.cookies`) in this request. Hyperlibrary uses these cookies to verify you are logged in and authorized to download the file.
         *   The code handles potential redirects, checks the response status, reads the file content in chunks, and writes it to a local file. It also attempts to extract a sensible filename from the `Content-Disposition` header, falling back to using the book ID and extension.
 
 This detailed flow shows how the library orchestrates the process by handling authentication, constructing API/web page requests, parsing HTML/JSON responses to extract relevant data (search results, book details, download links), and managing pagination, while the final file download requires using the library's outputs with a standard HTTP client.

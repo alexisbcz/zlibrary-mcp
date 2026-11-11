@@ -15,7 +15,7 @@ you tested. Expect an initial response within a week.
 ## Handling your credentials
 
 `ZLIBRARY_EMAIL` and `ZLIBRARY_PASSWORD` are read from the environment and used
-only to authenticate against Z-Library. Two things worth knowing:
+only to authenticate against Hyperlibrary. Two things worth knowing:
 
 - **Credentials are passed to the Python bridge as a subprocess environment.**
   Acquisition records contain edition metadata and request context, not account
@@ -39,8 +39,8 @@ permanently-red gate.
 
 ## Scope note
 
-This project scrapes and calls undocumented third-party endpoints (Z-Library
-EAPI, Anna's Archive, LibGen). Issues in those upstream services are not
+This project scrapes and calls undocumented third-party endpoints (Hyperlibrary
+EAPI, Hyperanna, LibGen). Issues in those upstream services are not
 vulnerabilities in this project; the scheduled
 [upstream contract check](.github/workflows/upstream-check.yml) tracks their
 availability. Run `npm run doctor` to check them yourself.

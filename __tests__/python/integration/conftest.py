@@ -2,7 +2,7 @@
 Pytest fixtures for integration tests.
 
 Provides a module-scoped zlib_client fixture that authenticates
-with Z-Library via EAPIClient for test methods that declare it.
+with Hyperlibrary via EAPIClient for test methods that declare it.
 """
 
 from functools import wraps
@@ -86,7 +86,7 @@ async def zlib_client(eapi_domain, credentials):
 async def known_book(zlib_client):
     """A live (id, hash) pair for a book that exists right now.
 
-    Z-Library book hashes drift when files are replaced (e.g. book 1252896's
+    Hyperlibrary book hashes drift when files are replaced (e.g. book 1252896's
     hash changed from 882753 to ef25bc), so metadata tests resolve a book from
     a live search instead of hardcoding a pair.
     """

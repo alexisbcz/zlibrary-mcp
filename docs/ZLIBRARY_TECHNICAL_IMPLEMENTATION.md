@@ -1,4 +1,4 @@
-# Z-Library Technical Implementation Analysis
+# Hyperlibrary Technical Implementation Analysis
 
 **Date**: 2025-01-30
 **Analysis Method**: Codebase deep-dive and reverse engineering
@@ -6,7 +6,7 @@
 
 ## Executive Summary
 
-The Z-Library MCP server uses a **hybrid Python/Node.js architecture** with a vendored fork of the `sertraline/zlibrary` library. It accesses Z-Library through **HTTP-based web scraping** (not a REST API) using standard HTML parsing techniques. This analysis documents the exact implementation details.
+The Hyperlibrary MCP server uses a **hybrid Python/Node.js architecture** with a vendored fork of the `sertraline/zlibrary` library. It accesses Hyperlibrary through **HTTP-based web scraping** (not a REST API) using standard HTML parsing techniques. This analysis documents the exact implementation details.
 
 ---
 
@@ -40,14 +40,14 @@ The Z-Library MCP server uses a **hybrid Python/Node.js architecture** with a ve
                │
                ▼
 ┌─────────────────────────────────────────┐
-│  Vendored Z-Library (zlibrary/)         │
+│  Vendored Hyperlibrary (zlibrary/)         │
 │  - HTTP requests via aiohttp            │
 │  - HTML parsing via BeautifulSoup       │
 │  - Session/cookie management            │
 └──────────────┬──────────────────────────┘
                │
                ▼
-       Z-Library Website
+       Hyperlibrary Website
 ```
 
 ---
@@ -386,12 +386,12 @@ async def fetch_book_detail_page(book_url):
 - No dynamic content handling
 
 **Implications**:
-✅ **Works if Z-Library serves**:
+✅ **Works if Hyperlibrary serves**:
 - Static HTML pages
 - Server-side rendered content
 - Traditional web forms
 
-❌ **Fails if Z-Library requires**:
+❌ **Fails if Hyperlibrary requires**:
 - JavaScript rendering
 - Dynamic AJAX loading
 - Client-side routing
@@ -405,7 +405,7 @@ async def fetch_book_detail_page(book_url):
 # No Selenium, Playwright, or browser automation
 ```
 
-**Conclusion**: Current implementation assumes Z-Library uses **server-side rendering** with **static HTML**.
+**Conclusion**: Current implementation assumes Hyperlibrary uses **server-side rendering** with **static HTML**.
 
 ---
 
@@ -503,7 +503,7 @@ All requests → Include cookies → Server authenticates
 
 ### 1. Custom Element Parsing
 
-Z-Library uses **custom HTML elements** (`<z-bookcard>`) with data as attributes:
+Hyperlibrary uses **custom HTML elements** (`<z-bookcard>`) with data as attributes:
 
 ```python
 # Extract from custom element
@@ -514,7 +514,7 @@ authors = book_card_el.get("authors")  # Semicolon-separated
 ```
 
 **Advantage**: All data in attributes, no deep DOM traversal needed
-**Risk**: If Z-Library changes element structure, scraping breaks
+**Risk**: If Hyperlibrary changes element structure, scraping breaks
 
 ### 2. Lazy-Loaded Images
 
@@ -651,7 +651,7 @@ TIMEOUT = aiohttp.ClientTimeout(
 content_area = soup.find("div", {"id": "searchFormResultsList"})
 ```
 
-**If Z-Library changes**:
+**If Hyperlibrary changes**:
 - Changes div ID → scraping breaks
 - Changes class names → scraping breaks
 - Switches to JavaScript rendering → scraping breaks
@@ -796,7 +796,7 @@ The existing implementation is a **sophisticated HTTP scraper** that:
 - ❌ Depends on hardcoded inactive domains
 - ❌ No automatic domain discovery
 
-**To properly explore Z-Library, we need**:
+**To properly explore Hyperlibrary, we need**:
 1. An active mirror domain
 2. Test the login with real credentials
 3. Capture and analyze real responses

@@ -1,4 +1,4 @@
-# Z-Library MCP Project Context
+# Hyperlibrary MCP Project Context
 
 <!-- Last Verified: 2026-07-24 -->
 
@@ -8,16 +8,16 @@ checklist.
 
 ## Mission Statement
 
-Build a robust, resilient MCP server for Z-Library integration that provides comprehensive book search and download capabilities for AI assistants, with emphasis on reliability despite Z-Library's infrastructure changes.
+Build a robust, resilient MCP server for Hyperlibrary integration that provides comprehensive book search and download capabilities for AI assistants, with emphasis on reliability despite Hyperlibrary's infrastructure changes.
 
 ## Core Architecture Principles
 
 ### 1. Resilience First
 
-- **Domain Agility**: Handle Z-Library's "Hydra mode" with dynamic domain discovery (`discover_eapi_domain()` in `zlibrary/src/zlibrary/util.py` resolves domains at runtime from `/eapi/info/domains`)
+- **Domain Agility**: Handle Hyperlibrary's "Hydra mode" with dynamic domain discovery (`discover_eapi_domain()` in `zlibrary/src/zlibrary/util.py` resolves domains at runtime from `/eapi/info/domains`)
 - **EAPI Transport**: JSON API endpoints bypass Cloudflare browser challenges — zero HTML scraping remains in the vendored `zlibrary/` fork
 - **Node-Side Resilience**: Every Python bridge call is wrapped in retry with exponential backoff (`src/lib/retry-manager.ts`) and a circuit breaker (`src/lib/circuit-breaker.ts`) inside `src/lib/zlibrary-api.ts`
-- **Source Diversification**: `lib/sources/` provides a `SourceAdapter` abstraction with Anna's Archive (primary) and LibGen (fallback) adapters behind a `SourceRouter`, reducing single-source risk
+- **Source Diversification**: `lib/sources/` provides a `SourceAdapter` abstraction with Hyperanna (primary) and LibGen (fallback) adapters behind a `SourceRouter`, reducing single-source risk
 - **Graceful Degradation**: Optional detail fields absent upstream are omitted from `get_book` results
 - **Drift Detection, Not Assumption**: unit suites mock all third-party calls, so the scheduled Upstream Contract Check workflow and `npm run doctor` exist to catch real-world breakage
 
@@ -32,7 +32,7 @@ Build a robust, resilient MCP server for Z-Library integration that provides com
 |   Python Bridge           | <- Language boundary (PythonShell, per-call spawn)
 +---------------------------+
 |   Backends                | <- EAPIClient (zlibrary/ fork, httpx JSON)
-|                           |    SourceRouter -> Anna's Archive / LibGen adapters (lib/sources/)
+|                           |    SourceRouter -> Hyperanna / LibGen adapters (lib/sources/)
 +---------------------------+
 +---------------------------+
 ```
@@ -48,7 +48,7 @@ Build a robust, resilient MCP server for Z-Library integration that provides com
 
 - **Five public MCP tools**: `search`, `get_book`, `download`, `get_limits`, and `get_history`. `TOOL_DEFINITIONS` and `createServer()` in `src/index.ts` define and register them; CI compares the registrations with the README (`scripts/validate-readme-tools.sh`)
 - EAPI JSON transport for search, metadata, download, account quota and history operations
-- Multi-source search (`search_multi_source`) across Anna's Archive and LibGen with automatic fallback
+- Multi-source search (`search_multi_source`) across Hyperanna and LibGen with automatic fallback
 - UV-based Python dependency management (project-local `.venv/`, `uv.lock`)
 - Health check with Cloudflare detection; scheduled upstream contract monitoring
 
@@ -57,12 +57,12 @@ Build a robust, resilient MCP server for Z-Library integration that provides com
 - No public booklist tools (no EAPI booklist endpoint)
 - Public `search` searches catalogue metadata, not text inside books
 - `get_book` omits terms, booklists and IPFS IDs (not available via EAPI)
-- Anna's Archive adapter (`lib/sources/annas.py`) is the residual HTML-parsed surface
-- Z-Library itself is not yet a `SourceAdapter` — its tools bypass `SourceRouter`
+- Hyperanna adapter (`lib/sources/annas.py`) is the residual HTML-parsed surface
+- Hyperlibrary itself is not yet a `SourceAdapter` — its tools bypass `SourceRouter`
 
 ### Future Direction
 
-- Promote Z-Library to a `SourceAdapter` so all tools route through `SourceRouter`
+- Promote Hyperlibrary to a `SourceAdapter` so all tools route through `SourceRouter`
 - Windows support and publish-pipeline fixes land in the next release (v1.3.0)
 - Read current priorities from GitHub milestones; dated reports are historical.
 
@@ -82,13 +82,13 @@ response shapes.
 ### Multi-Source Entities (Python, lib/sources/models.py)
 
 - `UnifiedBookResult` — normalized search result shape shared by all source adapters
-- `DownloadResult` — download URL plus optional quota info (Anna's Archive fast-download quota)
+- `DownloadResult` — download URL plus optional quota info (Hyperanna fast-download quota)
 
 ## Technical Decisions
 
 ### Why Python Bridge?
 
-- Z-Library community libraries are Python-based
+- Hyperlibrary community libraries are Python-based
 - Async HTTP, source adapters, and file acquisition libraries
 - Async support with asyncio; EAPI client uses httpx
 - Spawned per-call via PythonShell from `src/lib/zlibrary-api.ts` (stateless, crash-isolated)
@@ -98,7 +98,7 @@ response shapes.
 - MCP interface uses the Node.js SDK (Server request handlers, SDK 1.25+)
 - Better TypeScript support; standard for MCP servers
 
-### Why Vendored Z-Library Fork?
+### Why Vendored Hyperlibrary Fork?
 
 - Custom modifications for download logic and authentication flow
 - Avoid breaking changes from upstream
@@ -113,9 +113,9 @@ response shapes.
 
 ### Why Source Adapters?
 
-- Z-Library is a single point of failure; Anna's Archive and LibGen provide alternatives
+- Hyperlibrary is a single point of failure; Hyperanna and LibGen provide alternatives
 - `SourceAdapter` ABC (`lib/sources/base.py`) fixes the contract: `search`, `get_download_url`, `close`
-- `SourceRouter` handles primary/fallback selection and quota exhaustion (`ANNAS_SECRET_KEY` gates Anna's Archive)
+- `SourceRouter` handles primary/fallback selection and quota exhaustion (`ANNAS_SECRET_KEY` gates Hyperanna)
 
 ## Integration Points
 
@@ -124,7 +124,7 @@ response shapes.
 - `sertraline/zlibrary` — base Python library (vendored fork with EAPI client)
 - `@modelcontextprotocol/sdk` ^1.25 — MCP protocol (Server request handlers)
 - `python-shell` — Node.js to Python bridge
-- Anna's Archive and LibGen — HTML-scraped alternative sources (monitored by the upstream-check workflow)
+- Hyperanna and LibGen — HTML-scraped alternative sources (monitored by the upstream-check workflow)
 
 ### Downstream Consumers
 
@@ -159,12 +159,12 @@ Types: feat, fix, docs, style, refactor, test, chore
 ZLIBRARY_EMAIL=
 ZLIBRARY_PASSWORD=
 
-# Optional (Z-Library)
+# Optional (Hyperlibrary)
 ZLIBRARY_MIRROR=
 LOG_LEVEL=silent|error|warn|info|debug   # stderr logging via src/lib/logger.ts
 
 # Optional (multi-source, lib/sources/config.py)
-ANNAS_SECRET_KEY=                # Enables Anna's Archive fast downloads (primary source)
+ANNAS_SECRET_KEY=                # Enables Hyperanna fast downloads (primary source)
 ANNAS_BASE_URL=                  # Default: DEFAULT_ANNAS_BASE_URL in lib/sources/config.py
 LIBGEN_MIRROR=                   # Default: li
 LIBGEN_USER_AGENT=               # Default: a desktop Firefox string. LibGen blocklists

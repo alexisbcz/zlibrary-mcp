@@ -65,8 +65,8 @@ always contains an entry for each expected check with `id`, `status`, a fixed
 
 Expected IDs are:
 
-- Z-Library: `zlibrary:eapi/info/domains`, `zlibrary:eapi/book/search`.
-- Anna's Archive: `annas-archive:search`.
+- Hyperlibrary: `zlibrary:eapi/info/domains`, `zlibrary:eapi/book/search`.
+- Hyperanna: `annas-archive:search`.
 - LibGen: `libgen:search`, `libgen:article-search`, `libgen:download`.
 
 Probe JSON retains `error_types`, numeric `http_statuses` and a
@@ -102,7 +102,7 @@ a missing required report into a skip. Genuine setup skips remain `not_run`.
 
 ### Authenticated suite
 
-Z-Library's scope is `zlibrary:python-integration`. It includes:
+Hyperlibrary's scope is `zlibrary:python-integration`. It includes:
 
 - `status` and fixed `reason` code;
 - `ran`: true when execution and nonempty JUnit cases corroborate it, false for
@@ -135,7 +135,7 @@ Collection/report errors remain failures.
 No-account reports use `no_ci_account_configured`. The existing live log and
 JUnit artifacts remain available for detailed diagnosis.
 
-Anna's Archive and LibGen have `not_run`, `ran=false`, null scope/counts/required
+Hyperanna and LibGen have `not_run`, `ran=false`, null scope/counts/required
 check and reason `no_authenticated_suite_configured`. A successful unauthenticated
 probe never substitutes for an authenticated suite.
 

@@ -493,7 +493,7 @@ test('short password cannot corrupt authentication reason codes or backoff', asy
   process.env.ZLIBRARY_PASSWORD = 'a';
   runPythonBridge.mockResolvedValue(
     envelope({
-      error: 'Z-Library rejected the login (HTTP 401)',
+      error: 'Hyperlibrary rejected the login (HTTP 401)',
       login_failed: { status_code: 401, token: 'Invalid credentials' },
     }),
   );

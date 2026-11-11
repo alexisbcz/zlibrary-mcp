@@ -1,6 +1,6 @@
 # Deployment Guide - Edge Cases and Platform Considerations
 
-This document covers deployment scenarios and platform-specific considerations for the Z-Library MCP server.
+This document covers deployment scenarios and platform-specific considerations for the Hyperlibrary MCP server.
 
 ---
 
@@ -16,9 +16,9 @@ This document covers deployment scenarios and platform-specific considerations f
 
 ## Path Resolution Overview
 
-The Z-Library MCP server uses a dual-language architecture:
+The Hyperlibrary MCP server uses a dual-language architecture:
 - **TypeScript/Node.js** (compiled to `dist/`) - MCP server
-- **Python** (in `lib/` directory) - Z-Library operations
+- **Python** (in `lib/` directory) - Hyperlibrary operations
 
 **Path Resolution Strategy**: Python scripts stay in source `lib/` directory, TypeScript references them via relative paths from `dist/`.
 

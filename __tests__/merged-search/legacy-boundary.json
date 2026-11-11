@@ -31,7 +31,7 @@
             "uniqueItems": true
           },
           "exact": {
-            "description": "Z-Library only: sent, not checked by this server; other sources are skipped.",
+            "description": "Hyperlibrary only: sent, not checked by this server; other sources are skipped.",
             "type": "boolean"
           },
           "year_from": {

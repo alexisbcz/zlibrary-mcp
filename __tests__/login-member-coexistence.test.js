@@ -40,7 +40,7 @@ test('saved login and member key retain independent search state and public limi
     expect(options.env.ZLIBRARY_LOGIN_EXPECTED_ORIGIN).toBe('saved');
     expect(options.env.ZLIBRARY_LOGIN_EXPECTED_IDENTITY).toBe('saved@example.test');
     if (options.args[0] === 'search')
-      return envelope({ books: [{ id: '123', hash: 'synthetic', title: 'Saved Z-Library book' }] });
+      return envelope({ books: [{ id: '123', hash: 'synthetic', title: 'Saved Hyperlibrary book' }] });
     if (options.args[0] === 'get_download_limits')
       return envelope({ daily_limit: 10, downloads_today: 3, daily_remaining: 7 });
     throw new Error('Unexpected bridge operation: ' + options.args[0]);
@@ -95,7 +95,7 @@ test('saved login and member key retain independent search state and public limi
     }
     expect(worker.status()).toBe('active');
     const zlibrary = await call('search', { query: 'books', sources: ['zlibrary'] });
-    expect(zlibrary.rows[0].title).toBe('Saved Z-Library book');
+    expect(zlibrary.rows[0].title).toBe('Saved Hyperlibrary book');
     expect(worker.status()).toBe('active');
     const after = await call('get_limits', { mode: 'live', sources: ['zlibrary', 'annas'] });
     expect(after.search).toEqual(before.search);

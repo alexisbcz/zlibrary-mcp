@@ -36,7 +36,7 @@ them when the work they hold has landed: `git worktree list` shows what is regis
 
 ### Useful MCP servers here
 
-- **Playwright** — E2E against the few remaining HTML-scraped surfaces (Anna's Archive)
+- **Playwright** — E2E against the few remaining HTML-scraped surfaces (Hyperanna)
 - **Filesystem** — download directory management
 
 ### Quick status

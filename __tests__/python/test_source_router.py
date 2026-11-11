@@ -20,7 +20,7 @@ pytestmark = pytest.mark.unit
 
 @pytest.fixture
 def config_with_annas():
-    """Configuration with Anna's Archive API key."""
+    """Configuration with Hyperanna API key."""
     return SourceConfig(
         annas_secret_key="test-key",
         fallback_enabled=True,
@@ -29,7 +29,7 @@ def config_with_annas():
 
 @pytest.fixture
 def config_without_annas():
-    """Configuration without Anna's Archive API key."""
+    """Configuration without Hyperanna API key."""
     return SourceConfig(
         annas_secret_key="",
         fallback_enabled=True,

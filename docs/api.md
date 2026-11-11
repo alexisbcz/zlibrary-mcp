@@ -15,7 +15,7 @@ Catalogue metadata, not the text inside a book. Give `query`, `author`, or both.
 | `query` | Nonblank string, 1–500 characters |
 | `author` | Nonblank string, 1–200 characters; author-only native queries are quoted |
 | `sources` | Set of 1–3 distinct names: `libgen`, `zlibrary`, `annas`. Order has no effect. Omitted: use the resolved default set reported by `get_limits.search.default_sources` |
-| `exact` | Boolean, default false. Local normalized phrase check on every source, separately on title for `query` and author for `author`; also sent to Z-Library |
+| `exact` | Boolean, default false. Local normalized phrase check on every source, separately on title for `query` and author for `author`; also sent to Hyperlibrary |
 | `year_from`, `year_to` | Inclusive integer year range |
 | `languages`, `formats` | String arrays; OR within a list, AND across fields; checked locally on every source |
 | `limit` | Integer 1–50, default 10; applied after grouping and ordering |
@@ -37,10 +37,10 @@ hint, not another selectable copy or proof of a current route.
 
 ### Source lines and incomplete answers
 
-The shipped server registers LibGen, Z-Library and Anna’s Archive. Embedded
+The shipped server registers LibGen, Hyperlibrary and Anna’s Archive. Embedded
 `AcquisitionTools` callers can supply a custom registry for search, details and
 acquisition without quota estimates. The shipped server supports these three
-built-in sources; `quota_estimate` accepts Z-Library and Anna’s Archive only.
+built-in sources; `quota_estimate` accepts Hyperlibrary and Anna’s Archive only.
 Every registered source has a line, including sources outside the requested set.
 Intent is resolved once, before local admission checks. An explicit
 `sources` set or operator list stays in intent even if credentials are missing
@@ -85,7 +85,7 @@ It is for people; clients must not parse it as a protocol field.
 
 Only equal valid lowercase 32-hex catalogue MD5 values group copies into one
 file row. This is a catalogue claim, not verification of downloaded bytes.
-Missing MD5 never implies equality; Z-Library's opaque selection hash is a
+Missing MD5 never implies equality; Hyperlibrary's opaque selection hash is a
 different identifier. Only filter-passing copies can be recommended and feed
 match/rank. A group with no passing copy is not a row. Other copies stay
 selectable, with `filter: "pass" | "fail" | "unknown"` when filters are active;
@@ -126,7 +126,7 @@ Missing checked metadata is unknown and excluded unless another predicate
 already proves a mismatch. No title text is used to infer a year.
 
 Answered source lines carry `filtering.applied`, `native_sent` when applicable,
-counts and scope. Native Z-Library
+counts and scope. Native Hyperlibrary
 sending is evidence of transmission, separate from the local check. Counts
 obey `examined = matched + rejected + unknown`; they describe each bounded
 window, not a catalogue total. Every source supplies at most 50 candidate
@@ -159,8 +159,8 @@ known `isbn`, `series`, `edition`, `translator`, `categories`, `rating`,
 `evidence.detail` and `evidence.search` name the origin of metadata fields.
 A field upstream leaves empty is omitted, never returned empty. `categories` is a
 list of `{name}`, and `rating` is `{value}` plus `count` when upstream sends one.
-Z-Library's API exposes no terms, booklists or IPFS ids, so `get_book` has none.
-Z-Library uses one detail request. Other sources expose their held row without
+Hyperlibrary's API exposes no terms, booklists or IPFS ids, so `get_book` has none.
+Hyperlibrary uses one detail request. Other sources expose their held row without
 promising additional detail-page metadata. No direct ID input is accepted.
 
 `other_copies` includes each copy's metadata, identifiers and remembered search
@@ -247,7 +247,7 @@ cache. Unreadable receipts (including permission/I/O errors), symlink sidecars
 and nonregular sidecars fail closed with `output_refused`, preserving provenance.
 Missing, malformed-JSON and nonobject receipts retain the absent-receipt policy.
 
-In memory mode, fresh Z-Library acquisitions join the same session owner and
+In memory mode, fresh Hyperlibrary acquisitions join the same session owner and
 login/cooldown coordination as reads, only after held-lease receipt admission and
 durable intent. Receipt hits do not enter authentication, even with missing
 credentials, cooldown or a pending login. A granted transfer is at-most-once:
@@ -309,7 +309,7 @@ Restart clears these counters.
 
 `operations` lists what the source supports, independent of configuration:
 `search`, `details`, `download` for all three sources, plus `history` for
-Z-Library. An unconfigured Anna's source still lists `download`; use
+Hyperlibrary. An unconfigured Anna's source still lists `download`; use
 `search_available` and `download_available` to decide which calls are available.
 Anna's search requires a usable HTTP(S) base URL (default
 `https://annas-archive.gl`): it must parse with a valid nonzero port and contain
@@ -377,7 +377,7 @@ cache verdicts and runs under the bounded resolver. Hung libc lookups can retain
 daemon threads until worker exit; per-wait bounds do not impose a global retained
 thread cap.
 
-Live Z-Library mode adds `per_day`, `used_today`, `remaining`, `premium`, `as_of`
+Live Hyperlibrary mode adds `per_day`, `used_today`, `remaining`, `premium`, `as_of`
 when available. Use `per_day` as the quota signal: `premium` can stay true after a
 plan lapses even when the daily limit returns to the free level. `remaining` is
 computed only from a known cap
@@ -486,8 +486,8 @@ consumers do not install the bridge's filters.
 | `unsupported_operation` | Source does not support the operation |
 | `credentials_missing` | Required account or key not configured |
 | `auth_failed` | Account/key rejection |
-| `quota_exhausted` | Anna's keyed-download router reports quota metadata with zero remaining. Z-Library EAPI download daily-limit failures currently surface as `provider_error` or `internal`, not this code |
-| `not_found` | Maps an explicit structured `not_found` reason; no current source adapter emits it. Z-Library EAPI download absence currently surfaces as `provider_error` or `internal`; empty search is not absence |
+| `quota_exhausted` | Anna's keyed-download router reports quota metadata with zero remaining. Hyperlibrary EAPI download daily-limit failures currently surface as `provider_error` or `internal`, not this code |
+| `not_found` | Maps an explicit structured `not_found` reason; no current source adapter emits it. Hyperlibrary EAPI download absence currently surfaces as `provider_error` or `internal`; empty search is not absence |
 | `provider_unreachable` | DNS, connect or TLS failure |
 | `provider_timeout` | Provider or local search-wait budget exhausted; inspect the reason to distinguish an unissued mirror slice or caller wait |
 | `provider_error` | Bad status/body, block page, HTML instead of file |

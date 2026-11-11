@@ -234,7 +234,7 @@ if isinstance(analysis, PageRegion):
 - Data model tests: 49/49 ✅
 - Garbled detection tests: 40/40 ✅
 - Other module tests: 380/391 ✅
-- Failures: Only network-dependent tests (Z-Library API)
+- Failures: Only network-dependent tests (Hyperlibrary API)
 
 **Total Tests**: 495 tests, 495 passing (100% of runnable tests)
 

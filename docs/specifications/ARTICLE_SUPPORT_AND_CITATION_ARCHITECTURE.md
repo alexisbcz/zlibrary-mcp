@@ -26,12 +26,12 @@ This specification addresses two strategic architectural concerns:
 
 ---
 
-## Part 1: Z-Library Article Support
+## Part 1: Hyperlibrary Article Support
 
 ### Current State
 
-**Z-Library Article Capabilities** ✅:
-- Articles ARE available in Z-Library (academic papers, journal articles)
+**Hyperlibrary Article Capabilities** ✅:
+- Articles ARE available in Hyperlibrary (academic papers, journal articles)
 - `content_types` parameter in search API: `["book", "article"]`
 - Article detection implemented: `card.get('type') == 'article'`
 - Article-specific parsing (slot-based structure vs attribute-based)
@@ -439,7 +439,7 @@ class CitationReference:
 # External Citation Resolver (separate service)
 class CitationResolver:
     def __init__(self, library_catalog, embeddings_db):
-        self.catalog = library_catalog  # Z-Library MCP
+        self.catalog = library_catalog  # Hyperlibrary MCP
         self.embeddings = embeddings_db  # Vector search
 
     def resolve(self, citation: CitationReference) -> Optional[Document]:
@@ -452,7 +452,7 @@ class CitationResolver:
         3. Embedding similarity search
         4. Return top candidate with confidence
         """
-        # Search Z-Library
+        # Search Hyperlibrary
         candidates = self.catalog.search_books(
             query=f"{citation.author_hint} {citation.work_hint}",
             exact=True
@@ -581,14 +581,14 @@ def detect_document_type(file_path: Path, book_details: dict = None) -> str:
     Detect document type: book | article | chapter | thesis.
 
     Strategy:
-    1. Check book_details['type'] if available (from Z-Library)
+    1. Check book_details['type'] if available (from Hyperlibrary)
     2. Check metadata (journal name = article)
     3. Heuristics (page count, structure)
 
     Returns:
         "book" | "article" | "chapter" | "thesis"
     """
-    # Priority 1: Z-Library metadata
+    # Priority 1: Hyperlibrary metadata
     if book_details and 'type' in book_details:
         return book_details['type']
 
@@ -629,7 +629,7 @@ async def process_document(file_path_str: str, output_format: str = "txt", book_
     Args:
         file_path_str: Path to file
         output_format: Output format
-        book_details: Metadata from Z-Library (includes type)
+        book_details: Metadata from Hyperlibrary (includes type)
 
     Returns:
         Processing result
@@ -982,7 +982,7 @@ from pathlib import Path
 from lib.rag_processing import process_article_pdf, detect_document_type
 
 def test_detect_article_type():
-    """Test article detection from Z-Library metadata."""
+    """Test article detection from Hyperlibrary metadata."""
     book_details = {'type': 'article', 'title': 'Test Article'}
     doc_type = detect_document_type(Path('fake.pdf'), book_details)
     assert doc_type == 'article'
@@ -1056,7 +1056,7 @@ def test_citation_extraction():
 
 ## Part 9: Current Status and Gaps
 
-### Z-Library Article Support
+### Hyperlibrary Article Support
 
 | Feature | Status | Gap | Priority |
 |---------|--------|-----|----------|
@@ -1128,7 +1128,7 @@ This is OUT OF SCOPE for this project, but shows how external system would use o
 
 class PhilosophyLibraryResolver:
     """
-    Resolves citations to documents using Z-Library MCP.
+    Resolves citations to documents using Hyperlibrary MCP.
 
     Consumes rich citation representation from RAG processor,
     resolves to actual documents, creates cross-document links.
@@ -1151,7 +1151,7 @@ class PhilosophyLibraryResolver:
         # Build search query from hints
         query = f"{citation.author_hint} {citation.work_hint}"
 
-        # Search Z-Library
+        # Search Hyperlibrary
         results = await self.zlib.search_books(query=query, exact=True)
 
         # Find best match

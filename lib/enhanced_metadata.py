@@ -1,5 +1,5 @@
 """
-Enhanced metadata extraction for Z-Library books via EAPI.
+Enhanced metadata extraction for Hyperlibrary books via EAPI.
 
 Extracts the detail fields get_book can report from the EAPI
 /book/{id}/{hash} endpoint: description, categories, ISBN, series, edition,
@@ -86,10 +86,10 @@ async def get_enhanced_metadata(
     Fetch and extract enhanced metadata for a book via EAPI.
 
     Args:
-        book_id: Z-Library book ID
-        book_hash: Z-Library book hash
-        email: Z-Library account email (used if no eapi_client provided)
-        password: Z-Library account password (used if no eapi_client provided)
+        book_id: Hyperlibrary book ID
+        book_hash: Hyperlibrary book hash
+        email: Hyperlibrary account email (used if no eapi_client provided)
+        password: Hyperlibrary account password (used if no eapi_client provided)
         mirror_url: Base URL (unused with EAPI)
         eapi_client: Optional pre-authenticated EAPIClient instance
 

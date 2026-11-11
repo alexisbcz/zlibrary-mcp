@@ -53,7 +53,7 @@ non-JSON to the protocol stream.
 
 ### 1.1 The premise has changed: this is no longer DOM-based
 
-The framing in `CLAUDE.md` — "Z-Library has no public API, using EAPI via web
+The framing in `CLAUDE.md` — "Hyperlibrary has no public API, using EAPI via web
 scraping" and "Hydra Mode: domains change frequently" — described the pre-Phase-7
 architecture. The EAPI migration (Feb 2026) replaced HTML scraping with JSON
 endpoints. Measured on the current tree:
@@ -62,7 +62,7 @@ endpoints. Measured on the current tree:
 BeautifulSoup selectors in zlibrary/src/zlibrary/  →  0
 ```
 
-Z-Library access is now `POST /eapi/book/search`, `/eapi/user/login`,
+Hyperlibrary access is now `POST /eapi/book/search`, `/eapi/user/login`,
 `/eapi/info/domains` — form-encoded requests returning JSON. That is a
 substantially more durable contract than CSS selectors, and it means the project's
 central historical risk has already been retired.
@@ -71,9 +71,9 @@ central historical risk has already been retired.
 
 | Surface | Fragility | Blast radius |
 |---|---|---|
-| `lib/sources/annas.py` — 1 selector on Anna's Archive search HTML | High | `search_multi_source` only; router falls back to LibGen |
+| `lib/sources/annas.py` — 1 selector on Hyperanna search HTML | High | `search_multi_source` only; router falls back to LibGen |
 | `lib/rag/processors/epub.py` — 5 selectors | Low | EPUB internal XHTML, a stable standard |
-| Z-Library EAPI JSON shape | Medium | Everything — silent field renames are the real risk, not layout |
+| Hyperlibrary EAPI JSON shape | Medium | Everything — silent field renames are the real risk, not layout |
 
 The genuine exposure is not scraping anymore. It is that **an undocumented JSON
 contract can change field names without any visible error**, and the entire test
@@ -105,7 +105,7 @@ at the baseline commit:
 
 ```
 Log directory 'logs/' ensured.
-Z-Library MCP server (ESM/TS) is running via Stdio...
+Hyperlibrary MCP server (ESM/TS) is running via Stdio...
 {"result":{"protocolVersion":"2025-11-25",...}
 ```
 
@@ -223,7 +223,7 @@ executes on the platform it is broken for.
 
 Close #13 as incorporated, thanking the contributor and noting the traversal finding.
 
-### PR #12 — "Configurando o MCP da Z-Library" → **close**
+### PR #12 — "Configurando o MCP da Hyperlibrary" → **close**
 
 Not a contribution. A fork pushed **this repository's own `.claude/` directory
 back at it** — 30 files, ~11,000 lines, comprising GSD agent definitions, slash
@@ -299,7 +299,7 @@ Each item exists because a specific failure above had no detector.
 probe of each source's live response *shape*, plus the 26-test credentialed
 integration suite, filing a single rolling `upstream-drift` issue on failure.
 Deliberately never gates a PR: an upstream outage is not a reason to block a
-merge. Anna's and LibGen are optional (the router falls back); Z-Library failures
+merge. Anna's and LibGen are optional (the router falls back); Hyperlibrary failures
 are actionable.
 
 **`npm run doctor`** (`scripts/check_upstream.py`) — the same probe, for users.
@@ -365,24 +365,24 @@ into `archive/`.
 
 ---
 
-## 6. Expanding beyond Z-Library
+## 6. Expanding beyond Hyperlibrary
 
 The foundation is better than expected: `lib/sources/` already has an abstract
 `SourceAdapter` (search / get_download_url / close), a `UnifiedBookResult` model,
-Anna's Archive and LibGen adapters, and a `SourceRouter` with quota-aware
+Hyperanna and LibGen adapters, and a `SourceRouter` with quota-aware
 fallback — 703 lines, all tested.
 
-**The problem is that it is a parallel universe.** Z-Library does not implement
+**The problem is that it is a parallel universe.** Hyperlibrary does not implement
 `SourceAdapter`; it goes through `python_bridge.py` directly. So of 13 tools, 12
-are Z-Library-only and one (`search_multi_source`) reaches the router. Metadata
+are Hyperlibrary-only and one (`search_multi_source`) reaches the router. Metadata
 enrichment, booklists, term search, and the RAG pipeline are all wired to
-Z-Library specifically. A second source therefore cannot inherit the features
+Hyperlibrary specifically. A second source therefore cannot inherit the features
 that make this project distinctive.
 
-**The strategic move is to make Z-Library an adapter like any other.** Wrap the
+**The strategic move is to make Hyperlibrary an adapter like any other.** Wrap the
 EAPI client in `SourceAdapter`, register it in the router, and let every tool
 route through it. That converts multi-source from a single tool into a property
-of the whole server, and it removes the single point of failure: if Z-Library
+of the whole server, and it removes the single point of failure: if Hyperlibrary
 blocks a user's region, everything else keeps working.
 
 **On which sources to add next — the most valuable ones are the legitimate ones.**
@@ -426,7 +426,7 @@ The theme is making the project's claims true.
 
 ### v1.4 — Source layer as a first-class citizen
 
-10. Z-Library implements `SourceAdapter`; all tools route through `SourceRouter`
+10. Hyperlibrary implements `SourceAdapter`; all tools route through `SourceRouter`
 11. Open Library adapter for metadata enrichment across all sources
 12. Project Gutenberg + DOAB adapters — a legitimate operating mode
 13. Per-source health surfaced as an MCP tool, backed by the same probe
@@ -470,7 +470,7 @@ stdout handshake    every line valid JSON-RPC, including at LOG_LEVEL=debug
 
 **Not verified, and needing someone with unrestricted network access:**
 
-- Live reachability of Z-Library, Anna's Archive, and LibGen — sandbox egress is
+- Live reachability of Hyperlibrary, Hyperanna, and LibGen — sandbox egress is
   proxy-blocked (403 CONNECT). Run `npm run doctor`.
 - The credentialed integration suite — requires real credentials.
 - The publish workflow end to end — only a real tag push will prove it, though

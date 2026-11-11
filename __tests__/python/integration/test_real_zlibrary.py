@@ -1,12 +1,12 @@
 """
-Integration tests for Z-Library MCP server.
+Integration tests for Hyperlibrary MCP server.
 
-These tests make REAL API calls to Z-Library and require valid credentials.
+These tests make REAL API calls to Hyperlibrary and require valid credentials.
 They validate that our assumptions about HTML structure, authentication,
 and API behavior are correct.
 
 IMPORTANT: These tests use real credentials and make real API calls.
-- Be respectful of Z-Library's resources
+- Be respectful of Hyperlibrary's resources
 - Use small result sets (limit=5-10)
 - Don't run these in tight loops
 - A real download spends account quota and requires ZLIBRARY_LIVE_DOWNLOAD=1
@@ -109,7 +109,7 @@ def test_download_dir():
 
 @pytest.mark.integration
 class TestRealAuthentication:
-    """Test real Z-Library authentication."""
+    """Test real Hyperlibrary authentication."""
 
     async def test_authentication_succeeds(self, credentials, eapi_domain):
         """Should successfully authenticate with real credentials."""
@@ -172,7 +172,7 @@ class TestRealAuthentication:
 
 @pytest.mark.integration
 class TestRealBasicSearch:
-    """Test basic search operations with real Z-Library."""
+    """Test basic search operations with real Hyperlibrary."""
 
     async def test_basic_search_returns_results(self, zlib_client):
         """Should return results for a common search query."""
@@ -224,7 +224,7 @@ class TestRealBasicSearch:
 
 @pytest.mark.integration
 class TestRealTermSearch:
-    """Test term search with real Z-Library API."""
+    """Test term search with real Hyperlibrary API."""
 
     async def test_search_common_term(self, credentials, zlib_client):
         """Should find books for a common philosophical term."""
@@ -288,7 +288,7 @@ class TestRealTermSearch:
 
 @pytest.mark.integration
 class TestRealAuthorSearch:
-    """Test author search with real Z-Library API."""
+    """Test author search with real Hyperlibrary API."""
 
     async def test_search_famous_author(self, credentials, zlib_client):
         """Should find books by a famous author."""
@@ -462,7 +462,7 @@ class TestRealMetadataExtraction:
 
 @pytest.mark.integration
 class TestRealWorldEdgeCases:
-    """Test with real-world edge cases from Z-Library."""
+    """Test with real-world edge cases from Hyperlibrary."""
 
     async def test_search_returns_both_books_and_articles(
         self, credentials, zlib_client
@@ -539,7 +539,7 @@ class TestRealWorldEdgeCases:
 
 @pytest.mark.integration
 class TestDownloadOperations:
-    """Test download functionality with real Z-Library."""
+    """Test download functionality with real Hyperlibrary."""
 
     @pytest.mark.skipif(
         os.getenv("ZLIBRARY_LIVE_DOWNLOAD") != "1",

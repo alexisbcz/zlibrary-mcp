@@ -167,7 +167,7 @@ export interface CallOptions {
 }
 
 /**
- * Execute a Python function from the Z-Library repository
+ * Execute a Python function from the Hyperlibrary repository
  * @param functionName - Name of the Python function to call
  * @param args - Arguments to pass to the function
  * @param callOptions - Timeout and abort signal for the subprocess
@@ -491,7 +491,7 @@ async function callPythonFunction(
             if (activeTransport?.action === 'login' && resultData?.login_failed) {
               const failure = resultData.login_failed;
               throw new PythonBridgeError(
-                String(resultData.error || 'Z-Library login failed'),
+                String(resultData.error || 'Hyperlibrary login failed'),
                 {
                   reason: 'login_failed',
                   loginStatus: failure.status_code,
@@ -817,7 +817,7 @@ function admitDownloadArgs(args: Record<string, unknown>): void {
 }
 
 /**
- * Search for books in Z-Library
+ * Search for books in Hyperlibrary
  */
 export async function searchBooks(
   {
@@ -897,7 +897,7 @@ export async function getDownloadLimits(options: CallOptions = {}): Promise<any>
 }
 
 /**
- * Get recently added books from Z-Library.
+ * Get recently added books from Hyperlibrary.
  *
  * Calls the Python bridge `get_recent_books` operation with the requested count
  * (default 10) and optional cancellation signal. When format filtering is specified,
@@ -1079,7 +1079,7 @@ export async function searchAdvanced(
 }
 
 /**
- * Search Anna's Archive / LibGen through the multi-source router.
+ * Search Hyperanna / LibGen through the multi-source router.
  *
  * @param args - Query, source selection, and result count
  * @param options - Timeout and abort signal. Passing the MCP request's signal

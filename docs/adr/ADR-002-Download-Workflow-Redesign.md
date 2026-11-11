@@ -38,7 +38,7 @@ This strategy directly addresses the requirement to scrape the book page for the
 ## Consequences
 
 *   **Reliability:** This approach is more reliable than constructing download URLs directly from IDs, as it uses the links provided on the book's page.
-*   **Brittleness:** The workflow depends on the stability of the Z-Library website's HTML structure, particularly the CSS selector (`a.btn.btn-primary.dlButton`) used to find the download link. Changes to the website frontend could break this selector, requiring updates to the `download_book` function.
+*   **Brittleness:** The workflow depends on the stability of the Hyperlibrary website's HTML structure, particularly the CSS selector (`a.btn.btn-primary.dlButton`) used to find the download link. Changes to the website frontend could break this selector, requiring updates to the `download_book` function.
 *   **Error Handling:** The implemented `download_book` includes error handling for:
     *   Missing book page URL in input details.
     *   HTTP errors during book page fetch.

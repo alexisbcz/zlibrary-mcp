@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Test Anna's Archive slow download flow.
+"""Test Hyperanna slow download flow.
 
 Prerequisites:
   Set TEST_MD5 from search results (env var or .env file)
@@ -135,7 +135,7 @@ def test_slow_download(md5: str):
 
 
 if __name__ == "__main__":
-    print("=== Testing Anna's Archive Slow Download Flow ===\n")
+    print("=== Testing Hyperanna Slow Download Flow ===\n")
 
     if not TEST_MD5:
         print("ERROR: Set TEST_MD5 environment variable")

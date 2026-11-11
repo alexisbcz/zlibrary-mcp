@@ -44,7 +44,7 @@ an empty page means every source answered. The comparison wait defaults to
 12 seconds when multiple jobs are dispatched; late is terminal for that reply.
 
 `exact` now checks title-query and author phrases separately, locally on every
-source. It is still sent natively to Z-Library. Year/language/format checks and
+source. It is still sent natively to Hyperlibrary. Year/language/format checks and
 alias normalization continue; missing checked metadata is excluded and counted.
 Per-source `filtering` describes at most 50 examined candidate records, not a
 catalogue total. Native transmission and local checking are separate evidence.
@@ -137,7 +137,7 @@ To keep using an old book without spending quota, use that file directly outside
 the MCP tool. If you want a 2.0 acquisition record, first move or rename the old
 file out of the destination, or choose a separate `output_dir`. Then search again,
 select the edition's current `ref`, and call `download`. This is a fresh transfer;
-a Z-Library download may count against the account quota. Moving the old file or
+a Hyperlibrary download may count against the account quota. Moving the old file or
 choosing another directory does not make the transfer quota-free. There is no
 zero-quota way to adopt an old file into the receipt system.
 

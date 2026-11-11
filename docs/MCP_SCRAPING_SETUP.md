@@ -8,13 +8,13 @@
 - ✅ Context7 MCP - Documentation
 
 ### Missing Critical MCP Servers
-- ❌ **Playwright MCP** - Browser automation (CRITICAL for Z-Library)
+- ❌ **Playwright MCP** - Browser automation (CRITICAL for Hyperlibrary)
 - ❌ HTML/DOM Parser MCP - Advanced HTML navigation
 - ❌ HTTP Client MCP - Advanced request handling
 
 ## Why Playwright MCP is Critical
 
-Z-Library's "Hydra mode" infrastructure presents challenges that basic HTTP scraping cannot handle:
+Hyperlibrary's "Hydra mode" infrastructure presents challenges that basic HTTP scraping cannot handle:
 
 1. **JavaScript-Rendered Pages**
    - Authentication flows may use JavaScript
@@ -22,7 +22,7 @@ Z-Library's "Hydra mode" infrastructure presents challenges that basic HTTP scra
    - AJAX requests for book details
 
 2. **CAPTCHA Challenges**
-   - Z-Library may present CAPTCHAs during high traffic
+   - Hyperlibrary may present CAPTCHAs during high traffic
    - Requires browser automation to handle
    - Current httpx/BeautifulSoup cannot solve CAPTCHAs
 
@@ -90,7 +90,7 @@ npx playwright install chromium
 }
 ```
 
-### Integration with Z-Library Scraping
+### Integration with Hyperlibrary Scraping
 
 ```typescript
 // Enhanced scraping with Playwright MCP
@@ -226,7 +226,7 @@ describe('Web Scraping Capabilities', () => {
 ### Current Risk Level: 🟡 MEDIUM
 
 **Working Now But At Risk**:
-- Z-Library could add JavaScript requirements anytime
+- Hyperlibrary could add JavaScript requirements anytime
 - CAPTCHA implementation would break current scraping
 - Anti-bot measures could detect httpx patterns
 
@@ -247,7 +247,7 @@ describe('Web Scraping Capabilities', () => {
 
 ### When to Upgrade
 Implement Playwright MCP when:
-- Z-Library adds CAPTCHA challenges
+- Hyperlibrary adds CAPTCHA challenges
 - JavaScript becomes required for auth
 - Current scraping success rate drops below 80%
 - Users report consistent failures

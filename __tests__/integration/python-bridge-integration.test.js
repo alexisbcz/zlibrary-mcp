@@ -43,7 +43,7 @@ describe('Python Bridge Integration Tests', () => {
       // Acceptable errors (indicate script WAS found and executed):
       const acceptableErrors = [
         'ImportError',           // Python import issues (venv not set up)
-        'login required',        // Z-Library authentication
+        'login required',        // Hyperlibrary authentication
         'credentials',           // Missing credentials
         'ZLIBRARY_EMAIL',        // Environment variable missing
         'ZLIBRARY_PASSWORD',     // Environment variable missing

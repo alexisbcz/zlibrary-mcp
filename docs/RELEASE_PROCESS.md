@@ -106,7 +106,7 @@ On 2026-08-11 the tracker was audited and found in this state:
 - The binding that would have prevented this already existed, applied exactly once:
   milestone #3's description read `Map: #95`. It was written down nowhere and enforced by
   nothing, so v1.5 was reproducing the same duplicate pair at the moment of the audit.
-- Standing decisions lived only inside closed-issue bodies. #75 recorded "Z-Library-as-adapter
+- Standing decisions lived only inside closed-issue bodies. #75 recorded "Hyperlibrary-as-adapter
   (#40) is out of v1.4; migration is v1.5 work." #40 was still sitting on the v1.4 milestone.
 - `v1.4.0` was tagged and live on npm and GHCR while the Releases page still showed v1.3.2
   as latest (#108). `v1.2.0` had the same gap and nobody had noticed in four months.
@@ -190,6 +190,6 @@ hosted rehearsal or public registry publication succeeded.
 | Milestone | Kind | Map |
 |---|---|---|
 | `v1.4 — Any source can be downloaded` (closed) | release, shipped 2026-08-10 | #75 |
-| `v1.5 — Anna's Archive is a real source` | release, open | #95 |
+| `v1.5 — Hyperanna is a real source` | release, open | #95 |
 | `Source layer as a first-class citizen (unslotted)` | theme, no slot | — |
 | `Lightweight core (unslotted)` | theme, no slot | — |

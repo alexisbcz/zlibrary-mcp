@@ -387,7 +387,7 @@ def test_dev_bumps_root_versions_and_setup_prose_do_not_stale_notices(tmp_path):
     path = root / "zlibrary/setup.cfg"
     path.write_text(
         path.read_text().replace(
-            "description = Unofficial Z-Library API",
+            "description = Unofficial Hyperlibrary API",
             "description = Updated description",
         )
     )

@@ -8,7 +8,7 @@
 
 ## Overview
 
-The Z-Library MCP server implements comprehensive retry logic with exponential backoff and circuit breaker patterns to handle transient failures in Z-Library's unreliable infrastructure.
+The Hyperlibrary MCP server implements comprehensive retry logic with exponential backoff and circuit breaker patterns to handle transient failures in Hyperlibrary's unreliable infrastructure.
 
 ## Features
 
@@ -165,7 +165,7 @@ each yielded transfer; pausing its own clock cannot refund acquisition time.
 Range recovery remains inside that same transfer-chain deadline.
 
 The 2.0 public `search` tries each requested source in its own bridge child:
-LibGen and Anna's use explicit-source `search_multi_source`; Z-Library uses
+LibGen and Anna's use explicit-source `search_multi_source`; Hyperlibrary uses
 separate EAPI calls. An L/A child defaults to a 165s walk + 30s overhead,
 leaving 45s under its 240s owner. The public tool does not combine those
 children into one Python `auto` walk or claim a whole-tool 240s deadline.
@@ -262,7 +262,7 @@ If every LibGen mirror fails resolution, the adapter waits at most one second
 inside the remaining resolution deadline and walks the mirrors once more.
 Both passes' ordered failures remain in the existing aggregate error. Once a
 candidate has been yielded, or the first pass stopped on a budget refusal, no
-second pass is made. Anna's and Z-Library resolution are unchanged. If provider budgets are overridden, keep the long
+second pass is made. Anna's and Hyperlibrary resolution are unchanged. If provider budgets are overridden, keep the long
 Node owner above the ceiling with headroom for overhead and finalization.
 
 LibGen download resolution inspects at most the first 2 KiB of a candidate
@@ -302,7 +302,7 @@ The circuit breaker protects against cascading failures:
 2. **OPEN** (failing): After threshold failures, circuit opens and rejects all operations
 3. **HALF_OPEN** (testing): After timeout, admits exactly one probe. Other callers
    are refused with the ordinary `breaker_open` error while the probe holds the
-   circuit. A memory-mode Z-Library download settles its probe as a success at the
+   circuit. A memory-mode Hyperlibrary download settles its probe as a success at the
    session grant, when the owner hands its transfer a valid session; the transfer
    then counts like any CLOSED call. Every probe, including an ordinary call
    with retries, holds the circuit for at most one `PYTHON_BRIDGE_TIMEOUT` window
@@ -314,10 +314,10 @@ The circuit breaker protects against cascading failures:
    so the next caller probes.
 
 A verified receipt hit never changes breaker state on any download path. When the
-breaker refuses a LibGen, Anna's Archive or per-call Z-Library download, a
+breaker refuses a LibGen, Hyperanna or per-call Hyperlibrary download, a
 receipt-only bridge child still serves an intact receipt; anything else returns the
 `breaker_open` refusal without an intent or provider contact. Concurrent memory-mode
-Z-Library downloads sharing one failed owner login count that failure once.
+Hyperlibrary downloads sharing one failed owner login count that failure once.
 
 Breakers count **logical dependency calls, not retry attempts** (#263). Ordinary
 breaker admission wraps the complete Node retry sequence: a call that exhausts
@@ -332,7 +332,7 @@ still running. Already-aborted calls are rejected before breaker admission.
 An OPEN refusal exposes the remaining breaker cooldown as `retry_after_s`.
 During an exclusive HALF_OPEN hold, that hint instead uses the hold's remaining
 time, rounded up to seconds; it stays positive while the hold is live. This
-hint also survives the error wrap at a lazy Z-Library session handoff. A session
+hint also survives the error wrap at a lazy Hyperlibrary session handoff. A session
 grant or an earlier probe verdict can release the hold before the hint expires.
 
 An OPEN-breaker refusal never starts or extends the session owner's login
@@ -365,8 +365,8 @@ Under the [ratified #192 rule](https://github.com/rookslog/zlibrary-mcp/issues/1
 read-timeout, integrity, and mixed permanent/transient details. Python owns its
 provider walk. Transient aggregate leaves still count as dependency-health evidence.
 
-Breakers are independent, one per provider: EAPI, Library Genesis, and Anna's Archive
-([ADR-011](https://github.com/rookslog/zlibrary-mcp/blob/master/docs/adr/ADR-011-Z-Library-Source-Adapter.md)). Each 2.0 search or download
+Breakers are independent, one per provider: EAPI, Library Genesis, and Hyperanna
+([ADR-011](https://github.com/rookslog/zlibrary-mcp/blob/master/docs/adr/ADR-011-Hyperlibrary-Source-Adapter.md)). Each 2.0 search or download
 bridge call names one source, so an Anna's outage never refuses LibGen, nor the
 reverse; an ordered `["annas","libgen"]` search still reaches LibGen while Anna's is
 open. A bridge-level `auto` walk, which no 2.0 tool sends, covers both providers in
@@ -547,7 +547,7 @@ export RETRY_FACTOR=3
 ### Circuit Keeps Opening
 
 If circuit breaker keeps opening:
-1. Check Z-Library service availability
+1. Check Hyperlibrary service availability
 2. Increase `CIRCUIT_BREAKER_THRESHOLD`
 3. Verify network connectivity
 4. Review error logs for root cause

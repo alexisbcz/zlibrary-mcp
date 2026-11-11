@@ -1,12 +1,12 @@
 # pyproject.toml - UV-based dependency management (v2.0.0)
 #
-# Z-Library MCP server with modern UV dependency management
+# Hyperlibrary MCP server with modern UV dependency management
 # Setup: uv sync (creates .venv and installs dependencies)
 
 [project]
 name = "zlibrary-mcp"
 version = "2.0.0"
-description = "Z-Library MCP server for AI assistants"
+description = "Hyperlibrary MCP server for AI assistants"
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [

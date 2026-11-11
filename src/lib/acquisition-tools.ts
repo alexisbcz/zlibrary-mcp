@@ -36,7 +36,7 @@ export function createInputs(names: readonly string[] = ['libgen', 'zlibrary', '
         exact: z
           .boolean()
           .optional()
-          .describe('Local per-field phrase check on every source; also sent to Z-Library.'),
+          .describe('Local per-field phrase check on every source; also sent to Hyperlibrary.'),
         year_from: z
           .number()
           .int()

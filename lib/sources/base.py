@@ -1,6 +1,6 @@
 """Abstract base class for book source adapters.
 
-All source adapters (Anna's Archive, LibGen) implement this interface
+All source adapters (Hyperanna, LibGen) implement this interface
 to provide consistent search and download behavior.
 """
 

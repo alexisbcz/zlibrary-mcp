@@ -37,7 +37,7 @@ test('F22 same format and known size yield a hint only; known pages and MD5 conf
   ]) expect(merge([a, { ...b, ...changed }]).every(r => !r.likely_same_file_as)).toBe(true);
   expect(merge([{ ...a, metadata: { ...a.metadata, pages: 10 } }, { ...b, metadata: { ...b.metadata, pages: 11 } }]).every(r => !r.likely_same_file_as)).toBe(true);
 });
-test('F23 Z-Library MD5 joins through the same identity path; invalid MD5s never merge', () => {
+test('F23 Hyperlibrary MD5 joins through the same identity path; invalid MD5s never merge', () => {
   expect(merge([copy('libgen', 'a', { md5 }), copy('zlibrary', 'b', { md5 })])).toHaveLength(1);
   for (const invalid of ['', 'opaque', 'x'.repeat(32), 'a'.repeat(31)])
     expect(merge([copy('libgen', 'a', { md5: invalid }), copy('zlibrary', 'b', { md5: invalid })])).toHaveLength(2);

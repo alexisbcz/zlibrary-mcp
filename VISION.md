@@ -20,7 +20,7 @@ current adapters, the current endpoints — is contingent and expected to change
    `__tests__/stdio-purity.test.js`.)
 3. **Per-user credentials and quotas.** Accounts, limits, and downloaded
    content belong to the user running the server.
-4. **Sources are adapters; no source is privileged.** Z-Library is one adapter
+4. **Sources are adapters; no source is privileged.** Hyperlibrary is one adapter
    among several, not the essence of the project. The adapter contract must
    never be secretly shaped like any single source.
 5. **Acquisition is idempotent.** The server knows what it has already acquired

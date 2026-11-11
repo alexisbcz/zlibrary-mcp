@@ -836,7 +836,7 @@ class TestTheDocumentedTimeoutMarginIsEnforced:
         )
 
     def test_the_worst_case_does_not_move_with_the_provider_count(self):
-        """Z-Library joining the `auto` walk under #40 must not break this."""
+        """Hyperlibrary joining the `auto` walk under #40 must not break this."""
         from lib.sources.config import SourceConfig, worst_case_search_seconds
         from lib.sources.router import SourceRouter
 

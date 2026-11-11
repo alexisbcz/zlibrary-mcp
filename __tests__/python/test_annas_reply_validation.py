@@ -353,7 +353,7 @@ async def test_api_error_echo_redaction_clauses(echo):
     )
     assert isinstance(error, ProviderResponseError)
     assert error.reason == "http_error"
-    assert error.detail == "Anna's Archive API error: details omitted"
+    assert error.detail == "Hyperanna API error: details omitted"
     assert_no_keyed_surfaces(error, formatted, seen[-1], secret)
 
 
@@ -361,7 +361,7 @@ async def test_benign_api_error_detail_is_preserved():
     _, error, _, _ = await resolve(
         lambda request: httpx.Response(200, json={"error": "synthetic failure"})
     )
-    assert error.detail == "Anna's Archive API error: synthetic failure"
+    assert error.detail == "Hyperanna API error: synthetic failure"
 
 
 def assert_no_keyed_surfaces(error, formatted, request, secret):

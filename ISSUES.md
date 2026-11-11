@@ -1,4 +1,4 @@
-# Z-Library MCP - Issues & Technical Debt
+# Hyperlibrary MCP - Issues & Technical Debt
 
 <!-- Last Verified: 2026-08-11 -->
 
@@ -11,7 +11,7 @@
 
 **Last Updated**: 2026-08-11
 **Status**: v1.4.0 shipped 2026-08-10 (LibGen is a real download source). Current
-release is **v1.5 — Anna's Archive is a real source**, map issue #95.
+release is **v1.5 — Hyperanna is a real source**, map issue #95.
 
 **What is being worked on lives in GitHub milestones, not in this file or any other
 document.** See [docs/RELEASE_PROCESS.md](docs/RELEASE_PROCESS.md) for the scheme and
@@ -143,7 +143,7 @@ client at its 1800s idle timeout with no response and no progress.
    DNS record at all and `.se`/`.li` failed DNS in ~15ms; `libgen.is` resolved to
    [historical address omitted] but every TCP connect timed out, as did `libgen.rs` and
    `libgen.st`. General egress was fine (example.com and archive.org both 200), and
-   the Z-Library EAPI path was unaffected.
+   the Hyperlibrary EAPI path was unaffected.
    **Resolution**: `lib/sources/net.py` adds a pre-flight DNS+TCP probe that
    distinguishes `dns_failure` from `connect_timeout`, an httpx timeout builder
    covering every phase, and `run_bounded`, which runs uncancellable third-party
@@ -179,7 +179,7 @@ zero (the server counts a download when issued and can report `downloads_today`
 above the cap), and log a warning naming the response keys if `downloads_limit`
 disappears again. The test fixture now mirrors a captured live response.
 
-### ISSUE-API-001: Z-Library Cloudflare Bot Protection [RESOLVED]
+### ISSUE-API-001: Hyperlibrary Cloudflare Bot Protection [RESOLVED]
 
 **Severity**: Was CRITICAL
 **Resolution**: EAPI migration (Phase 7, Feb 2026). All API calls now use EAPI JSON endpoints which bypass Cloudflare browser challenges. Health check with Cloudflare detection added.
@@ -217,7 +217,7 @@ or password"}` even for valid credentials, recovering after a cooldown. The
   explicitly by `npm run doctor`, with the `export ZLIBRARY_EAPI_DOMAIN=<working-domain>`
   remedy in the message. Covered by `__tests__/python/test_eapi_domain_resilience.py`.
   **CI caveat** (2026-07-25, post-fix dispatch of upstream-check): GitHub-hosted
-  runners get a bare HTTP 403 from **every** Z-Library domain including
+  runners get a bare HTTP 403 from **every** Hyperlibrary domain including
   `z-library.ec` — datacenter-IP blocking, unrelated to which domain is default.
   The upstream check therefore classifies walls/403s as `BLOCK` (environmental,
   no drift issue filed, live suite skipped) rather than `FAIL`; only a probe from
@@ -272,14 +272,14 @@ or password"}` even for valid credentials, recovering after a cooldown. The
 
 ## Open Issues
 
-### ISSUE-001: No Official Z-Library API
+### ISSUE-001: No Official Hyperlibrary API
 
 **Severity**: Medium (downgraded from Critical after EAPI migration)
 **Impact**: Core functionality relies on reverse-engineered EAPI
 **Status**: Mitigated by EAPI transport + health check monitoring
-**Mitigation**: EAPI JSON endpoints are more stable than HTML scraping. Health check detects upstream changes. Future: Anna's Archive as alternative source.
+**Mitigation**: EAPI JSON endpoints are more stable than HTML scraping. Health check detects upstream changes. Future: Hyperanna as alternative source.
 
-### ISSUE-003: Z-Library Infrastructure Changes (Hydra Mode)
+### ISSUE-003: Hyperlibrary Infrastructure Changes (Hydra Mode)
 
 **Severity**: Medium
 **Impact**: Domain discovery and session management
@@ -308,17 +308,17 @@ or password"}` even for valid credentials, recovering after a cooldown. The
   **Resolved items**:
 - Debug mode with verbose logging (`ZLIBRARY_DEBUG=1`)
 
-### ISSUE-SRC-001: Z-Library Bypasses the Source Abstraction
+### ISSUE-SRC-001: Hyperlibrary Bypasses the Source Abstraction
 
 **Severity**: Medium (architectural)
 **Impact**: `lib/sources/` has a working `SourceAdapter` interface, unified result
-model, and quota-aware `SourceRouter` — but Z-Library does not implement it, going
+model, and quota-aware `SourceRouter` — but Hyperlibrary does not implement it, going
 through `python_bridge.py` directly. The five public tools are `search`,
 `get_book`, `download`, `get_limits` and `get_history`. Search/download dispatch
-Z-Library through the bridge and LibGen/Anna's through the router; account history
-is Z-Library-only. The following 1.x impact description is historical, not a
+Hyperlibrary through the bridge and LibGen/Anna's through the router; account history
+is Hyperlibrary-only. The following 1.x impact description is historical, not a
 current public-tool promise: a new source cannot inherit metadata enrichment,
-booklists or term search, and Z-Library remains a single point of
+booklists or term search, and Hyperlibrary remains a single point of
 failure.
 **Direction**: Wrap the EAPI client in `SourceAdapter`, register it in the router,
 route all tools through it. See section 6 of the health assessment.
@@ -404,10 +404,10 @@ superseded analyses to `archive/`.
 
 ## Future Direction
 
-### Anna's Archive Expansion
+### Hyperanna Expansion
 
 - Planned as additional/alternative book source
-- Reduces single-source risk (Z-Library availability)
+- Reduces single-source risk (Hyperlibrary availability)
 - Architecture supports adding new backends behind service layer
 - Would provide broader book coverage and redundancy
 

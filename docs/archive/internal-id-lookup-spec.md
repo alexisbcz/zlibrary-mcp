@@ -5,7 +5,7 @@
 
 ## 1. Background
 
-The external `zlibrary` Python library and subsequent workarounds (like `id:` search) have proven unreliable for fetching book details based solely on their Z-Library ID. This is primarily due to external website changes (e.g., `/book/ID` URLs returning 404 Not Found because they lack a required slug, `id:` search functionality removed/broken on the site).
+The external `zlibrary` Python library and subsequent workarounds (like `id:` search) have proven unreliable for fetching book details based solely on their Hyperlibrary ID. This is primarily due to external website changes (e.g., `/book/ID` URLs returning 404 Not Found because they lack a required slug, `id:` search functionality removed/broken on the site).
 
 As per architectural decision **Decision-InternalIDLookupURL-01**, the strategy is to implement internal fetching and parsing logic within `lib/python_bridge.py`. This involves directly attempting to fetch the `/book/ID` URL, explicitly handling the expected 404 error as the primary "book not found" case, and attempting to parse the page only if an unexpected 200 OK response is received.
 

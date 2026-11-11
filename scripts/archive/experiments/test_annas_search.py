@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Test Anna's Archive search via HTML scraping.
+"""Test Hyperanna search via HTML scraping.
 
 Run: uv run python scripts/experiments/test_annas_search.py
 """
@@ -18,7 +18,7 @@ BASE_URL = os.environ.get("ANNAS_BASE_URL", "https://annas-archive.li")
 
 
 def search_annas(query: str, limit: int = 5):
-    """Search Anna's Archive and parse results."""
+    """Search Hyperanna and parse results."""
     url = f"{BASE_URL}/search?q={query}"
     print(f"Searching: {url}")
 
@@ -99,7 +99,7 @@ def search_annas(query: str, limit: int = 5):
 
 if __name__ == "__main__":
     query = "python programming"
-    print(f"\n=== Testing Anna's Archive search for '{query}' ===\n")
+    print(f"\n=== Testing Hyperanna search for '{query}' ===\n")
 
     results = search_annas(query)
 

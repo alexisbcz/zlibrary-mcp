@@ -1,11 +1,11 @@
-# MCP Server Recommendations for Z-Library Scraping
+# MCP Server Recommendations for Hyperlibrary Scraping
 
 Based on the comprehensive site analysis, here are the MCP server requirements:
 
 ## Critical MCP Servers Needed
 
 ### 1. 🔴 Playwright MCP (CRITICAL)
-**Why**: Z-Library's Hydra mode uses JavaScript-heavy parked domains and potential CAPTCHA
+**Why**: Hyperlibrary's Hydra mode uses JavaScript-heavy parked domains and potential CAPTCHA
 **Use Cases**:
 - Handle JavaScript redirects on parked domains
 - Solve CAPTCHA challenges when they appear

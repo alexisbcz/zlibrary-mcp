@@ -44,7 +44,7 @@ test('quota documentation distinguishes the Anna router from unnormalized EAPI d
   const row = statusRow('quota_exhausted');
   expect(row).toMatch(/Anna's keyed-download router/);
   expect(row).toMatch(/zero remaining/);
-  expect(row).toMatch(/Z-Library EAPI/);
+  expect(row).toMatch(/Hyperlibrary EAPI/);
   expect(row).toContain('`provider_error`');
   expect(row).toContain('`internal`');
 });
@@ -53,7 +53,7 @@ test('absence documentation does not promise a business-status mapping no curren
   const row = statusRow('not_found');
   expect(row).toMatch(/explicit structured `not_found` reason/);
   expect(row).toMatch(/no current source adapter emits it/i);
-  expect(row).toMatch(/Z-Library EAPI/);
+  expect(row).toMatch(/Hyperlibrary EAPI/);
   expect(row).toContain('`provider_error`');
   expect(row).toContain('`internal`');
   expect(row).toMatch(/empty search is not absence/);

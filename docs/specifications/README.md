@@ -2,7 +2,7 @@
 
 # Technical Specifications Catalog
 
-**Purpose**: Index of all technical specifications for Z-Library MCP server
+**Purpose**: Index of all technical specifications for Hyperlibrary MCP server
 **Status**: historical processing specifications; not active server capabilities
 **Last Updated**: 2025-10-21
 

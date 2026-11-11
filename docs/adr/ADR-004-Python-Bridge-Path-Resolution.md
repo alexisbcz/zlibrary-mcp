@@ -5,9 +5,9 @@
 
 ## Context
 
-The Z-Library MCP server uses a dual-language architecture:
+The Hyperlibrary MCP server uses a dual-language architecture:
 - **TypeScript/Node.js** (compiled to `dist/`) - MCP server, tool registration, client communication
-- **Python** (`lib/` directory) - Z-Library API interaction, document processing (EPUB, PDF, TXT)
+- **Python** (`lib/` directory) - Hyperlibrary API interaction, document processing (EPUB, PDF, TXT)
 
 ### Problem
 When TypeScript is compiled to the `dist/` directory, the compiled JavaScript needs to locate Python scripts at runtime. We needed to determine:
@@ -202,7 +202,7 @@ npm run build
 ### Runtime
 ```bash
 node dist/index.js
-# Z-Library MCP server starts successfully
+# Hyperlibrary MCP server starts successfully
 # Python bridge scripts found and executed
 ```
 

@@ -1,5 +1,5 @@
 /**
- * Custom error classes for Z-Library MCP
+ * Custom error classes for Hyperlibrary MCP
  * Implements the pattern from .claude/PATTERNS.md
  */
 
@@ -11,7 +11,7 @@ export interface ErrorContext {
 }
 
 /**
- * Custom error class for Z-Library operations with context enrichment
+ * Custom error class for Hyperlibrary operations with context enrichment
  */
 export class ZLibraryError extends Error {
   constructor(

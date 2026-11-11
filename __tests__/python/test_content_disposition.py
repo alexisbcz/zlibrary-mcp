@@ -3,7 +3,7 @@
 Two concerns meet here:
 
 * **Correctness** — RFC 6266 permits three spellings of the filename parameter and
-  Z-Library uses all of them. The previous `split("filename=")` implementation
+  Hyperlibrary uses all of them. The previous `split("filename=")` implementation
   mis-parsed the extended form, producing percent-encoded names.
 * **Safety** — the value arrives in a server-controlled header and is joined onto
   the output directory. `Path("/downloads") / "../../x"` escapes the directory, so

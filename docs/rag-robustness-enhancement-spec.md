@@ -11,7 +11,7 @@
 
 ## 1. Introduction
 
-This document outlines the functional requirements, constraints, edge cases, and implementation details for enhancing the robustness of the Retrieval-Augmented Generation (RAG) document processing pipeline within the `zlibrary-mcp` project. The primary goal is to improve the reliability and quality of text extraction and processing, particularly for real-world PDF and EPUB documents obtained from sources like Z-Library, with an initial focus on philosophy texts.
+This document outlines the functional requirements, constraints, edge cases, and implementation details for enhancing the robustness of the Retrieval-Augmented Generation (RAG) document processing pipeline within the `zlibrary-mcp` project. The primary goal is to improve the reliability and quality of text extraction and processing, particularly for real-world PDF and EPUB documents obtained from sources like Hyperlibrary, with an initial focus on philosophy texts.
 
 This specification builds upon existing work documented in:
 *   [Historical pipeline implementation spec](https://github.com/rookslog/zlibrary-mcp/blob/abbbb1c4b9982d46c3da57d5dd25c553990519a2/docs/rag-pipeline-implementation-spec.md) (v2.1)
@@ -23,11 +23,11 @@ This specification builds upon existing work documented in:
 
 ### 2.1. Test Document Selection
 
-*   **FR-TEST-01:** A curated test set of at least 20-30 documents shall be selected from Z-Library.
+*   **FR-TEST-01:** A curated test set of at least 20-30 documents shall be selected from Hyperlibrary.
 *   **FR-TEST-02:** The test set shall primarily focus on philosophy texts known for complex formatting, footnotes, and potentially older scans.
 *   **FR-TEST-03:** The test set shall include a diverse range of formats (PDF, EPUB) and PDF types (text-based, image-based/scanned, mixed).
 *   **FR-TEST-04:** The test set shall include documents from other genres (e.g., technical manuals, fiction) to ensure generalizability.
-*   **FR-TEST-05:** Metadata for each selected document (Z-Library ID, Title, Author, Format, Source URL, brief description of expected challenges) shall be recorded.
+*   **FR-TEST-05:** Metadata for each selected document (Hyperlibrary ID, Title, Author, Format, Source URL, brief description of expected challenges) shall be recorded.
 
 ### 2.2. Test Document Storage & Management
 
@@ -165,7 +165,7 @@ This specification builds upon existing work documented in:
 *   **Constraint-SysDep-01:** OCR engines (like Tesseract) may require system-level installation by the user.
 *   **Constraint-LibLic-01:** Adherence to licenses of all used libraries (PyMuPDF: AGPL, Tesseract: Apache 2.0, etc.) is required.
 *   **Constraint-Perf-01:** OCR processing can be computationally expensive and significantly increase processing time.
-*   **Assumption-Corpus-01:** A diverse and representative corpus of test documents can be acquired from Z-Library or similar sources.
+*   **Assumption-Corpus-01:** A diverse and representative corpus of test documents can be acquired from Hyperlibrary or similar sources.
 *   **Assumption-OCRQual-01:** OCR will provide usable text for documents where direct text extraction fails, but perfect accuracy is not expected.
 *   **Assumption-Structure-01:** Heuristics for PDF structure detection (headings, lists) will be imperfect but provide a reasonable approximation for Markdown generation.
 

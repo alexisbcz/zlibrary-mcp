@@ -151,7 +151,7 @@ mock_zlib.search = AsyncMock(return_value=MockPaginator())
 ## Prerequisites
 - Node.js 16+
 - Python 3.9+
-- Z-Library account
+- Hyperlibrary account
 
 ## Setup
 1. Install dependencies

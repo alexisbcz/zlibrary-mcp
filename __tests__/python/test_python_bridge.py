@@ -2218,7 +2218,7 @@ asyncio.run(python_bridge.main())
 class TestRequiresEapiClient:
     """EAPI login must happen only where the EAPI is actually used (#129):
     forcing it on every call took LibGen — the credential-free fallback —
-    down with every Z-Library auth outage.
+    down with every Hyperlibrary auth outage.
     """
 
     def test_zlibrary_functions_require_eapi(self):

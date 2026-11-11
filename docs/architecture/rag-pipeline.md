@@ -7,7 +7,7 @@
 
 ## 1. Overview
 
-This document outlines the architecture for the Retrieval-Augmented Generation (RAG) document processing pipeline within the `zlibrary-mcp` server. The goal is to enable AI agents to download documents (initially EPUB, TXT, PDF) from Z-Library, extract their text content, save it to a file, and use the file path for RAG workflows.
+This document outlines the architecture for the Retrieval-Augmented Generation (RAG) document processing pipeline within the `zlibrary-mcp` server. The goal is to enable AI agents to download documents (initially EPUB, TXT, PDF) from Hyperlibrary, extract their text content, save it to a file, and use the file path for RAG workflows.
 
 **Reason for Update (v2):** Original design returned raw text, causing agent instability with large documents. This version modifies the pipeline to save processed text to a file and return the file path instead.
 
@@ -111,7 +111,7 @@ graph TD
 
 ### `download_book_to_file` (Updated)
 
-*   **Description:** Downloads a specific book file from Z-Library to a local path. Optionally processes the content for RAG simultaneously, saving the result to a separate file.
+*   **Description:** Downloads a specific book file from Hyperlibrary to a local path. Optionally processes the content for RAG simultaneously, saving the result to a separate file.
 *   **Input:** `{ "bookDetails": "object (The full book details object obtained from search_books)", "outputDir": "string (optional, defaults to configured output root)", "process_for_rag": "boolean (optional, default: false)", "processed_output_format": "string (optional, default: 'txt')" }`
 *   **Output:**
     *   If `process_for_rag` is `false` or omitted: `{ "file_path": "string" }` (Path to the original downloaded file)

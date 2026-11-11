@@ -2,7 +2,7 @@
 
 ## Summary
 
-This PR implements advanced research capabilities, refactors the architecture for better testability, and completes full MCP tool registration. The Z-Library MCP server is now a production-ready research acceleration platform with validated end-to-end workflows.
+This PR implements advanced research capabilities, refactors the architecture for better testability, and completes full MCP tool registration. The Hyperlibrary MCP server is now a production-ready research acceleration platform with validated end-to-end workflows.
 
 **Key Changes**:
 - ✅ Phase 3 research tools (term search, author search, booklist exploration)
@@ -66,7 +66,7 @@ This PR implements advanced research capabilities, refactors the architecture fo
 ### 🧪 Integration Testing Infrastructure
 
 **New Test Suite** (`__tests__/python/integration/` - 30 tests):
-- Real Z-Library API validation
+- Real Hyperlibrary API validation
 - Authentication testing
 - Search operation testing
 - Metadata extraction validation
@@ -132,7 +132,7 @@ This PR implements advanced research capabilities, refactors the architecture fo
 
 **Complete Stack Proven**:
 ```
-MCP Client → TypeScript → Python → zlibrary → Z-Library API
+MCP Client → TypeScript → Python → zlibrary → Hyperlibrary API
     ✅          ✅          ✅         ✅           ✅
 ```
 
@@ -245,7 +245,7 @@ result = await search("query")
 ### Real-World Testing
 
 **Successfully Executed**:
-- Searched Z-Library (multiple queries) ✅
+- Searched Hyperlibrary (multiple queries) ✅
 - Downloaded 3 books (24MB PDF, 2 EPUBs) ✅
 - Processed for RAG (125KB text) ✅
 - Extracted metadata (60 terms, 11 booklists) ✅

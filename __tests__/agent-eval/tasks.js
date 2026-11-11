@@ -25,7 +25,7 @@ export const tasks = [
   },
   {
     id: 'T4',
-    prompt: 'How many Z-Library downloads do I have left, and does LibGen have a cap?',
+    prompt: 'How many Hyperlibrary downloads do I have left, and does LibGen have a cap?',
     A: ['get_download_limits; explain LibGen has no cap'],
     B: ['get_limits mode=live for zlibrary; explain LibGen has no cap'],
     wrong: ['download', 'guessing remaining or LibGen cap', 'local-only limits on B'],
@@ -62,7 +62,7 @@ export const tasks = [
   {
     id: 'T8',
     prompt:
-      'Get The Glass Orchard by Mira Vale (only on LibGen) without touching my Z-Library quota.',
+      'Get The Glass Orchard by Mira Vale (only on LibGen) without touching my Hyperlibrary quota.',
     A: ['search_multi_source source=libgen', 'download_book_to_file'],
     B: ['search sources=[libgen]', 'get_book if copy-specific metadata is needed', 'download'],
     wrong: ['any zlibrary provider call', 'wrong source argument'],

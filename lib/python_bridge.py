@@ -266,7 +266,7 @@ def normalize_book_details(book: dict, mirror: str = None) -> dict:
 
     Args:
         book: Book dictionary from search results
-        mirror: Z-Library mirror URL (optional)
+        mirror: Hyperlibrary mirror URL (optional)
 
     Returns:
         Normalized book dictionary with guaranteed 'url' and 'book_hash' fields
@@ -707,7 +707,7 @@ async def eapi_health_check() -> dict:
     Check EAPI connectivity and functionality.
 
     Performs a minimal search to verify the EAPI client can
-    communicate with Z-Library successfully.
+    communicate with Hyperlibrary successfully.
 
     Returns:
         dict with 'status' ('healthy' or 'unhealthy'), 'transport',
@@ -1778,7 +1778,7 @@ def _source_size_bytes(book_details: dict) -> Optional[float]:
 
 
 async def _fetch_from_source(book_details: dict, output_dir: str) -> str:
-    """Resolve and fetch a non-Z-Library book. Returns the raw file path."""
+    """Resolve and fetch a non-Hyperlibrary book. Returns the raw file path."""
     md5 = (book_details.get("md5") or "").strip().lower()
     source = (book_details.get("source") or "auto").lower()
     if not md5:
@@ -1980,8 +1980,8 @@ async def download_book(
     output_dir = str(directory)
 
     # Route by source. A result from search_multi_source carries md5 + source
-    # and has no Z-Library id/hash, so it takes the source path — which also
-    # means a LibGen download needs no Z-Library credentials at all.
+    # and has no Hyperlibrary id/hash, so it takes the source path — which also
+    # means a LibGen download needs no Hyperlibrary credentials at all.
     from_source = (book_details.get("source") or "").lower() in SOURCE_ALIASES
 
     if not from_source:
@@ -2015,7 +2015,7 @@ async def download_book(
         eapi_provenance["host"] = host or None
 
     try:
-        # Step 1: Fetch the file. Z-Library goes through the EAPI client;
+        # Step 1: Fetch the file. Hyperlibrary goes through the EAPI client;
         # every other source resolves a URL through the router and streams it.
         if from_source:
             original_download_path_str = await _fetch_from_source(
@@ -2156,7 +2156,7 @@ async def get_book_metadata_complete(book_id: str, book_hash: str = None) -> dic
     Uses the EAPI get_book_info endpoint instead of HTML scraping.
 
     Args:
-        book_id: Z-Library book ID (e.g., "1252896")
+        book_id: Hyperlibrary book ID (e.g., "1252896")
         book_hash: Book hash (required)
 
     Returns:
@@ -2296,7 +2296,7 @@ async def get_recent_books(count: int = 10) -> dict:
     }
 
 
-# ===== PHASE 12: MULTI-SOURCE SEARCH (Anna's Archive + LibGen) =====
+# ===== PHASE 12: MULTI-SOURCE SEARCH (Hyperanna + LibGen) =====
 
 
 async def get_source_router(*, for_download: bool = False) -> SourceRouter:
@@ -2326,16 +2326,16 @@ async def search_multi_source(
     count: int = 10,
     **kwargs,
 ) -> dict:
-    """Search for books across multiple sources (Anna's Archive, LibGen).
+    """Search for books across multiple sources (Hyperanna, LibGen).
 
-    This function provides an alternative to the Z-Library EAPI search,
-    routing queries to Anna's Archive (primary) with LibGen fallback.
+    This function provides an alternative to the Hyperlibrary EAPI search,
+    routing queries to Hyperanna (primary) with LibGen fallback.
 
     Args:
         query: Search query string
         source: Source selection ('auto', 'annas', 'libgen')
             - 'auto': Use Anna's if ANNAS_SECRET_KEY is set, else LibGen
-            - 'annas': Force Anna's Archive (requires ANNAS_SECRET_KEY)
+            - 'annas': Force Hyperanna (requires ANNAS_SECRET_KEY)
             - 'libgen': Force LibGen
         count: Maximum number of results to return
         **kwargs: Additional arguments passed to adapters
@@ -2346,7 +2346,7 @@ async def search_multi_source(
             - sources_used: List of source names that provided results
 
     Environment:
-        ANNAS_SECRET_KEY: API key for Anna's Archive fast downloads
+        ANNAS_SECRET_KEY: API key for Hyperanna fast downloads
         LIBGEN_MIRROR: LibGen mirror suffix (default: 'li')
         BOOK_SOURCE_FALLBACK_ENABLED: Enable fallback (default: 'true')
     """
@@ -2377,13 +2377,13 @@ async def search_multi_source(
 
 
 def _requires_eapi_client(function_name: str, args_dict: dict) -> bool:
-    """Whether this invocation needs an authenticated Z-Library EAPI client.
+    """Whether this invocation needs an authenticated Hyperlibrary EAPI client.
 
     Multi-source search never does. Neither does
     a download whose bookDetails came from search_multi_source (source in
     SOURCE_ALIASES): download_book only acquires the EAPI client on its
-    Z-Library branch, and logging in up front took LibGen — the
-    credential-free fallback — down with every Z-Library auth outage (#129).
+    Hyperlibrary branch, and logging in up front took LibGen — the
+    credential-free fallback — down with every Hyperlibrary auth outage (#129).
     """
     if function_name in {"search_multi_source", "acquire_book"}:
         return False
@@ -2415,7 +2415,7 @@ _BRIDGE_FUNCTION_NAMES = frozenset(
 async def main():
     global _session_published
     _session_published = None
-    parser = argparse.ArgumentParser(description="Z-Library Python Bridge")
+    parser = argparse.ArgumentParser(description="Hyperlibrary Python Bridge")
     parser.add_argument("function_name", help="Name of the function to call")
     parser.add_argument("args_json", help="JSON string of arguments for the function")
     cli_args = parser.parse_args()
@@ -2447,7 +2447,7 @@ async def main():
             raise ValueError("Text processing was removed in 2.0.")
         if function_name not in _BRIDGE_FUNCTION_NAMES:
             raise ValueError(f"Unknown function: {function_name}")
-        # Decide before dispatch whether this call needs Z-Library
+        # Decide before dispatch whether this call needs Hyperlibrary
         # authentication at all — see _requires_eapi_client (#106, #129).
         if function_name in {"search", "get_download_history", "search_multi_source"}:
             _validate_page(args_dict.get("count", 10), args_dict.get("page", 1))
@@ -2590,9 +2590,9 @@ async def main():
             failure = {"status_code": diagnostics.get("http_status")}
             status = failure["status_code"]
             cause = (
-                "Z-Library rejected the login"
+                "Hyperlibrary rejected the login"
                 if diagnostics["failure_kind"] == "auth_rejected"
-                else "Z-Library login failed"
+                else "Hyperlibrary login failed"
             )
             if status:
                 cause += f" (HTTP {status})"

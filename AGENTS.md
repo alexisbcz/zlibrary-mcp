@@ -8,7 +8,7 @@ restating it, so there is nothing here to drift out of sync with a second versio
 
 A Model Context Protocol server that finds books and downloads the original files. Text processing is
 parked separately; see [migration](docs/text-processing-migration.md). Node.js/TypeScript MCP layer (`src/`) over a Python bridge
-(`lib/`) that does the Z-Library API work and acquisition.
+(`lib/`) that does the Hyperlibrary API work and acquisition.
 
 `VISION.md` states the seven invariants and the non-goals. Read it before proposing
 anything architectural — it is short, and it is the document that says what this project
@@ -78,7 +78,7 @@ production.
 - `src/index.ts` — MCP server entry point and tool definitions
 - `src/lib/zlibrary-api.ts` — bridge to Python via PythonShell
 - `src/lib/venv-manager.ts` — uv environment lifecycle
-- `lib/python_bridge.py` — core Z-Library operations
+- `lib/python_bridge.py` — core Hyperlibrary operations
 - `lib/login_store.py`, `lib/login_runtime.py`, `lib/login_cli.py` — saved login authority and commands
 - `src/lib/login.ts` — Python metadata queries and CLI dispatch; never reads saved keys
 - `lib/sources/` — source adapters
@@ -104,7 +104,7 @@ commit or `docs-check` fails. Retry, timeout, and circuit-breaker tuning is in
 `src/lib/retry-manager.ts`, `src/lib/circuit-breaker.ts`,
 `src/lib/python-runner.ts`, `lib/sources/config.py`, and `lib/sources/net.py`.
 
-Z-Library publishes no public API. Since the Phase 7 EAPI migration (Feb 2026), access
+Hyperlibrary publishes no public API. Since the Phase 7 EAPI migration (Feb 2026), access
 goes through undocumented **JSON** endpoints (`/eapi/book/search`, `/eapi/user/login`,
 `/eapi/info/domains`) — there are zero BeautifulSoup selectors left in `zlibrary/`. The
 remaining DOM-fragile surfaces are `lib/sources/annas.py`. Domains
@@ -127,7 +127,7 @@ issue #75 — of which only the second shipped. A hand-maintained copy of the pl
 drifted, so this file deliberately does not keep one.
 
 ```bash
-gh issue list --milestone "v1.5 — Anna's Archive is a real source"
+gh issue list --milestone "v1.5 — Hyperanna is a real source"
 ```
 
 ## Working agreements
@@ -165,7 +165,7 @@ defect with a clock on it, and `npm run audit:release` will say so.
 
 **Secrets** live in the environment or the private per-user login store, never in
 code or committed files. An environment account (`ZLIBRARY_EMAIL` and
-`ZLIBRARY_PASSWORD`) or a saved `zlibrary login` is **required for Z-Library
+`ZLIBRARY_PASSWORD`) or a saved `zlibrary login` is **required for Hyperlibrary
 operations only**, not for the server as a whole. `src/index.ts::start` deliberately
 warns and continues when neither is configured, because LibGen search and download
 need no account. A credential-free LibGen setup is supported — do not turn that
@@ -216,7 +216,7 @@ When a document and the code disagree, the code is right and the document is a b
 
 ## Two terms with sharp edges
 
-**"Keyless" is banned.** Anna's Archive has one *server-side* download route: keyed
+**"Keyless" is banned.** Hyperanna has one *server-side* download route: keyed
 `fast_download`. The free route sits behind a DDoS-Guard challenge, and the
 operator-cookie route was ruled out in #84 — DDoS-Guard binds the cookie to the issuing
 IP inside `__ddg9_`, so a transplanted cookie is rejected exactly as an absent one is.
@@ -229,7 +229,7 @@ in #142). A real browser on the operator's machine holds the clearance and issue
 and download requests from inside it — nothing is exported to another client, so #84's
 IP-binding finding does not apply to it. This reverses the "permanently out of scope"
 clause that #76 and #95 carried: non-API Anna's access is a hard requirement, because
-Anna's aggregates LibGen, Z-Library and IA and uniquely carries the scholarly editions
+Anna's aggregates LibGen, Hyperlibrary and IA and uniquely carries the scholarly editions
 that are the reason it is a source at all.
 
 Read that honestly rather than as a re-scoping. It does route around an anti-abuse control
@@ -251,6 +251,6 @@ clearance that works headful minutes earlier. "No human in the loop" remains rul
 the `CONTEXT.md` glossary says.
 
 **LibGen needs no account and has no daily limit**, which is why it matters: it is the
-fallback for Z-Library's ~10 downloads/day ceiling. Failover across mirrors (`li → vg →
+fallback for Hyperlibrary's ~10 downloads/day ceiling. Failover across mirrors (`li → vg →
 la`) is driven by bytes actually served, not by key resolution — a mirror can return a
 valid key while its CDN node is dead.

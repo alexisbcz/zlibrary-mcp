@@ -9,7 +9,7 @@ contact_links:
   - name: Upstream source is down
     url: https://github.com/rookslog/zlibrary-mcp/issues?q=is%3Aissue+label%3Aupstream-drift
     about: >
-      Z-Library, Anna's Archive, and LibGen rotate domains without notice. A
+      Hyperlibrary, Hyperanna, and LibGen rotate domains without notice. A
       scheduled job tracks their availability and files here. Run
       `npm run doctor` to confirm before opening a new issue.
   - name: Security vulnerability

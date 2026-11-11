@@ -1,7 +1,7 @@
 """
 Test suite for term exploration tools (EAPI-based).
 
-Term exploration enables conceptual navigation through Z-Library's
+Term exploration enables conceptual navigation through Hyperlibrary's
 terms, using EAPI search endpoint instead of HTML scraping.
 """
 

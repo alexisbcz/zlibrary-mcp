@@ -70,7 +70,7 @@ receipts retain the absent policy. Retryable LibGen download failures are quota-
 even after issuance; quota-counting/unknown sources remain conservative. No retry
 hint authorizes automatic transfer replay or removes provider rate limits.
 
-Memory-mode Z-Library acquisitions now use the existing owner only after durable
+Memory-mode Hyperlibrary acquisitions now use the existing owner only after durable
 intent under the held leases. A bearer-free child sends one bounded `lazy-v2`
 application-terminal request on fd4: `ZLAD`, version byte 2, uint16 big-endian
 length, then exact ASCII `{"type":"session_needed","terminal":true}`. It does not

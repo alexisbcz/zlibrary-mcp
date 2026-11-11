@@ -1,5 +1,5 @@
 /**
- * Retry logic with exponential backoff for Z-Library MCP
+ * Retry logic with exponential backoff for Hyperlibrary MCP
  * Implements the pattern from .claude/PATTERNS.md
  */
 

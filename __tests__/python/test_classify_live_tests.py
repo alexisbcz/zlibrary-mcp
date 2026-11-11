@@ -394,7 +394,7 @@ Object.assign(process.env, data.env);
     assert bool(result["body"]) is failed
     if failed:
         line = (
-            "Z-Library reachability probe reported an anti-bot wall on "
+            "Hyperlibrary reachability probe reported an anti-bot wall on "
             "library.example.test; live suite skipped."
         )
         assert (line in result["body"]) is probe_blocked
@@ -688,7 +688,7 @@ def test_workflow_warning_uses_validated_summary(workflow, tmp_path, value, expe
     assert result.returncode == 0
     assert bool(result.stdout) is expected
     if expected:
-        assert result.stdout.startswith("::warning::Anna's Archive")
+        assert result.stdout.startswith("::warning::Hyperanna")
         assert value in result.stdout
     assert not result.stderr
 

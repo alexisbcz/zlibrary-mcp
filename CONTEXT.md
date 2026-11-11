@@ -1,4 +1,4 @@
-# Z-Library MCP
+# Hyperlibrary MCP
 
 An MCP server that finds books across several catalogues, and downloads the original files. Text processing is parked; see
 [the migration guide](docs/text-processing-migration.md). Its language centres on *sources* — the catalogues it reads — and the
@@ -9,14 +9,14 @@ distinct *routes* by which a source will hand over a file.
 ### Sources and routing
 
 **Source**:
-A catalogue the server can search and acquire from. Z-Library, LibGen, and Anna's Archive
+A catalogue the server can search and acquire from. Hyperlibrary, LibGen, and Hyperanna
 are sources.
 _Avoid_: Provider, backend, mirror (a mirror is a host *within* a source)
 
 **Adapter**:
 The per-source implementation satisfying the common source interface, living in
-`lib/sources/`. Note that **not every source has one**: Anna's Archive and LibGen are
-adapters, while Z-Library predates the interface and keeps a separate path. Migrating it
+`lib/sources/`. Note that **not every source has one**: Hyperanna and LibGen are
+adapters, while Hyperlibrary predates the interface and keeps a separate path. Migrating it
 is tracked in #174.
 _Avoid_: Driver, connector, plugin
 
@@ -46,7 +46,7 @@ The [API reference](docs/api.md#download) and [receipt v1 contract](docs/receipt
 describe the sidecar's `source` and `provenance` fields. Route, mirror and host evidence
 can be unknown or absent; a recovered intent can retain default provenance.
 
-### Anna's Archive routes
+### Hyperanna routes
 
 These terms exist because "keyless" was ambiguous and the ambiguity caused a real
 planning error: work the maintainer had approved was recorded as ruled out.

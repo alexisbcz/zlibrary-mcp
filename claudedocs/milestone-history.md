@@ -1,4 +1,4 @@
-# Project Milestones: Z-Library MCP
+# Project Milestones: Hyperlibrary MCP
 
 > Historical record of shipped milestones (v1.0-v1.2), preserved from the retired GSD planning tree.
 
@@ -35,7 +35,7 @@
 
 ## v1.1 Quality & Expansion (Shipped: 2026-02-04)
 
-**Delivered:** Stabilized infrastructure (Node 22, EAPI gaps, Docker fixes), improved scholarly text extraction quality (margin detection, adaptive resolution, body text purity pipeline), and integrated Anna's Archive as alternative book source with LibGen fallback.
+**Delivered:** Stabilized infrastructure (Node 22, EAPI gaps, Docker fixes), improved scholarly text extraction quality (margin detection, adaptive resolution, body text purity pipeline), and integrated Hyperanna as alternative book source with LibGen fallback.
 
 **Phases completed:** 8-12 (21 plans total)
 
@@ -45,7 +45,7 @@
 - Margin detection for scholarly texts: Stephanus/Bekker numbering, line numbers, marginal notes with adaptive zone widths and structured annotations
 - Adaptive resolution pipeline: DPI selection (150-400) driven by text pixel height analysis, region-level re-rendering for footnotes/margins
 - Unified body text purity: Compositor combining 6 detectors with conflict resolution, confidence scoring, multi-file output (body.md + _meta.json)
-- Anna's Archive integration: HTML scraping search, fast download API, LibGen fallback with rate limiting, source router with auto selection
+- Hyperanna integration: HTML scraping search, fast download API, LibGen fallback with rate limiting, source router with auto selection
 
 **Stats:**
 
@@ -71,7 +71,7 @@
 - Python monolith decomposition: 4,968-line file → 31 domain modules with backward-compatible facade
 - Feature porting: metadata tiering, enhanced filenames, author/title search from stale branch; 7 branches deleted
 - Documentation & quality gates: 7 docs updated, Husky pre-commit hooks, GitHub Actions CI
-- EAPI migration: all Z-Library ops moved from HTML scraping to JSON endpoints, bypassing Cloudflare
+- EAPI migration: all Hyperlibrary ops moved from HTML scraping to JSON endpoints, bypassing Cloudflare
 
 **Stats:**
 

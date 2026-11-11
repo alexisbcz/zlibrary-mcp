@@ -651,7 +651,7 @@ jobs:
 - test_files/derrida_pages_110_135.pdf
 - test_files/heidegger_pages_79-88.pdf
 
-**2. Download Full Books via Z-Library**
+**2. Download Full Books via Hyperlibrary**
 ```python
 # Use our own MCP server to get test PDFs!
 from zlibrary import search_books, download_book

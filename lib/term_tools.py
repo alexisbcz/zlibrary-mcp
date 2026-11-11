@@ -1,9 +1,9 @@
 """
-Term exploration tools for Z-Library conceptual navigation.
+Term exploration tools for Hyperlibrary conceptual navigation.
 
 This module enables discovery based on conceptual terms, allowing
 researchers to navigate by philosophical/technical concepts rather
-than just keywords. Uses EAPI for all Z-Library data access.
+than just keywords. Uses EAPI for all Hyperlibrary data access.
 """
 
 import asyncio
@@ -40,8 +40,8 @@ async def search_by_term(
 
     Args:
         term: Conceptual term to search for (e.g., "dialectic", "reflection")
-        email: Z-Library account email
-        password: Z-Library account password
+        email: Hyperlibrary account email
+        password: Hyperlibrary account password
         mirror: Optional custom mirror URL
         year_from: Optional filter for publication year (start)
         year_to: Optional filter for publication year (end)

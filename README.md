@@ -1,12 +1,12 @@
-# Z-Library MCP Server
+# Hyperlibrary MCP Server
 
 [![CI](https://github.com/rookslog/zlibrary-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/rookslog/zlibrary-mcp/actions/workflows/ci.yml)
 [![npm version](https://img.shields.io/npm/v/zlibrary-mcp)](https://www.npmjs.com/package/zlibrary-mcp)
 [![License: MIT](https://img.shields.io/github/license/rookslog/zlibrary-mcp)](LICENSE)
 
 An acquisition server for books and articles: find an edition, inspect its metadata,
-and download the original file. Five MCP tools serve Library Genesis, Z-Library and
-Anna's Archive. Book contents never enter the tool response; paths refer to the
+and download the original file. Five MCP tools serve Library Genesis, Hyperlibrary and
+Hyperanna. Book contents never enter the tool response; paths refer to the
 server's disk. See [VISION.md](VISION.md) for the commitments and non-goals.
 
 **Release status:** This README describes the 2.0 interface, which is not yet published on npm or as a Docker image.
@@ -49,12 +49,12 @@ Add the server to your MCP client configuration:
 ```
 
 No credentials are needed for Library Genesis. The server starts without a
-Z-Library account; it warns on stderr and keeps the other sources available.
-For Z-Library, run `zlibrary login`, or add `ZLIBRARY_EMAIL` and `ZLIBRARY_PASSWORD` in the client's `env`.
-For Anna's Archive, `ANNAS_SECRET_KEY` enables member sign-in for search and is
+Hyperlibrary account; it warns on stderr and keeps the other sources available.
+For Hyperlibrary, run `zlibrary login`, or add `ZLIBRARY_EMAIL` and `ZLIBRARY_PASSWORD` in the client's `env`.
+For Hyperanna, `ANNAS_SECRET_KEY` enables member sign-in for search and is
 required for downloads. Anonymous search remains available, but the site's browser check often refuses it ([#139](https://github.com/rookslog/zlibrary-mcp/issues/139)).
 
-### Saved Z-Library login
+### Saved Hyperlibrary login
 
 After the Python setup above, use `zlibrary login` to enter email and password
 with hidden prompts. `zlibrary login --password-stdin` reads the password from a
@@ -134,7 +134,7 @@ using login commands.
 | `get_book` | Inspect a row ref for edition metadata and field-origin evidence |
 | `download` | Acquire a ref to server disk; return a file path and acquisition record path |
 | `get_limits` | Local source capabilities by default; live account quota on request |
-| `get_history` | Z-Library account history, not a list of local files |
+| `get_history` | Hyperlibrary account history, not a list of local files |
 
 ```jsonc
 // Local configuration and source capabilities; no network call
@@ -175,7 +175,7 @@ Labelled likely relations are hints, not merged editions.
 Year, language, format and `exact` are checked locally, with AND across fields
 and OR within lists. Missing checked metadata is excluded and counted. Each
 answered source reports examined/matched/rejected/unknown counts from at most
-50 candidates; these are not catalogue totals. Z-Library also receives native
+50 candidates; these are not catalogue totals. Hyperlibrary also receives native
 filters, independently of the local checks. Language aliases are deduplicated;
 formats ignore case and one leading dot. Empty lists and `exact:false` add no
 constraint. See [the filter contract](docs/api.md#filters).
@@ -225,23 +225,23 @@ refuse every redirect, including same-origin redirects.
 `rejected` means the provider refused sign-in/session access, not necessarily
 that the key is invalid. Transport
 debug logging is suppressed while a member adapter is alive to avoid cookie
-header leakage. The child excludes Z-Library email/password from its environment.
+header leakage. The child excludes Hyperlibrary email/password from its environment.
 Resident searches reset preflight verdicts and use bounded DNS resolution;
 a genuinely hung libc lookup can retain a daemon thread until worker exit.
 Individual waits are bounded, but retained DNS threads are not globally capped.
 Restarting the server discards the session and process-local cooldown. No browser challenge
 is solved by this route. Member access with a real key remains untested here.
-`mode: "live"` adds Z-Library account numbers; remaining quota is omitted when
-spend is unknown. For Z-Library, use the daily limit (`per_day`) as the quota
+`mode: "live"` adds Hyperlibrary account numbers; remaining quota is omitted when
+spend is unknown. For Hyperlibrary, use the daily limit (`per_day`) as the quota
 signal: `premium` can stay true after a plan lapses even when the daily limit
 returns to the free level.
 A source failure remains
 in that source's `error` entry without discarding other reports. `none`, `daily`,
 `unknown` and `unparsed` are distinct limit kinds. Availability is local
-configuration, not a reachability probe. Only Z-Library supports account history.
+configuration, not a reachability probe. Only Hyperlibrary supports account history.
 
 LibGen resolves fresh links and tries mirrors by bytes actually served, not just
-by obtaining a key. Anna's Archive protects its free download route with browser
+by obtaining a key. Hyperanna protects its free download route with browser
 verification; this server's shipped download route uses its API key. Keys are
 sent only to the trusted hosts in `lib/sources/config.py`. `also_available_on`
 is an upstream hint, not a promise that another source still has the file.
@@ -364,7 +364,7 @@ The published Docker image is still 1.4.0 until 2.0 is released.
 | `ZLIBRARY_EMAIL`, `ZLIBRARY_PASSWORD` | Environment account; a usable saved login wins unless `ZLIBRARY_PREFER_ENV=1`; not required for other sources |
 | `ZLIBRARY_PREFER_ENV` | Set to `1` to prefer environment credentials over a saved login |
 | `XDG_STATE_HOME` | Absolute state root for the POSIX file login backend; defaults to `~/.local/state` |
-| `ANNAS_SECRET_KEY` | Anna's Archive membership key; optional member sign-in for search, required for downloads |
+| `ANNAS_SECRET_KEY` | Hyperanna membership key; optional member sign-in for search, required for downloads |
 | `BOOK_SOURCE_DEFAULT_ORDER` | Optional comma-separated default source set and copy-route tie preference, e.g. `libgen,zlibrary`; no repeats |
 | `BOOK_SOURCE_SEARCH_WAIT_MS` | Multi-source comparison wait in milliseconds; default `12000`; positive whole decimal within the Node timer range |
 | `BOOK_FORMAT_PREFERENCE` | Optional comma-separated formats, e.g. `epub,pdf`; affects only likely-edition groups |
@@ -407,7 +407,7 @@ are rejected before provider contact. Invalid timer values fall back to defaults
 see [timeout configuration](docs/RETRY_CONFIGURATION.md#multi-source-timeout-configuration)
 for parsing, clamping and acquisition deadline details.
 
-In memory mode, reads and fresh Z-Library acquisitions share the same in-memory
+In memory mode, reads and fresh Hyperlibrary acquisitions share the same in-memory
 session owner, cold-login coordination and bounded refresh/backoff. Acquisition
 asks for authentication only after the held-lease receipt check and durable intent;
 a verified local receipt needs no account request, even during login cooldown or

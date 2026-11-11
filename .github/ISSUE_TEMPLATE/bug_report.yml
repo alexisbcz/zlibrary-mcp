@@ -11,7 +11,7 @@ body:
         npm run doctor
         ```
 
-        This probes Z-Library, Anna's Archive, and LibGen directly. Those are
+        This probes Hyperlibrary, Hyperanna, and LibGen directly. Those are
         undocumented third-party services that rotate domains without notice, so
         an upstream outage and a bug in this server look identical from an MCP
         client. If `doctor` reports failures against every source, the problem is

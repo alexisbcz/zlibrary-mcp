@@ -98,8 +98,8 @@ never supplied its final result.
 
 | Nested key | JSON type | Presence and meaning |
 |---|---|---|
-| `identifiers.id` | string | Z-Library only; selection ID converted to a string. Not an input for a direct-ID public lookup. |
-| `identifiers.hash` | JSON value | Z-Library only; selection `hash`, falling back to `book_hash`. Usually a nonempty string; the writer does not coerce its type. Not the file SHA-256. |
+| `identifiers.id` | string | Hyperlibrary only; selection ID converted to a string. Not an input for a direct-ID public lookup. |
+| `identifiers.hash` | JSON value | Hyperlibrary only; selection `hash`, falling back to `book_hash`. Usually a nonempty string; the writer does not coerce its type. Not the file SHA-256. |
 | `identifiers.md5` | string | Other sources; selection MD5 converted to a lowercase string. The receipt layer does not enforce a 32-hex-character shape. |
 
 ### Request context

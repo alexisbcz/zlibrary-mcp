@@ -56,7 +56,7 @@ Runs security auditing:
 5. `uv run pip-audit || true` (Python dependency audit; `|| true` because vendored zlibrary fork may trigger false positives)
 
 ### Notes
-- No Z-Library credentials in CI -- unit tests only
+- No Hyperlibrary credentials in CI -- unit tests only
 - Single Node 18 (LTS), no matrix build
 - `npm audit` filters dev dependencies and only fails on high/critical
 

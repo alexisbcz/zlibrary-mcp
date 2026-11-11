@@ -2,7 +2,7 @@
 
 # Architecture Decision Records (ADR) Index
 
-**Purpose**: Index of all architecture decisions for the Z-Library MCP server
+**Purpose**: Index of all architecture decisions for the Hyperlibrary MCP server
 **Format**: ADR template follows [MADR](https://adr.github.io/madr/) lightweight format
 **Status**: 12 ADRs recorded
 
@@ -14,13 +14,13 @@
 - **[ADR-004](ADR-004-Python-Bridge-Path-Resolution.md)**: Python Bridge Path Resolution ⭐
 - **[ADR-009](ADR-009-Python-Monolith-Decomposition.md)**: Python Monolith Decomposition
 
-### Z-Library API Integration
+### Hyperlibrary API Integration
 - **[ADR-002](ADR-002-Download-Workflow-Redesign.md)**: Download Workflow Redesign ⭐
 - **[ADR-003](ADR-003-Handle-ID-Lookup-Failure.md)**: Handle ID Lookup Failure ⭐
 - **[ADR-005](ADR-005-EAPI-Migration.md)**: EAPI Migration ⭐
 
 ### Source Adapters & Routing
-- **[ADR-011](ADR-011-Z-Library-Source-Adapter.md)**: Promote Z-Library to a Source Adapter
+- **[ADR-011](ADR-011-Hyperlibrary-Source-Adapter.md)**: Promote Hyperlibrary to a Source Adapter
 - **[ADR-012](ADR-012-Acquisition-Tool-Interface.md)**: Five-tool acquisition interface; supersedes ADR-011’s compatibility interval
 
 ### RAG Pipeline & Quality
@@ -55,7 +55,7 @@
 ### ADR-002: Download Workflow Redesign
 **Status**: ✅ Accepted
 **Date**: 2024-04-15
-**Context**: Direct book ID downloads failing due to Z-Library API limitations
+**Context**: Direct book ID downloads failing due to Hyperlibrary API limitations
 **Decision**: Use `bookDetails` object from search results instead of direct ID lookup
 **Consequences**:
 - ✅ More reliable downloads (uses complete book metadata)
@@ -63,7 +63,7 @@
 - ⚠️ Requires search step before download
 - ✅ Better error messages and debugging
 
-**Key Insight**: Z-Library's EAPI doesn't provide stable ID-based downloads; always search first
+**Key Insight**: Hyperlibrary's EAPI doesn't provide stable ID-based downloads; always search first
 
 **Related**:
 - [ADR-003](ADR-003-Handle-ID-Lookup-Failure.md) - ID lookup deprecation
@@ -75,7 +75,7 @@
 ### ADR-003: Handle ID Lookup Failure
 **Status**: ✅ Accepted (Deprecation)
 **Date**: 2024-04-15
-**Context**: `get_book_by_id()` unreliable due to Z-Library HTML structure changes
+**Context**: `get_book_by_id()` unreliable due to Hyperlibrary HTML structure changes
 **Decision**: Deprecate ID lookup, always use search-first approach
 **Consequences**:
 - ✅ More reliable workflow
@@ -126,9 +126,9 @@ const scriptPath = getPythonScriptPath('python_bridge.py');
 **Status**: ✅ Accepted — download clause superseded by ADR-011
 **Date**: 2026-02-01
 **Context**: Browser verification made the HTML scraping path unusable
-**Decision**: Move Z-Library search, metadata, and domain discovery to JSON EAPI endpoints
+**Decision**: Move Hyperlibrary search, metadata, and domain discovery to JSON EAPI endpoints
 **Consequences**:
-- ✅ Removes HTML parsing from the Z-Library query path
+- ✅ Removes HTML parsing from the Hyperlibrary query path
 - ✅ Uses structured EAPI responses behind a shared client
 - ⚠️ Depends on an undocumented upstream API and runtime domain discovery
 
@@ -246,19 +246,19 @@ IF garbled detected (Stage 1 OR custom threshold)
 
 ---
 
-### ADR-011: Promote Z-Library to a Source Adapter
+### ADR-011: Promote Hyperlibrary to a Source Adapter
 **Status**: ✅ Accepted
 **Date**: 2026-08-12
-**Context**: Z-Library still bypasses the adapter/router path used by Anna's Archive and LibGen
+**Context**: Hyperlibrary still bypasses the adapter/router path used by Hyperanna and LibGen
 **Decision**: Use a capability-based adapter contract with opaque source-scoped references and caller-ordered routing
 **Consequences**:
-- ✅ Removes MD5 and Z-Library EAPI shapes from the common source boundary
+- ✅ Removes MD5 and Hyperlibrary EAPI shapes from the common source boundary
 - ✅ Preserves search-result-first, file-return, credential, quota, and source-neutrality invariants
 - ⚠️ Requires staged migration after #106 and #103 settle overlapping error, config, and registration surfaces
 
 **Related**:
 - [ADR-002](ADR-002-Download-Workflow-Redesign.md) - Search-result-first acquisition
-- [ADR-005](ADR-005-EAPI-Migration.md) - Current Z-Library EAPI mechanism
+- [ADR-005](ADR-005-EAPI-Migration.md) - Current Hyperlibrary EAPI mechanism
 - [Issue #40](https://github.com/rookslog/zlibrary-mcp/issues/40) - Implementation work
 
 ---
@@ -341,7 +341,7 @@ def quality_pipeline():
 ## ADR Topics Covered
 
 - [x] Testing Infrastructure (ADR-001)
-- [x] Z-Library API Integration (ADR-002, ADR-003, ADR-005)
+- [x] Hyperlibrary API Integration (ADR-002, ADR-003, ADR-005)
 - [x] Python Bridge (ADR-004, ADR-009)
 - [x] RAG Quality Pipeline (ADR-006, ADR-007, ADR-008)
 - [x] MCP SDK and tool registration (ADR-010)

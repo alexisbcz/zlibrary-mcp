@@ -1,4 +1,4 @@
-# ADR-011: Promote Z-Library to a Source Adapter
+# ADR-011: Promote Hyperlibrary to a Source Adapter
 
 **Status:** Accepted; compatibility-façade interval superseded by [ADR-012](ADR-012-Acquisition-Tool-Interface.md) for the 2.0 tool interface; public search routing amended by the merged-search amendment under Decision 4.
 
@@ -10,9 +10,9 @@
 
 ## Decision summary
 
-Promote Z-Library behind the same source boundary as Anna's Archive and
+Promote Hyperlibrary behind the same source boundary as Hyperanna and
 LibGen, but do not widen the current MD5-shaped abstract base class or make
-Z-Library the first entry in a hard-coded fallback chain.
+Hyperlibrary the first entry in a hard-coded fallback chain.
 
 Replace the current source boundary with:
 
@@ -63,7 +63,7 @@ The source abstraction is only partial on current `master`.
   `search`, `full_text_search`, metadata, limits, history, recent books,
   author/term searches, and booklist fallback reach the EAPI client directly.
 - `lib/python_bridge.py::download_book` contains the architectural fork: an
-  Anna's/LibGen result goes through `_fetch_from_source`, while a Z-Library
+  Anna's/LibGen result goes through `_fetch_from_source`, while a Hyperlibrary
   result goes directly through `EAPIClient.download_file`.
 - `lib/python_bridge.py::main` gates EAPI initialisation on
   `_requires_eapi_client`, which already exempts document processing,
@@ -76,17 +76,17 @@ The source abstraction is only partial on current `master`.
 - `lib/term_tools.py`, `lib/author_tools.py`, `lib/booklist_tools.py`, and
   `lib/enhanced_metadata.py` each know how to create and authenticate an EAPI
   client when a shared client is not supplied. Their public shapes are richer
-  than Anna's Archive or LibGen can necessarily implement.
+  than Hyperanna or LibGen can necessarily implement.
 - `src/index.ts` registers 13 tools individually and exposes separate Zod
-  schemas and handlers for the Z-Library and multi-source paths. Its
+  schemas and handlers for the Hyperlibrary and multi-source paths. Its
   `validateCredentials` function correctly warns rather than exiting when
-  Z-Library credentials are absent.
-- `zlibrary/src/zlibrary/eapi.py::EAPIClient` already centralises Z-Library
+  Hyperlibrary credentials are absent.
+- `zlibrary/src/zlibrary/eapi.py::EAPIClient` already centralises Hyperlibrary
   login, domain discovery, JSON search, profile data, book metadata, download,
   and client close.
 
 The current download mechanism is not the detail-page scraping recorded in
-ADR-002. ADR-005 migrated the live Z-Library query path to JSON EAPI calls;
+ADR-002. ADR-005 migrated the live Hyperlibrary query path to JSON EAPI calls;
 ADR-002 remains binding only for its search-result-first decision, that
 acquisition consumes the book details returned by search. ADR-003's rejection
 of direct ID lookup also remains binding.
@@ -95,15 +95,15 @@ of direct ID lookup also remains binding.
 downloads would *keep* the legacy `AsyncZlib` client, on the reasoning that
 "EAPI returns download URL, but actual file download requires cookies from the
 legacy client." The implementation subsequently diverged: `EAPIClient` grew its
-own `download_file`, and the live Z-Library transfer runs through it today. The
+own `download_file`, and the live Hyperlibrary transfer runs through it today. The
 divergence was never recorded, so ADR-005 has been stating a decision the code
 stopped honouring — and an implementer reading it could not tell whether the
 EAPI download path was an intentional decision or drift.
 
-It is a decision, and it is recorded here: the Z-Library transfer runs on
+It is a decision, and it is recorded here: the Hyperlibrary transfer runs on
 `EAPIClient.download_file`, and ADR-005's "Downloads: keep legacy AsyncZlib
 client" decision, together with its two matching consequence bullets, no longer
-binds. The Z-Library adapter this ADR designs targets `EAPIClient`, not
+binds. The Hyperlibrary adapter this ADR designs targets `EAPIClient`, not
 `AsyncZlib`. ADR-005's search, metadata, and domain-discovery decisions are
 untouched.
 
@@ -116,7 +116,7 @@ The design must satisfy these constraints together:
 - **stdout purity.** JSON-RPC remains the only stdout traffic. Diagnostics use
   the existing loggers and stderr.
 - **Per-user credentials and quotas.** The adapter reads the current user's
-  Z-Library credentials and quota. The router never pools accounts or hides a
+  Hyperlibrary credentials and quota. The router never pools accounts or hides a
   per-user limit behind another source.
 - **No privileged source.** Registration does not imply preference. `SourceRouter`
   does not rank, score, or deduplicate sources or results. The tool layer above
@@ -126,10 +126,10 @@ The design must satisfy these constraints together:
 - **Search-result-first acquisition.** The caller passes back the result it
   selected. A source-specific identifier inside that result is not a new
   direct-ID tool.
-- **Credential-free operation remains valid.** Missing Z-Library credentials
-  disable Z-Library capabilities; they do not prevent LibGen search or
+- **Credential-free operation remains valid.** Missing Hyperlibrary credentials
+  disable Hyperlibrary capabilities; they do not prevent LibGen search or
   acquisition and do not make server startup fatal.
-- **Undocumented upstreams drift.** Every new Z-Library adapter surface needs
+- **Undocumented upstreams drift.** Every new Hyperlibrary adapter surface needs
   a doctor/upstream probe or an explicit explanation that an existing EAPI
   probe covers it.
 - **Heavy processing remains optional.** Source registration must compose
@@ -138,29 +138,29 @@ The design must satisfy these constraints together:
 
 ## Alternatives considered
 
-### A. Keep `get_download_url(md5)` and special-case Z-Library in the router
+### A. Keep `get_download_url(md5)` and special-case Hyperlibrary in the router
 
 Rejected. It preserves an interface shaped around two sources and moves the
 existing `download_book` branch into `SourceRouter` instead of removing it.
-Z-Library needs an EAPI `id` and `hash`; proposed Gutenberg and DOAB adapters
+Hyperlibrary needs an EAPI `id` and `hash`; proposed Gutenberg and DOAB adapters
 also should not be required to invent an MD5.
 
 ### B. Pass the complete search result to a wider adapter contract
 
 This is the basis of the decision, with one refinement: the common acquisition
 operation returns a raw file path and provenance, not necessarily a URL.
-Anna's Archive and LibGen can continue to share a resolved-URL streaming
-helper, while Z-Library can keep using `EAPIClient.download_file` internally.
+Hyperanna and LibGen can continue to share a resolved-URL streaming
+helper, while Hyperlibrary can keep using `EAPIClient.download_file` internally.
 
-### C. Give every adapter every current Z-Library method
+### C. Give every adapter every current Hyperlibrary method
 
 Rejected. History, recent books, enriched metadata, and curated booklists are
 capabilities, not universal source properties. Mandatory no-op or fake methods
-would make the contract secretly Z-Library-shaped.
+would make the contract secretly Hyperlibrary-shaped.
 
-### D. Put Z-Library first in a fixed `zlibrary → annas → libgen` chain
+### D. Put Hyperlibrary first in a fixed `zlibrary → annas → libgen` chain
 
-Rejected. Credentials and quota can make Z-Library available, but availability
+Rejected. Credentials and quota can make Hyperlibrary available, but availability
 is not permission for the server to prefer it. A fixed order is source ranking
 encoded as control flow. The caller or operator must supply order when
 fallback is wanted.
@@ -232,7 +232,7 @@ author/year/format  common optional display fields
 source_metadata     nested source-specific fields
 ```
 
-Examples are `{id, hash}` for Z-Library and `{md5}` for Anna's Archive or
+Examples are `{id, hash}` for Hyperlibrary and `{md5}` for Hyperanna or
 LibGen. The router checks only that `book.source` selects the same adapter that
 will consume `book.source_ref`; it must not inspect identifier keys.
 
@@ -251,7 +251,7 @@ still **present** in responses (clients still get what they were promised).
 The first without the second is how a field gets dropped while the suite stays
 green.
 
-The compatibility facade normalises a full pre-migration Z-Library
+The compatibility facade normalises a full pre-migration Hyperlibrary
 `bookDetails` search result before router validation: it adds
 `source=zlibrary` and constructs `source_ref={id, hash}` from the legacy
 identifier fields. The exact legacy predicate is an object containing non-empty
@@ -276,7 +276,7 @@ download while metadata keeps working.
 
 Acquisition is bound to the source that produced the selected result. Ordered
 fallback applies to discovery and other operations that do not consume a
-source-scoped reference; it must not pass a Z-Library `{id, hash}` reference to
+source-scoped reference; it must not pass a Hyperlibrary `{id, hash}` reference to
 LibGen or invent an alternate lookup. A quota or acquisition failure is
 returned with the selected source's provenance. The caller may then select a
 result from another source. Cross-source availability hints remain hints under
@@ -315,7 +315,7 @@ such as `credentials_missing` or `quota_exhausted`. Optional protocols cover:
 selects only adapters declaring the required capability. An explicit request
 for an unsupported source returns `unsupported_operation`; a supported but
 currently unavailable explicit source returns its attributed availability
-reason, for example Z-Library without credentials returns
+reason, for example Hyperlibrary without credentials returns
 `credentials_missing`. A fallback request skips statically incapable adapters
 in routing metadata. It records a supported but unavailable adapter as an
 attributed failed attempt and may then continue in the supplied order.
@@ -324,7 +324,7 @@ The no-network rule applies to **locally knowable** unavailability only —
 absent credentials, a missing optional dependency, a capability the adapter
 does not declare. Those are decidable from configuration and must never cost a
 request. Availability that is *not* locally knowable may cost a **bounded
-probe**: Z-Library learns the current account's quota through
+probe**: Hyperlibrary learns the current account's quota through
 `EAPIClient.get_profile()`, and host reachability is established by the source
 preflight probe. Forbidding those outright would force an implementation to
 choose between stale state and reclassifying quota and reachability as ordinary
@@ -336,7 +336,7 @@ incapable, the router returns an aggregate `unsupported_operation` with no
 top-level `source` and with the ordered skipped attempts in routing metadata.
 It does not return an empty result or require an invented child failure.
 
-The existing Z-Library helper modules become implementation details of
+The existing Hyperlibrary helper modules become implementation details of
 `ZLibraryAdapter` or thin query-shaping helpers called by it. They must receive
 the adapter's shared EAPI client; they must not log in independently.
 
@@ -357,7 +357,7 @@ Routing rules are:
    merged-search amendment below.
 3. The legacy `source="auto"` input is a compatibility alias for configured
    order. Adapter registration order is never used as the fallback order, and
-   registering Z-Library does not silently put it first.
+   registering Hyperlibrary does not silently put it first.
 4. The router does not merge, score, deduplicate, or reorder successful
    results. The tool layer does, under the merged-search amendment below.
    Matching beyond equal MD5 remains #52.
@@ -369,7 +369,7 @@ Routing rules are:
    host when each value is applicable. Provenance describes the transfer, not
    document content.
 
-Legacy Z-Library-named tool behaviour may supply an explicit Z-Library source
+Legacy Hyperlibrary-named tool behaviour may supply an explicit Hyperlibrary source
 at its compatibility façade. That is a property of the legacy tool contract,
 not a default inside the generic router.
 
@@ -582,7 +582,7 @@ contracts an implementation could not satisfy at once. A caller who wants
 another source retries the *search*.
 
 `BOOK_SOURCE_ORDER` is the single opt-in way to choose a search order, and
-adopting it is what makes a previously inert preference take effect. Z-Library is not added to
+adopting it is what makes a previously inert preference take effect. Hyperlibrary is not added to
 the derived legacy order merely by registration; its named compatibility tools
 remain explicit. Invalid legacy or new order values fail configuration
 validation before a network call. Contract tests cover the derivation for
@@ -602,7 +602,7 @@ are not the same kind of rule:
   result-less `_download_candidates` behaviour this ADR removes, or send
   Anna's `source_ref` to LibGen.
 
-### 5. Z-Library adapter lifecycle
+### 5. Hyperlibrary adapter lifecycle
 
 `ZLibraryAdapter` wraps one lazily authenticated `EAPIClient` per Python bridge
 process. It reuses `initialize_eapi_client`/`get_eapi_client` behaviour or a
@@ -610,7 +610,7 @@ factored equivalent; it never logs in once per adapter method. `close()` owns
 client cleanup and remains reachable from `python_bridge.py::main`'s `finally`
 path.
 
-Missing credentials leave Z-Library's static support declarations intact but
+Missing credentials leave Hyperlibrary's static support declarations intact but
 make its credentialed operations dynamically unavailable. An explicit request
 returns `credentials_missing`; an ordered request records that attributed
 failure without attempting login and continues to the next source. Missing
@@ -668,7 +668,7 @@ to `src/lib/python-bridge.ts::isBridgeDetailRetryable` and, through
 `isPermanentBridgeDetail`, to the global circuit breaker in
 `zlibrary-api.ts`. A code Node has never heard of is retryable by default and
 counts as a bridge failure — so **five ordinary searches by an operator with no
-Z-Library credentials would open the breaker and start rejecting
+Hyperlibrary credentials would open the breaker and start rejecting
 credential-free LibGen operations.** A source that was never configured would
 take down the source that needs no configuration, which is the specific outcome
 #129 already fixed once by another route.
@@ -692,15 +692,15 @@ breaker for every bridge operation, and its `isFailure` excludes only permanent
 reasons. The table above makes the *caller-state* reasons permanent, which was
 necessary and is not sufficient: `dns_failure`, `connect_timeout`,
 `http_error` and the rest are transient by design and therefore still count. So
-five Z-Library failures from a genuinely unreachable host open the shared
+five Hyperlibrary failures from a genuinely unreachable host open the shared
 breaker and reject subsequent **credential-free LibGen** requests, which is the
 same cross-source outage the reason table was written to prevent, arriving
 through the other door.
 
 Routing more sources through one bridge makes this strictly worse: today only
-Z-Library and the two multi-source adapters share it; after this migration
+Hyperlibrary and the two multi-source adapters share it; after this migration
 every source does. The migration therefore keys breaker state by source — a
-Z-Library outage opens the Z-Library breaker and nothing else — and the tests
+Hyperlibrary outage opens the Hyperlibrary breaker and nothing else — and the tests
 cover breaker state across sources, since a single-source test cannot see this
 failure at all.
 
@@ -711,7 +711,7 @@ today, which is why the current classifier works — so if `all_sources_failed`
 is introduced as a top-level reason, it must be excluded from that short
 circuit and the children consulted, or every aggregate becomes retryable
 regardless of what it contains. Tests must cover retry behaviour *and* breaker
-state for a Z-Library-without-credentials failure alongside a healthy LibGen
+state for a Hyperlibrary-without-credentials failure alongside a healthy LibGen
 call, because the failure this prevents is cross-source.
 
 Aggregates also use `all_sources_failed` when every attempted capable source
@@ -769,7 +769,7 @@ landing substantially as reviewed.
 |---|---|
 | Structured failures | Reuse `SourceError`, `AllSourcesFailedError`, `REASON_TEXT`, and the bridge's structured `details`; extend them rather than creating a parallel hierarchy. |
 | Explicit-source semantics | Preserve #106's rule that an explicit source never falls back and that an empty list means every attempted source answered. |
-| Network budgets | Reuse `SourceConfig` connect/read/total/preflight budgets and apply the same bounded policy to Z-Library operations. |
+| Network budgets | Reuse `SourceConfig` connect/read/total/preflight budgets and apply the same bounded policy to Hyperlibrary operations. |
 | Cancellation | Preserve `CallOptions`, MCP `AbortSignal` forwarding, `runPythonBridge`, and child cleanup while changing handlers or registration. |
 | Adapter registry | Replace #106's two-source `_adapter_for` conditional with the registry; do not add a third branch. |
 | Process lifetime | Keep the one-shot Python bridge boundary. #106's `run_bounded` may abandon a daemon thread for non-file-writing calls; it is not a long-lived adapter-runtime primitive and must not own acquisition cleanup or promotion without the parent-owned lease defined above. |
@@ -809,7 +809,7 @@ until parity is demonstrated.
 ### Stage 0: rebase and characterise
 
 - Rebase on merged #106, #103, #101, and #107 as applicable.
-- Record contract tests for current Z-Library search, metadata, limits,
+- Record contract tests for current Hyperlibrary search, metadata, limits,
   history, recent books, booklist degradation, and acquisition.
 - Record failing privacy regressions for the current raw bridge payload and
   query logging, using sentinel values rather than credentials or live URLs.
@@ -828,8 +828,8 @@ until parity is demonstrated.
 
 - Add `ZLIBRARY` to `SourceType`.
 - Add `source_ref`, nested `source_metadata`, capabilities, acquisition result,
-  and the registry without routing Z-Library traffic through it yet.
-- Adapt Anna's Archive and LibGen to `acquire(book, output_dir)` while reusing
+  and the registry without routing Hyperlibrary traffic through it yet.
+- Adapt Hyperanna and LibGen to `acquire(book, output_dir)` while reusing
   their current URL resolution and streaming helpers.
 - Add compatibility serializers for existing result fields.
 
@@ -837,8 +837,8 @@ until parity is demonstrated.
 
 - Preserve the source-conditional EAPI initialisation that already exists
   (`_requires_eapi_client`): a LibGen result must keep reaching router
-  acquisition without Z-Library credentials, while legacy Z-Library operations
-  still initialise the shared client when selected. Routing Z-Library through
+  acquisition without Hyperlibrary credentials, while legacy Hyperlibrary operations
+  still initialise the shared client when selected. Routing Hyperlibrary through
   an adapter changes what `_requires_eapi_client` has to answer for, so this is
   a regression to guard against, not a behaviour to introduce.
 - Remove raw bridge-payload, copied-argument, query-text, and secret-bearing URL
@@ -854,7 +854,7 @@ until parity is demonstrated.
 
 - Make `download_book_to_file` pass the selected `bookDetails` to
   `SourceRouter.acquire` for every source.
-- Before router validation, normalise a full legacy Z-Library `bookDetails`
+- Before router validation, normalise a full legacy Hyperlibrary `bookDetails`
   result to `source=zlibrary` and `source_ref={id, hash}`; do not normalise raw
   direct-ID parameters.
 - Keep rename, validation, and acquisition receipt finalization in the shared
@@ -878,7 +878,7 @@ until parity is demonstrated.
 - Add source selection/order and search-result-shaped metadata input without
   changing the 13-tool count.
 - Preserve #106's abort-signal forwarding for every registered handler.
-- Keep Z-Library credential validation non-fatal and make capability messages
+- Keep Hyperlibrary credential validation non-fatal and make capability messages
   source-specific.
 - Update tool documentation and the README tool list in the same production
   change.
@@ -896,8 +896,8 @@ until parity is demonstrated.
 
 ### Deterministic tests
 
-- One shared adapter-contract suite runs against Anna's Archive, LibGen, and
-  Z-Library fakes: source attribution, capability declarations, search result
+- One shared adapter-contract suite runs against Hyperanna, LibGen, and
+  Hyperlibrary fakes: source attribution, capability declarations, search result
   shape, source/ref matching, raw file output, atomic promotion/failed-attempt
   cleanup, late-worker lease invalidation, and close semantics.
 - Router tests cover explicit-source no-fallback, caller-ordered fallback,
@@ -906,7 +906,7 @@ until parity is demonstrated.
   failure order and `all_sources_failed`, source-bound acquisition quota
   exhaustion, and the rule that a mixed empty/failure search is a
   `partial_failure`, not an empty result.
-- Z-Library adapter tests use a fake EAPI client and assert exactly one login
+- Hyperlibrary adapter tests use a fake EAPI client and assert exactly one login
   lifecycle per bridge call, no credentials in errors/logs, and per-user quota
   reporting.
 - Acquisition tests start from a search result for every source and assert
@@ -937,8 +937,8 @@ until parity is demonstrated.
 
 Unit tests mock third-party calls and cannot establish upstream compatibility.
 Before flipping the default, run the existing doctor/upstream probes and one
-credentialed Z-Library search-to-file acquisition in an isolated test account,
-one keyed Anna's Archive `fast_download` search-to-file acquisition using an
+credentialed Hyperlibrary search-to-file acquisition in an isolated test account,
+one keyed Hyperanna `fast_download` search-to-file acquisition using an
 isolated key, plus credential-free LibGen search-to-file acquisition. The
 Anna's check is an owner-authorised, quota-consuming release gate, not an
 unauthenticated doctor or routine CI probe. Use a bounded temporary directory,
@@ -948,7 +948,7 @@ does not flip; fake-adapter coverage is not a substitute. Do not record
 credentials, API keys, cookies, query text, document content, download URLs, or
 downloaded files in test artifacts.
 
-If a Z-Library adapter method exercises an EAPI endpoint not covered by the
+If a Hyperlibrary adapter method exercises an EAPI endpoint not covered by the
 current probe, extend the probe or record why an existing field assertion
 catches its drift.
 
@@ -995,13 +995,13 @@ tool nor treats passive failure reporting as a decided replacement.
 
 ### Positive
 
-- Z-Library uses the same lifecycle, routing, error, provenance, and
+- Hyperlibrary uses the same lifecycle, routing, error, provenance, and
   cancellation boundaries as other sources.
 - The common contract is shaped around the project workflow rather than MD5 or
   EAPI identifiers.
 - Future sources can implement the small required contract and only the
   optional capabilities they actually have.
-- Credential-free LibGen remains usable, and Z-Library quotas remain attached
+- Credential-free LibGen remains usable, and Hyperlibrary quotas remain attached
   to the current user.
 - The direct/non-source acquisition branch and duplicated EAPI setup can be
   removed after parity.
@@ -1014,9 +1014,9 @@ tool nor treats passive failure reporting as a decided replacement.
   `source_ref`; validation belongs to the selected adapter and must produce a
   structured error.
 - Compatibility fields temporarily duplicate identifier data.
-- Existing `auto` callers need a documented configured order before Z-Library
+- Existing `auto` callers need a documented configured order before Hyperlibrary
   can participate in fallback without becoming a hidden preferred source.
-- Z-Library-only capabilities remain visible as such. Uniform routing does not
+- Hyperlibrary-only capabilities remain visible as such. Uniform routing does not
   imply uniform upstream features.
 
 ## Remaining uncertainty
@@ -1049,7 +1049,7 @@ a search emits a result containing an adapter-owned reference, and acquisition
 consumes that result. Richer operations can remain declared capabilities. The
 router therefore never needs to understand source-specific identifier keys.
 
-**Flip condition:** if an implementation spike covering Z-Library and one
+**Flip condition:** if an implementation spike covering Hyperlibrary and one
 non-MD5 future source shows that the router must inspect source-specific keys,
 retain session-only lookup state, or fabricate capability data to complete a
 normal search-to-file flow, stop the migration. Replace `UnifiedBookResult`'s
@@ -1064,9 +1064,9 @@ source-specific conditional to the common path.
 - ADR-003, direct ID lookup deprecation
 - ADR-005, EAPI migration
 - ADR-010, current `McpServer.tool()` registration surface
-- #40, Z-Library adapter work
+- #40, Hyperlibrary adapter work
 - #75, the shipped map that deferred #40
-- #95, Anna's Archive map issue
+- #95, Hyperanna map issue
 - #96, source/route reporting decision
 - #101 and #107, implementation of the #96 reporting contract
 - #103, optional dependency packaging and registration sequencing

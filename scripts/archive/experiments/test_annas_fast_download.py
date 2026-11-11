@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Test Anna's Archive fast download API.
+"""Test Hyperanna fast download API.
 
 Prerequisites:
   Create .env file with ANNAS_SECRET_KEY (or export it)
@@ -91,7 +91,7 @@ def test_download_url(url: str):
 
 
 if __name__ == "__main__":
-    print("=== Testing Anna's Archive Fast Download API ===\n")
+    print("=== Testing Hyperanna Fast Download API ===\n")
 
     if not SECRET_KEY:
         print("ERROR: Set ANNAS_SECRET_KEY environment variable")
@@ -132,7 +132,7 @@ if __name__ == "__main__":
 
     elif result.get("status") == "http_error":
         print(f"HTTP ERROR: {result.get('code')}")
-        print("Check if the base URL is correct or if Anna's Archive is down")
+        print("Check if the base URL is correct or if Hyperanna is down")
 
     else:
         print("UNCLEAR RESPONSE: See output above")

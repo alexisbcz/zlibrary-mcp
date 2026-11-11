@@ -13,14 +13,14 @@ has its own session and row refs; sharing a checkout does not share those refs.
 **Location**: `/home/your-user/mcp-servers/zlibrary-mcp/`
 
 **Credentials**: Optional for startup and LibGen. Set `ZLIBRARY_EMAIL` and
-`ZLIBRARY_PASSWORD` for Z-Library operations, or `ANNAS_SECRET_KEY` for Anna's
+`ZLIBRARY_PASSWORD` for Hyperlibrary operations, or `ANNAS_SECRET_KEY` for Anna's
 Archive downloads. Anna's search needs no key.
 
 ---
 
 ## Using This Server in Your Projects
 
-### For Projects That Need Z-Library
+### For Projects That Need Hyperlibrary
 
 **When to use**:
 
@@ -56,7 +56,7 @@ Create or edit `.mcp.json` in your project root:
 
 ---
 
-### For Projects That DON'T Need Z-Library
+### For Projects That DON'T Need Hyperlibrary
 
 **When NOT to use**:
 
@@ -124,8 +124,8 @@ Use `LOG_LEVEL=debug` only when needed, and scrub queries before sharing logs.
 | `search`      | Catalogue metadata search with an ordered `sources` list       |
 | `get_book`    | Inspect the current row's `ref`                                |
 | `download`    | Acquire the selected original file to server disk              |
-| `get_limits`  | Local capabilities; `mode: "live"` for Z-Library account quota |
-| `get_history` | Z-Library account history                                      |
+| `get_limits`  | Local capabilities; `mode: "live"` for Hyperlibrary account quota |
+| `get_history` | Hyperlibrary account history                                      |
 
 Use the current row's `ref` for `get_book` and `download`; raw book records and
 IDs are not download inputs. See [interface migration](../interface-migration.md).
@@ -173,7 +173,7 @@ IDs are not download inputs. See [interface migration](../interface-migration.md
 }
 ```
 
-### Web Development Project (No Z-Library Needed)
+### Web Development Project (No Hyperlibrary Needed)
 
 ```json
 // ~/projects/web-app/.mcp.json
@@ -272,7 +272,7 @@ lint tools. Text processing is removed in 2.0; see [migration](../text-processin
 
 **How to Use**:
 
-- Projects that need Z-Library: Add to `.mcp.json` with absolute path
+- Projects that need Hyperlibrary: Add to `.mcp.json` with absolute path
 - Projects that don't: Don't configure it
 
 **Maintenance**: Update in one place, all projects benefit

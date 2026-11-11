@@ -1,6 +1,6 @@
 # Docker Deployment
 
-Run Z-Library MCP server in a Docker container with HTTP transport via [SuperGateway](https://github.com/supercorp-ai/supergateway).
+Run Hyperlibrary MCP server in a Docker container with HTTP transport via [SuperGateway](https://github.com/supercorp-ai/supergateway).
 
 ## Quick Start
 
@@ -8,7 +8,7 @@ Run Z-Library MCP server in a Docker container with HTTP transport via [SuperGat
 # From project root
 cd docker
 cp env.example .env
-# Edit .env with your Z-Library credentials
+# Edit .env with your Hyperlibrary credentials
 
 # Build and run
 docker compose up -d
@@ -37,11 +37,11 @@ docker run -d \
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `ZLIBRARY_EMAIL` | Yes | Z-Library account email |
-| `ZLIBRARY_PASSWORD` | Yes | Z-Library account password |
+| `ZLIBRARY_EMAIL` | Yes | Hyperlibrary account email |
+| `ZLIBRARY_PASSWORD` | Yes | Hyperlibrary account password |
 | `ZLIBRARY_OUTPUT_ROOT` | No | Image/Compose default: `/app/downloads`, inside the mounted volume |
 | `ZLIBRARY_UNRESTRICTED_OUTPUT` | No | `1` allows outside absolute paths; `0` or unset keeps containment |
-| `ZLIBRARY_MIRROR` | No | Custom Z-Library mirror URL |
+| `ZLIBRARY_MIRROR` | No | Custom Hyperlibrary mirror URL |
 | `RETRY_MAX_RETRIES` | No | Max retry attempts (default: 3) |
 | `CIRCUIT_BREAKER_THRESHOLD` | No | Failures before circuit opens (default: 5) |
 

@@ -1,7 +1,7 @@
 """Data models for multi-source book search system.
 
 Provides unified result types that abstract away differences between
-Anna's Archive and LibGen sources.
+Hyperanna and LibGen sources.
 """
 
 from dataclasses import dataclass, field
@@ -47,9 +47,9 @@ class UnifiedBookResult:
 
 @dataclass
 class QuotaInfo:
-    """Download quota information from Anna's Archive.
+    """Download quota information from Hyperanna.
 
-    Anna's Archive API provides quota information with each download
+    Hyperanna API provides quota information with each download
     request. This tracks remaining downloads for the day.
     """
 
@@ -63,7 +63,7 @@ class DownloadResult:
     """Result of a download URL request.
 
     Contains the resolved download URL and optional quota information
-    (for Anna's Archive which has daily limits).
+    (for Hyperanna which has daily limits).
     """
 
     url: str

@@ -60,7 +60,7 @@ function loginCause(error: any): string {
     : error?.context?.reason === 'auth_rejected' ||
       (error?.context?.reason === 'login_failed' &&
         (status === 200 || (status >= 400 && status < 500)));
-  let cause = rejected ? 'Z-Library rejected the login' : 'Z-Library login failed';
+  let cause = rejected ? 'Hyperlibrary rejected the login' : 'Hyperlibrary login failed';
   if (Number.isInteger(status) && status >= 100 && status <= 599) cause += ` (HTTP ${status})`;
   const token =
     error?.context?.loginToken ??
@@ -182,7 +182,7 @@ export class EapiSessionOwner {
   private stateFor(identity: string): LoginFailure {
     let state = this.loginFailures.get(identity);
     if (!state) {
-      state = { count: 0, retryAt: 0, cause: 'Z-Library login failed', refreshed: false };
+      state = { count: 0, retryAt: 0, cause: 'Hyperlibrary login failed', refreshed: false };
       this.loginFailures.set(identity, state);
     }
     return state;

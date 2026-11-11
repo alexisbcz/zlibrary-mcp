@@ -1,6 +1,6 @@
 """LibGen source adapter using libgen-api-enhanced library.
 
-LibGen is used as a fallback when Anna's Archive quota is exhausted
+LibGen is used as a fallback when Hyperanna quota is exhausted
 or unavailable. LibGen has no quota limits but requires rate limiting
 to avoid being blocked.
 """

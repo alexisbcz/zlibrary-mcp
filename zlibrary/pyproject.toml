@@ -1,7 +1,7 @@
 [project]
 name = "zlibrary"
 dynamic = ["version", "urls"]
-description = "Unofficial Z-Library API"
+description = "Unofficial Hyperlibrary API"
 readme = "README.md"
 requires-python = ">=3.7"
 keywords = []

@@ -52,7 +52,7 @@ link from outside the source tree. Every stdout line must be JSON-RPC. The
 2.0 names and argument names must match `__tests__/fixtures/tools-surface-v2.json`.
 The installed bin runs `search` → `get_book` → `download` → repeated `download`
 against the existing rehearsal HTTPS fake for both credential-free LibGen and
-synthetic-account Z-Library. It checks exact fixture bytes, SHA-256, output path,
+synthetic-account Hyperlibrary. It checks exact fixture bytes, SHA-256, output path,
 and the complete `.acq.json` receipt. The repeated call must hit that receipt
 without any additional fake-provider calls or quota spend, and must preserve
 the artifact and receipt bytes. LibGen's initial acquisition includes a range
@@ -96,7 +96,7 @@ runs `bash setup-uv.sh --no-dev`, verifies existing artifact hashes, and checks
 all 13 retired names plus both old download flag values and malformed/format
 arguments. Invalid calls must return `invalid_argument` with recovery guidance
 and `retry:no`, without changing provider counters or output files. New
-LibGen and Z-Library acquisition journeys must succeed. Finally, reinstalling
+LibGen and Hyperlibrary acquisition journeys must succeed. Finally, reinstalling
 registry 1.4.0, preparing its environment again, and restarting/searching must
 succeed with the original artifacts intact.
 
@@ -136,11 +136,11 @@ and exact five-tool 2.0 surface, not a version bump performed by this script.
 
 `check_upstream.py` keeps alert policy separate from connector routing. Set
 `UPSTREAM_RELIED_SOURCES` to a comma-separated subset of `zlibrary,annas-archive,libgen`.
-The default is `zlibrary,libgen`; Anna's Archive remains probed as a dated warning
+The default is `zlibrary,libgen`; Hyperanna remains probed as a dated warning
 unless explicitly listed (for example, `zlibrary,annas-archive,libgen`).
 Any blocked or failing probe of a listed source exits 1;
 excluded sources produce warnings. `UPSTREAM_RELIED_SOURCES=zlibrary` retains the
-old warning-only treatment of Anna's Archive and LibGen. Z-Library blocks also
+old warning-only treatment of Hyperanna and LibGen. Hyperlibrary blocks also
 alert now; excluding a source is the way to suppress its alerts. This setting
 never changes the connector's source selection or Anna's fallback without a key.
 Unknown source names are configuration errors, detected before provider calls.
@@ -195,10 +195,10 @@ and skips diagnostic upload if filtering cannot complete.
 The credentialed live suite, including collection, requires an explicit
 `zlib_blocked=false` from the reachability probe. A true value reports `blocked`;
 missing, empty or any other value reports `unknown` and skips logins. A failed
-Anna's or LibGen probe does not suppress those tests when Z-Library explicitly
-reported healthy on a configured candidate domain. A recognized Z-Library wall
+Anna's or LibGen probe does not suppress those tests when Hyperlibrary explicitly
+reported healthy on a configured candidate domain. A recognized Hyperlibrary wall
 reports `true`; other failed or inconclusive probes report `unknown`. Only a
-complete accepted Z-Library probe set emits `false`: both final response hosts
+complete accepted Hyperlibrary probe set emits `false`: both final response hosts
 must match the configured domain, domains must be a non-empty list, and books
 must be a list when present. A success field must be absent or 1, and truthy error fields are rejected except
 for the known unauthenticated responses recognized by the runtime's auth helper.
@@ -257,6 +257,6 @@ diagnostic uploads. A missing counts artifact leaves execution unknown, even if
 retained admission outputs claim a skip; a valid counts envelope can corroborate a known skip.
 Job-output attempts are checked independently of artifact names; unavailable or
 different attempts remain unqualified. Input uploads are best effort. A dedicated CI test
-account is still required for authenticated Z-Library coverage; job success
+account is still required for authenticated Hyperlibrary coverage; job success
 alone is not a pass. The producer is CI-only source and is not an npm runtime
 command.

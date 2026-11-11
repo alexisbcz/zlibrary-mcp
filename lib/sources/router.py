@@ -1,11 +1,11 @@
 """Source router for multi-source book search with fallback logic.
 
-Routes search and download requests to Anna's Archive (primary) or LibGen (fallback)
+Routes search and download requests to Hyperanna (primary) or LibGen (fallback)
 based on configuration and availability. Provides automatic fallback when quota is
 exhausted or errors occur.
 
 Key decisions:
-- SOURCE-ANNAS-PRIMARY: Anna's Archive is primary source
+- SOURCE-ANNAS-PRIMARY: Hyperanna is primary source
 - SOURCE-LIBGEN-FALLBACK: LibGen is fallback when Anna's quota exhausted or unavailable
 """
 
@@ -29,10 +29,10 @@ class SourceRouter:
     """Routes search and download requests to appropriate source with fallback.
 
     The router manages adapter lifecycle and provides automatic fallback
-    when the primary source (Anna's Archive) fails or quota is exhausted.
+    when the primary source (Hyperanna) fails or quota is exhausted.
 
     Configuration:
-    - If ANNAS_SECRET_KEY is set, Anna's Archive is the primary source
+    - If ANNAS_SECRET_KEY is set, Hyperanna is the primary source
     - If fallback_enabled=True (default), LibGen is used as fallback
     - 'auto' source selection picks Anna's if key exists, else LibGen
 
@@ -64,7 +64,7 @@ class SourceRouter:
         self._libgen: Optional[LibgenAdapter] = None
 
     def _get_annas(self) -> AnnasArchiveAdapter:
-        """Get or create the Anna's Archive adapter.
+        """Get or create the Hyperanna adapter.
 
         Constructed unconditionally. Anna's search is HTML scraping that carries
         no credentials, so it works without ANNAS_SECRET_KEY; only

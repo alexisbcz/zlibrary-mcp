@@ -1,5 +1,5 @@
 """
-Unified filename generation utilities for Z-Library MCP.
+Unified filename generation utilities for Hyperlibrary MCP.
 
 This module provides consistent filename generation across original-file acquisition.
 Format: {author-lastname}-{title-slug}-{book-id}.{ext}
@@ -20,11 +20,11 @@ from pathlib import Path
 from zlibrary.const import Extension
 
 
-# Formats reachable through the multi-source adapters (LibGen, Anna's Archive)
-# that Z-Library's own extension vocabulary does not carry.
+# Formats reachable through the multi-source adapters (LibGen, Hyperanna)
+# that Hyperlibrary's own extension vocabulary does not carry.
 _MULTI_SOURCE_EXTENSIONS = frozenset({"cbr", "cbz", "doc", "docx", "odt"})
 
-# Single source of truth for the Z-Library half: a format the search layer can
+# Single source of truth for the Hyperlibrary half: a format the search layer can
 # return must survive normalization, or the published artifact loses its suffix.
 SAFE_DOCUMENT_EXTENSIONS = frozenset(
     {member.value.lower() for member in Extension} | _MULTI_SOURCE_EXTENSIONS

@@ -103,7 +103,7 @@ test('I6/probe a wrong decisions count calls, not reasons, with tool-kind-only a
     'off-oracle tool',
   ]);
 });
-test('omitted sources use reported sets; list order cannot shield exhausted Z-Library', async () => {
+test('omitted sources use reported sets; list order cannot shield exhausted Hyperlibrary', async () => {
   const row = { ref: 'observed-libgen', title: 'Persuasion', source: 'libgen', id: '301' };
   const sources = {libgen:{state:'rows',rows:1,ms:1},zlibrary:{state:'not_asked',reason:'not_in_default_order'},annas:{state:'not_asked',reason:'route_off'}};
   for (const [a, defaults, args, data, success] of [
@@ -124,7 +124,7 @@ test('omitted sources use reported sets; list order cannot shield exhausted Z-Li
   ]);
   expect(t8.wrong.some((w) => w.reason === 'quota-preserving source argument')).toBe(true);
 });
-test('I4/probe d each T9 starts with enough Z-Library quota for three actual downloads', async () => {
+test('I4/probe d each T9 starts with enough Hyperlibrary quota for three actual downloads', async () => {
   const s = new EvaluationServer();
   let remaining;
   s.fake = {
@@ -140,7 +140,7 @@ test('I4/probe d each T9 starts with enough Z-Library quota for three actual dow
   await s.beginTask(task('T4'));
   expect(s.before.remaining).toBe(2);
 });
-test('I4 real loopback fixture serves all three T9 Z-Library selections and payloads before quota refusal', async () => {
+test('I4 real loopback fixture serves all three T9 Hyperlibrary selections and payloads before quota refusal', async () => {
   const fake = await Rehearsal.start('agent-eval-t9-control');
   let cookie = '';
   const request = (route, fields) =>

@@ -1,4 +1,4 @@
-# Z-Library MCP Server - Development Session Complete
+# Hyperlibrary MCP Server - Development Session Complete
 
 **Session Date**: 2025-10-01 to 2025-10-02
 **Status**: ✅ **PRODUCTION READY**
@@ -8,7 +8,7 @@
 
 ## 🎉 What Was Accomplished
 
-This session transformed the Z-Library MCP server from a promising but untested tool into a **fully validated, production-ready research acceleration platform**.
+This session transformed the Hyperlibrary MCP server from a promising but untested tool into a **fully validated, production-ready research acceleration platform**.
 
 ---
 
@@ -30,7 +30,7 @@ This session transformed the Z-Library MCP server from a promising but untested 
 ### Testing & Validation ✅
 
 **Created**:
-- 30 integration tests with real Z-Library API
+- 30 integration tests with real Hyperlibrary API
 - Multi-tier testing strategy
 - Comprehensive test documentation
 
@@ -261,7 +261,7 @@ npm run build  # Build TypeScript
    - **Lesson**: Our analysis was excellent
 
 3. **Rate Limiting is Aggressive**
-   - Z-Library strict on login attempts
+   - Hyperlibrary strict on login attempts
    - Need respectful testing approach
    - Module-scoped fixtures necessary
    - **Lesson**: Respect API limits
@@ -356,7 +356,7 @@ npm run build
 # (.mcp.json already created)
 
 # 3. Use via MCP tools
-"Search Z-Library for machine learning books"
+"Search Hyperlibrary for machine learning books"
 "Download the first result and process for RAG"
 "Get complete metadata for book ID 1252896"
 ```
@@ -435,7 +435,7 @@ npm run build
 ### What We Built
 
 A **comprehensive research acceleration platform** that:
-- Searches Z-Library 6 different ways
+- Searches Hyperlibrary 6 different ways
 - Extracts 60 conceptual terms per book
 - Discovers 11 expert-curated collections per book
 - Downloads PDFs and EPUBs automatically
@@ -464,7 +464,7 @@ A **comprehensive research acceleration platform** that:
 
 > After 8 hours of systematic development following TDD and best practices,
 > we've created a Grade A, production-ready MCP server that successfully
-> searches, downloads, and processes books from Z-Library.
+> searches, downloads, and processes books from Hyperlibrary.
 
 > Every feature is validated. Every workflow is proven. Every bug is fixed.
 

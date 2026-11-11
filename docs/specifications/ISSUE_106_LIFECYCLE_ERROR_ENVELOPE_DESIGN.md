@@ -13,7 +13,7 @@ The implementation will enforce two invariants:
 1. One lifecycle owner bounds every Python process, process group, DNS lookup, and provider operation until the owned resource is observed gone.
 2. One normalized provider-error envelope retains provider, host, reason, operation, and child failures from the Python adapter through MCP `structuredContent`.
 
-Source selection must happen before Z-Library authentication so credential-free LibGen acquisition remains supported.
+Source selection must happen before Hyperlibrary authentication so credential-free LibGen acquisition remains supported.
 
 ## Why This Correction Is Required
 
@@ -21,7 +21,7 @@ Three substantive review rounds found the same classes at different boundaries:
 
 - timeouts existed at individual awaits while process groups, resolver workers, or validation subprocesses could outlive them;
 - source failures were reclassified or flattened at adapters, aggregates, stderr parsing, Node wrappers, retry/circuit logic, and handlers;
-- `download_book` initialized Z-Library before determining that a LibGen result required no Z-Library account.
+- `download_book` initialized Hyperlibrary before determining that a LibGen result required no Hyperlibrary account.
 
 The third-round audit reproduced remaining descendant survival, joined resolver shutdown, pre-routing credential failure, CDN-error misclassification, unbounded Python validation, and a secondary exported wrapper with different error semantics. Passing unit suites therefore does not establish the stated #106 contract.
 
@@ -120,12 +120,12 @@ If an integration test demonstrates that httpx bypasses the bounded loop resolve
 
 `python_bridge.py::main` must parse the requested operation and `book_details.source` before constructing EAPI state.
 
-- LibGen and Anna source downloads route through `SourceRouter` without Z-Library credentials.
-- Z-Library downloads initialize EAPI only after routing selects Z-Library.
-- Operations that inherently require Z-Library keep the current credential requirement.
+- LibGen and Anna source downloads route through `SourceRouter` without Hyperlibrary credentials.
+- Hyperlibrary downloads initialize EAPI only after routing selects Hyperlibrary.
+- Operations that inherently require Hyperlibrary keep the current credential requirement.
 - Missing Anna download credentials become `configuration_error`, not dependency-health evidence.
 
-This preserves the repository contract that LibGen needs no account and Z-Library credentials are not required for server startup or LibGen operations.
+This preserves the repository contract that LibGen needs no account and Hyperlibrary credentials are not required for server startup or LibGen operations.
 
 ## Error-Envelope Architecture
 

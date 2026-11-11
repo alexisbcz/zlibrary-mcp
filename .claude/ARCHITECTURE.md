@@ -32,8 +32,8 @@ See [interface migration](../docs/interface-migration.md) for the breaking chang
                |                             |
    EAPI JSON + httpx              HTML scrape / JSON (httpx)
 +--------------v--------------+ +------------v--------------+
-|  Z-Library EAPI Endpoints   | |  lib/sources/ adapters     |
-|  /eapi/user/login           | |  Anna's Archive adapter    |
+|  Hyperlibrary EAPI Endpoints   | |  lib/sources/ adapters     |
+|  /eapi/user/login           | |  Hyperanna adapter    |
 |  /eapi/book/search          | |  LibGen adapter            |
 |  /eapi/info/domains (hydra) | |  via SourceRouter          |
 +-----------------------------+ +---------------------------+
@@ -75,13 +75,13 @@ this retained 1.x list is not the current tool list:
 | `base.py` | `SourceAdapter` ABC: `search()`, `get_download_url(md5)`, `close()` — each takes the walk's shared `deadline` |
 | `models.py` | `UnifiedBookResult`, `DownloadResult` (shared result shapes) |
 | `config.py` | `DEFAULT_WALK_BUDGET`, `worst_case_search_seconds()`, `worst_case_download_seconds()`, and `SourceConfig` from env (`ANNAS_SECRET_KEY`, `ANNAS_BASE_URL`, `LIBGEN_MIRROR`, `LIBGEN_USER_AGENT`, `BOOK_SOURCE_DEFAULT`, `BOOK_SOURCE_FALLBACK_ENABLED`) |
-| `annas.py` | Anna's Archive adapter — HTML scraping (BeautifulSoup); DOM-fragile surface |
+| `annas.py` | Hyperanna adapter — HTML scraping (BeautifulSoup); DOM-fragile surface |
 | `libgen.py` | LibGen adapter (fallback source) |
 | `router.py` | `SourceRouter`: Anna's primary when key configured, LibGen fallback on error/quota exhaustion; source selection `auto`/`annas`/`libgen`. Creates one `WalkDeadline` per walk and every provider and mirror spends it |
 
 The public `search` tool walks explicit ordered sources; for LibGen/Anna's it
 calls the internal `search_multi_source` bridge with one source per attempt.
-Z-Library itself does **not** yet
+Hyperlibrary itself does **not** yet
 route through `SourceRouter` — promoting it to a `SourceAdapter` is planned work.
 
 ### Testing Posture
@@ -144,7 +144,7 @@ Full index: [docs/adr/README.md](../docs/adr/README.md)
 | `util.py` | `discover_eapi_domain()` — hydra-mode runtime domain discovery |
 | `libasync.py`, `profile.py`, `booklists.py` | Async client, profile, and booklist support |
 
-Zero HTML scraping remains in the fork — all Z-Library access is EAPI JSON. The
+Zero HTML scraping remains in the fork — all Hyperlibrary access is EAPI JSON. The
 residual DOM-fragile surfaces in the codebase are `lib/sources/annas.py`.
 
 ---
@@ -159,7 +159,7 @@ residual DOM-fragile surfaces in the codebase are `lib/sources/annas.py`.
 - `@modelcontextprotocol/sdk` — MCP protocol (locked to 1.32.2; SDK Server API)
 - `python-shell` — Node.js to Python bridge
 - `httpx` — EAPI and source-adapter HTTP client
-- `beautifulsoup4` — Anna's Archive HTML parsing
+- `beautifulsoup4` — Hyperanna HTML parsing
 
 **Development**:
 - TypeScript, ESLint + Prettier, Jest (ESM); Pytest + pytest-mock
@@ -188,7 +188,7 @@ zlibrary-mcp/
 |   +-- sources/                  # Multi-source layer
 |   |   +-- base.py               # SourceAdapter ABC
 |   |   +-- router.py             # SourceRouter (Anna's primary, LibGen fallback)
-|   |   +-- annas.py              # Anna's Archive adapter (HTML)
+|   |   +-- annas.py              # Hyperanna adapter (HTML)
 |   |   +-- libgen.py             # LibGen adapter
 |   |   +-- config.py / models.py # Env config, unified result models
 |
@@ -207,14 +207,14 @@ zlibrary-mcp/
 
 ## Integration Points
 
-### Z-Library EAPI
+### Hyperlibrary EAPI
 - JSON endpoints under `/eapi/` (`/eapi/user/login`, `/eapi/book/search`, `/eapi/info/domains`)
 - httpx client with lazy initialization and cookie-based auth
 - Responses normalized to internal Book format
 - Cloudflare bypass: API endpoints not subject to browser challenges
 
 ### Alternative Sources
-- Anna's Archive: HTML-scraped; fast downloads gated on `ANNAS_SECRET_KEY`; quota-aware
+- Hyperanna: HTML-scraped; fast downloads gated on `ANNAS_SECRET_KEY`; quota-aware
 - LibGen: mirror-configurable fallback
 - Both monitored daily by the Upstream Contract Check workflow
 

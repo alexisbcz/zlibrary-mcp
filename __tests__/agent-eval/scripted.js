@@ -42,7 +42,7 @@ export async function scriptedTask(s, task, context) {
     case 'T4': {
       const limits = await call('get_download_limits');
       assert.equal(limits.daily_remaining, 2);
-      return '2 Z-Library downloads remain. LibGen has no daily cap.';
+      return '2 Hyperlibrary downloads remain. LibGen has no daily cap.';
     }
     case 'T5':
       return 'Full-text search is not available; these tools search catalogue metadata only.';

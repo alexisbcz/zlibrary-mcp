@@ -23,7 +23,7 @@ const mockHttpsGet = jest.fn();
 // Use dynamic path resolution for portability across different machines/users
 const EXPECTED_SCRIPT_PATH = path.resolve(process.cwd(), 'lib');
 
-describe('Z-Library API', () => {
+describe('Hyperlibrary API', () => {
   // Declare variables once at the top level of the describe block
   let zlibApi; // Will hold the actual imported module
   let result;

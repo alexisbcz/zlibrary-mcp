@@ -1,6 +1,6 @@
 # MCP Configuration Templates
 
-Quick reference for adding Z-Library MCP server to your projects.
+Quick reference for adding Hyperlibrary MCP server to your projects.
 
 ---
 
@@ -8,7 +8,7 @@ Quick reference for adding Z-Library MCP server to your projects.
 
 **Example Installation Location**: `/home/your-user/mcp-servers/zlibrary-mcp/`.
 Replace it with your checkout's absolute path. The account variables shown below
-are needed only for Z-Library operations; omit the `env` block for LibGen-only use.
+are needed only for Hyperlibrary operations; omit the `env` block for LibGen-only use.
 
 ### Copy-Paste Configuration
 
@@ -123,7 +123,7 @@ EOF
 **Step 3**: Use it!
 
 ```
-"Search Z-Library for books on phenomenology by Hegel"
+"Search Hyperlibrary for books on phenomenology by Hegel"
 "Inspect the first result with get_book using its ref"
 "Download that ref to server disk as the original file"
 ```
@@ -176,7 +176,7 @@ Each server provides its own tools. Use what you need!
 
 ### "Rate limit detected"
 
-- Z-Library limits login attempts
+- Hyperlibrary limits login attempts
 - Wait 10-15 minutes
 - Normal behavior, handled gracefully
 

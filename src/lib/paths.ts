@@ -1,7 +1,7 @@
 /**
  * Path Resolution Helpers
  *
- * Centralized path resolution logic for the Z-Library MCP server.
+ * Centralized path resolution logic for the Hyperlibrary MCP server.
  * Handles paths between compiled TypeScript (dist/) and source files (lib/, etc.)
  *
  * Path Strategy:

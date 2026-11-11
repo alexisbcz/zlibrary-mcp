@@ -28,7 +28,7 @@ const mockRunPythonBridge = jest.fn();
 // Use dynamic path resolution for portability
 const EXPECTED_SCRIPT_PATH = path.resolve(process.cwd(), 'lib');
 
-describe('Z-Library API - Extended Coverage', () => {
+describe('Hyperlibrary API - Extended Coverage', () => {
   let zlibApi;
 
   // Helper: wraps result in the double-parse MCP response format expected by callPythonFunction

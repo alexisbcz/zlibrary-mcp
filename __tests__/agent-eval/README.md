@@ -40,7 +40,7 @@ identity remains supported with `--a-pin SHA --server-root /checkout`; the A
 checkout's HEAD must equal that resolved pin. For B without an explicit pin,
 `--a-root /baseline-checkout` selects the separate compatible baseline to resolve.
 Receipts retain the resolved SHA, selection mode and requested explicit pin.
-It records SHA, source tree hashes (including vendored Z-Library), observed tools/list count, characters and UTF-8
+It records SHA, source tree hashes (including vendored Hyperlibrary), observed tools/list count, characters and UTF-8
 bytes; it never checks out, stages or commits anything. Build the selected checkout
 before running it. Both A and B must pass the executable build proof below before
 the server starts; B remains a separately built worktree.
@@ -49,15 +49,15 @@ the server starts; B remains a separately built worktree.
 
 [inventory.json](inventory.json) lists every fixed record, edition, translator,
 source, paging row and account-history row. `../rehearsal/fake_catalogue.py` is
-authoritative; the JSON is its dated inventory. There are 13 core Z-Library rows,
+authoritative; the JSON is its dated inventory. There are 13 core Hyperlibrary rows,
 6 LibGen rows, 15 fixed rehearsal rows, 60 paging rows, and 2 history rows (one
 also a rehearsal row). Account-history-only ID 901 is _Being and Time_, never
 pre-created on disk and never returned by search. Each test task starts with two
-remaining Z-Library downloads, except T11, which starts with zero. Transfers
+remaining Hyperlibrary downloads, except T11, which starts with zero. Transfers
 spend quota at link issuance, even if subsequent acquisition fails; local reuse
 cannot decrement this fake-side counter.
 
-LibGen has _Persuasion_ EPUB; Z-Library has PDF. The Graver–Long and Campbell
+LibGen has _Persuasion_ EPUB; Hyperlibrary has PDF. The Graver–Long and Campbell
 Seneca editions have distinct IDs, years, detail descriptions and bytes. _The
 Glass Orchard_ exists only on LibGen. _Phenomenology_ has 60 stable volumes.
 Arendt has three in-range and two out-of-range books. Anna's search is an
@@ -68,7 +68,7 @@ MD5 for compatibility; it is **not an evaluation download target**. All five
 evaluation LibGen downloads advertise the actual synthetic payload MD5.
 
 The server receives only fake credentials and an allowlisted environment. Its PYTHONPATH
-selects the build’s vendored Z-Library. Schema 5 additionally rejects foreign editable
+selects the build’s vendored Hyperlibrary. Schema 5 additionally rejects foreign editable
 metadata even if that PYTHONPATH would shadow it; a shared foreign environment is not
 accepted. The
 rehearsal Python/Node fences reject non-fixture networking. Evaluation's Python
@@ -241,10 +241,10 @@ fact mismatch policy is deliberately unchanged.
 Each call contributes at most one wrong decision while retaining every reason
 and its call index. Task-level missing-evidence/provider violations remain separate
 diagnostics. T4 argument checks apply only to limits calls. In Q2 T11, omitted
-sources require the declared default to put LibGen ahead of exhausted Z-Library
+sources require the declared default to put LibGen ahead of exhausted Hyperlibrary
 and an observed `routing.served_by: "libgen"`; T8 still requires an explicit
 LibGen-only request. T9 starts at three remaining downloads and retains three
-distinct same-task search requirements; its A Z-Library control uses `search_books`,
+distinct same-task search requirements; its A Hyperlibrary control uses `search_books`,
 never `search_multi_source` with the unsupported `source: "zlibrary"`.
 
 Only arm B receives an A-bar verdict. `variantComparisons` reports B versus Q1,

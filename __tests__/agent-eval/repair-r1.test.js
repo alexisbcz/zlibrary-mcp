@@ -23,7 +23,7 @@ const score = (id, final, overrides = {}) =>
 const compare = (b) => summarize([measured(arms[0]), b]).comparisons[0];
 for (const [id, bad] of [
   ['T2', 'Graver translated the 1969 edition; Campbell translated the 2015 edition.'],
-  ['T4', 'You have 1 Z-Library download remaining, not 2. LibGen has no daily cap.'],
+  ['T4', 'You have 1 Hyperlibrary download remaining, not 2. LibGen has no daily cap.'],
   ['T7', 'No, you have never downloaded Being and Time; it is absent from account history.'],
   ['T12', 'No books by Hannah Arendt were found.'],
 ])

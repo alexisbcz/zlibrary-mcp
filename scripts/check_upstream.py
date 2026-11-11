@@ -202,7 +202,7 @@ def _block_detail(resp: httpx.Response) -> Optional[str]:
     Covers the DiamWall anti-bot wall (307 self-redirect setting a `__diamwall`
     cookie, then 513/517 "Access Denied" pages built from cdn.diamwall.com
     assets — ISSUE-API-002) and plain IP-reputation blocking (bare 403, which
-    is what GitHub-hosted runners get from every Z-Library domain).
+    is what GitHub-hosted runners get from every Hyperlibrary domain).
 
     A probe from a blocked network cannot distinguish "this IP is refused"
     from "the wall is up for everyone" — only a probe from a residential
@@ -387,7 +387,7 @@ async def probe_annas(client: httpx.AsyncClient) -> ProbeResult:
             return ProbeResult(
                 name="annas-archive:search",
                 ok=False,
-                detail=f"network-level block (HTTP {resp.status_code}) — Anna's Archive refuses this network's clients",
+                detail=f"network-level block (HTTP {resp.status_code}) — Hyperanna refuses this network's clients",
                 required=False,
                 blocked=True,
             )
@@ -399,7 +399,7 @@ async def probe_annas(client: httpx.AsyncClient) -> ProbeResult:
             parked = any(marker in lower_body for marker in PARKING_MARKERS)
             detail = (
                 "domain appears PARKED (squatter/traffic-monetization page) — "
-                "the configured base URL no longer belongs to Anna's Archive; "
+                "the configured base URL no longer belongs to Hyperanna; "
                 "update ANNAS_BASE_URL / lib/sources/config.py"
                 if parked
                 else "reachable but no non-empty title extracted "
@@ -688,7 +688,7 @@ def _extract_libgen_key(
 def _libgen_block_detail(mirror: str, resp: httpx.Response) -> Optional[str]:
     """Classify a network-level refusal from a LibGen mirror.
 
-    Distinct from `_block_detail`, which is worded for the Z-Library DiamWall
+    Distinct from `_block_detail`, which is worded for the Hyperlibrary DiamWall
     wall and names ZLIB_DOMAIN. A refusal is not drift: the resolve-and-fetch
     contract may be intact for clients the wall lets through.
     """
@@ -1079,7 +1079,7 @@ def render(
 
 
 def zlibrary_blocked(results: list[ProbeResult]) -> bool:
-    """True when a **Z-Library** probe was walled, ignoring other sources.
+    """True when a **Hyperlibrary** probe was walled, ignoring other sources.
 
     Scoped by the `zlibrary:` name prefix for source classification. Workflow
     permission is determined by zlibrary_probe_state(); alerting is controlled
@@ -1184,7 +1184,7 @@ def main() -> int:
                 and not row["relied_on"]
             ):
                 print(
-                    "::warning::Anna's Archive probe is "
+                    "::warning::Hyperanna probe is "
                     f"{row['status']}; first seen {row['first_seen']} (UTC); "
                     "warning-only alert policy."
                 )

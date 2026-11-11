@@ -1,2 +1,2 @@
-# Integration tests for Z-Library MCP
-# These tests require real Z-Library credentials and make actual API calls
+# Integration tests for Hyperlibrary MCP
+# These tests require real Hyperlibrary credentials and make actual API calls

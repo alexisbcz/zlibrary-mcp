@@ -1,4 +1,4 @@
-# Z-Library MCP - Comprehensive Debugging Guide
+# Hyperlibrary MCP - Comprehensive Debugging Guide
 
 Server-side TypeScript diagnostics must use the shared stderr logger from
 `src/lib/logger.ts`; adjust its relative import for the module. stdout carries
@@ -14,7 +14,7 @@ logs; follow `SECURITY.md` before collecting or sharing them.
 #!/bin/bash
 # Run this first when debugging issues
 
-echo "🔍 Z-Library MCP Health Check"
+echo "🔍 Hyperlibrary MCP Health Check"
 echo "=============================="
 
 # Check Node.js
@@ -55,8 +55,8 @@ fi
 echo "Testing Python bridge..."
 python3 -c "import lib.python_bridge; print('✅ Python bridge imports successfully')" 2>/dev/null || echo "❌ Python bridge import failed"
 
-# Check Z-Library connectivity
-echo "Testing Z-Library connectivity..."
+# Check Hyperlibrary connectivity
+echo "Testing Hyperlibrary connectivity..."
 curl -s -o /dev/null -w "HTTP %{http_code}" https://singlelogin.me || echo " - Failed"
 ```
 
@@ -124,7 +124,7 @@ bash setup-uv.sh
 # Or: uv sync
 ```
 
-### Issue: Z-Library Authentication Fails
+### Issue: Hyperlibrary Authentication Fails
 
 **Symptoms:**
 
@@ -439,7 +439,7 @@ def search_books(query, **kwargs):
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug Z-Library MCP",
+      "name": "Debug Hyperlibrary MCP",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/dist/index.js",
       "envFile": "${workspaceFolder}/.env",

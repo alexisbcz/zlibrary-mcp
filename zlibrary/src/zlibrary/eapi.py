@@ -1,5 +1,5 @@
 """
-EAPI client for Z-Library JSON API endpoints.
+EAPI client for Hyperlibrary JSON API endpoints.
 
 Bypasses Cloudflare by using POST/GET to /eapi/* endpoints
 with cookie-based authentication.
@@ -294,7 +294,7 @@ async def select_advertised_domain(
 
 
 # RFC 6266 / RFC 5987 permit three spellings of the filename parameter, and
-# Z-Library uses all of them depending on the title's character set. Tried in
+# Hyperlibrary uses all of them depending on the title's character set. Tried in
 # priority order: the extended form wins when present, because a server sending
 # `filename*` also sends an ASCII-mangled `filename` fallback that loses
 # characters.
@@ -352,7 +352,7 @@ def sanitize_download_filename(filename: str) -> str:
 
 
 class EAPIClient:
-    """Z-Library EAPI client using httpx with cookie-based auth."""
+    """Hyperlibrary EAPI client using httpx with cookie-based auth."""
 
     def __init__(
         self,
@@ -532,7 +532,7 @@ class EAPIClient:
         """Download a book file using EAPI download link.
 
         Args:
-            book_id: Z-Library book ID
+            book_id: Hyperlibrary book ID
             book_hash: Book hash for URL construction
             output_dir: Directory to save the file
             filename: Optional filename; derived from response headers or URL if omitted

@@ -3,7 +3,7 @@ Author search tools for advanced author-based discovery.
 
 This module enables sophisticated author searches with support for
 exact name matching, syntax variations, and filtering by publication
-year, language, and file type. Uses EAPI for all Z-Library data access.
+year, language, and file type. Uses EAPI for all Hyperlibrary data access.
 """
 
 import asyncio
@@ -50,7 +50,7 @@ def validate_author_name(author: str) -> bool:
 
 def format_author_query(author: str, exact: bool = False) -> str:
     """
-    Format author name for Z-Library search query.
+    Format author name for Hyperlibrary search query.
 
     Handles various name formats:
     - "Hegel" -> "Hegel"
@@ -102,8 +102,8 @@ async def search_by_author(
 
     Args:
         author: Author name (supports various formats)
-        email: Z-Library account email
-        password: Z-Library account password
+        email: Hyperlibrary account email
+        password: Hyperlibrary account password
         exact: If True, search for exact author name match
         mirror: Optional custom mirror URL
         year_from: Optional filter for publication year (start)

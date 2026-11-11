@@ -1,6 +1,6 @@
-> Historical deployment checklist: processing checks below apply only to the preserved 1.4.x tree. Current deployment uses `bash setup-uv.sh --deploy` (acquisition only); see [migration](../text-processing-migration.md). Its terms, booklist and IPFS checks are also 1.x only: Z-Library's API exposes none of them (#256).
+> Historical deployment checklist: processing checks below apply only to the preserved 1.4.x tree. Current deployment uses `bash setup-uv.sh --deploy` (acquisition only); see [migration](../text-processing-migration.md). Its terms, booklist and IPFS checks are also 1.x only: Hyperlibrary's API exposes none of them (#256).
 
-# Z-Library MCP Server - Deployment Checklist
+# Hyperlibrary MCP Server - Deployment Checklist
 
 **Version**: 1.0.0
 **Date**: 2025-10-04
@@ -224,7 +224,7 @@ Expected: Should list 11 tools including:
 
 Ask Claude:
 ```
-"Search Z-Library for books on Python programming,
+"Search Hyperlibrary for books on Python programming,
 download the first one, and process it for RAG"
 ```
 
@@ -285,7 +285,7 @@ Expected:
 
 ### Rate Limiting
 
-**Z-Library Limits**:
+**Hyperlibrary Limits**:
 - ~10 login attempts per time window
 - 999 downloads per day (with donation)
 - Aggressive rate limiting on login
@@ -349,7 +349,7 @@ Expected:
 - Review and clear old logs
 
 **As Needed**:
-- Update zlibrary fork if Z-Library changes
+- Update zlibrary fork if Hyperlibrary changes
 - Add new features based on user feedback
 - Performance optimization
 

@@ -36,7 +36,7 @@ def check_upstream():
 
 
 def test_required_failure_is_actionable(check_upstream):
-    """Z-Library failures must be reported as FAIL, not warnings."""
+    """Hyperlibrary failures must be reported as FAIL, not warnings."""
     result = check_upstream.ProbeResult(
         name="zlibrary:eapi/book/search", ok=False, detail="boom", required=True
     )
@@ -165,7 +165,7 @@ def test_render_counts_blocked_separately(check_upstream):
 
 def test_block_detail_classifies_bare_403(check_upstream):
     """GitHub-hosted runners get a bare 403 with no DiamWall markers from every
-    Z-Library domain; that must classify as a block, with the caveat that only
+    Hyperlibrary domain; that must classify as a block, with the caveat that only
     a residential probe can distinguish IP blocking from a global wall."""
     detail = check_upstream._block_detail(httpx.Response(403, text="Forbidden"))
     assert detail is not None
@@ -1158,11 +1158,11 @@ def test_run_probes_reuses_the_adapter_so_article_search_is_rate_limited(
 
 
 def test_libgen_block_does_not_set_the_zlibrary_blocked_flag(check_upstream):
-    """A walled LibGen must not suppress the Z-Library drift report.
+    """A walled LibGen must not suppress the Hyperlibrary drift report.
 
-    `zlib_blocked` gates whether upstream-check.yml files the Z-Library drift
+    `zlib_blocked` gates whether upstream-check.yml files the Hyperlibrary drift
     issue. #141 made a LibGen UA block set `blocked=True` too, so an unscoped
-    `any(...)` would silence a genuine Z-Library drift report because a
+    `any(...)` would silence a genuine Hyperlibrary drift report because a
     different source was walled (Codex on #146).
     """
     results = [
@@ -1189,7 +1189,7 @@ def test_zlibrary_block_still_sets_the_flag(check_upstream):
 
 
 def test_annas_block_does_not_set_the_zlibrary_flag_either(check_upstream):
-    """The scope is Z-Library specifically, not 'any source but LibGen'."""
+    """The scope is Hyperlibrary specifically, not 'any source but LibGen'."""
     results = [
         check_upstream.ProbeResult(
             name="annas-archive:search", ok=False, detail="DDoS-Guard", blocked=True
@@ -1275,7 +1275,7 @@ class TestLibgenSearchProbeReportsUserAgentBlocks:
         """`zlibrary_blocked` must stay source-scoped (#141).
 
         The new `blocked=True` on a LibGen probe would otherwise start
-        triggering the Z-Library block path, which is the exact conflation the
+        triggering the Hyperlibrary block path, which is the exact conflation the
         scoping fix on this branch removed.
         """
         results = [
@@ -1901,7 +1901,7 @@ def test_annas_warning_has_run_annotation(
     monkeypatch.setattr(sys, "argv", ["check_upstream.py", "--github-output"])
     monkeypatch.setenv("GITHUB_OUTPUT", str(tmp_path / "output"))
     assert check_upstream.main() == 0
-    assert "::warning::Anna's Archive" in capsys.readouterr().out
+    assert "::warning::Hyperanna" in capsys.readouterr().out
 
 
 @pytest.mark.parametrize("github_output", [False, True])

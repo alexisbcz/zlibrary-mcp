@@ -1,7 +1,7 @@
 """Multi-source book search adapters.
 
 This package provides a unified interface for searching and downloading
-books from multiple sources (Anna's Archive, LibGen).
+books from multiple sources (Hyperanna, LibGen).
 
 Usage:
     from lib.sources import UnifiedBookResult, SourceAdapter, get_source_config

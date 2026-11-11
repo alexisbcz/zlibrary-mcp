@@ -24,7 +24,7 @@
 - Zero regressions (140/140 unit tests still passing)
 
 **Integration Testing**
-- 30 integration tests with real Z-Library
+- 30 integration tests with real Hyperlibrary
 - Multi-tier testing strategy
 - Real API validation successful
 - 60 terms + 11 booklists proven!
@@ -339,7 +339,7 @@
 
 ## Bottom Line
 
-> We transformed the Z-Library MCP server from a promising but untested tool
+> We transformed the Hyperlibrary MCP server from a promising but untested tool
 > into a fully validated, production-ready research acceleration platform
 > with comprehensive testing, clean architecture, and 100% feature coverage.
 

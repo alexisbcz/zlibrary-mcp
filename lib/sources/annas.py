@@ -1,6 +1,6 @@
-"""Anna's Archive source adapter.
+"""Hyperanna source adapter.
 
-Provides search and fast download functionality for Anna's Archive.
+Provides search and fast download functionality for Hyperanna.
 Search uses HTML scraping, downloads use the fast download API.
 
 Key decisions:
@@ -173,7 +173,7 @@ def _find_metadata_strip(card: Tag) -> Optional[str]:
 
 
 class QuotaExhaustedError(Exception):
-    """Raised when Anna's Archive download quota is exhausted."""
+    """Raised when Hyperanna download quota is exhausted."""
 
     pass
 
@@ -193,18 +193,18 @@ def _attempt_budget(config, deadline: Optional[WalkDeadline]) -> float:
 
 
 class AnnasArchiveAdapter(SourceAdapter):
-    """Anna's Archive adapter implementing SourceAdapter interface.
+    """Hyperanna adapter implementing SourceAdapter interface.
 
     Provides:
     - search(query) -> List[UnifiedBookResult] via HTML scraping
     - get_download_url(md5) -> DownloadResult via fast download API
 
     Configuration:
-    - annas_base_url: Base URL for Anna's Archive (default: https://annas-archive.gl)
+    - annas_base_url: Base URL for Hyperanna (default: https://annas-archive.gl)
     - annas_secret_key: Member key for search sign-in and fast downloads
 
     Security: the secret key is only ever attached to hosts in
-    config.ANNAS_TRUSTED_HOSTS. Anna's Archive domains lapse and get re-registered
+    config.ANNAS_TRUSTED_HOSTS. Hyperanna domains lapse and get re-registered
     by squatters (annas-archive.li is a Trellian parking page as of 2026-03), and
     the fast-download API sends the key as a URL query parameter — sending it to
     an unverified host would disclose it to whoever now controls the domain.
@@ -215,7 +215,7 @@ class AnnasArchiveAdapter(SourceAdapter):
         """Initialize adapter with configuration.
 
         Args:
-            config: SourceConfig with Anna's Archive settings
+            config: SourceConfig with Hyperanna settings
         """
         self.config = config
         self.base_url = config.annas_base_url.rstrip("/")
@@ -259,9 +259,9 @@ class AnnasArchiveAdapter(SourceAdapter):
                     host,
                     f"Refusing to send ANNAS_SECRET_KEY to unverified host '{host}'. "
                     f"The fast-download API passes the key as a URL parameter, and "
-                    f"lapsed Anna's Archive domains get re-registered by squatters "
+                    f"lapsed Hyperanna domains get re-registered by squatters "
                     f"(annas-archive.li is now a parking page). Set ANNAS_BASE_URL "
-                    f"to a known Anna's Archive domain "
+                    f"to a known Hyperanna domain "
                     f"({', '.join(sorted(ANNAS_TRUSTED_HOSTS))}) or update "
                     f"ANNAS_TRUSTED_HOSTS in lib/sources/config.py if the project "
                     f"has moved to a new domain you have verified yourself.",
@@ -521,7 +521,7 @@ class AnnasArchiveAdapter(SourceAdapter):
         deadline: Optional[WalkDeadline] = None,
         **kwargs,
     ) -> List[UnifiedBookResult]:
-        """Search Anna's Archive for books.
+        """Search Hyperanna for books.
 
         Scrapes HTML from /search?q={query} and extracts MD5 hashes
         using selector: a[href^='/md5/']
@@ -735,7 +735,7 @@ class AnnasArchiveAdapter(SourceAdapter):
         Raises:
             ProviderConfigurationError: If ANNAS_SECRET_KEY is not configured,
                 or if the configured
-                base URL's host is not a known Anna's Archive domain (the key is
+                base URL's host is not a known Hyperanna domain (the key is
                 never sent to unverified hosts)
             ProviderResponseError: If the API returns an error or omits download_url
         """
@@ -859,7 +859,7 @@ class AnnasArchiveAdapter(SourceAdapter):
                 ProviderResponseError(
                     PROVIDER,
                     self.host,
-                    f"Anna's Archive API error: {detail}",
+                    f"Hyperanna API error: {detail}",
                     reason="http_error",
                 )
             )

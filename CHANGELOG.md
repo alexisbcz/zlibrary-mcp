@@ -35,12 +35,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Redirect refusals use the `redirect_refused` health code and retain host-failure
   breaker treatment. A download refusal reports `detail.reason: http_error` while
   retaining its existing public error code and quota-sensitive retry advice.
-- `ANNAS_SECRET_KEY` now also signs in to Anna's Archive for search, so the key
+- `ANNAS_SECRET_KEY` now also signs in to Hyperanna for search, so the key
   is sent by POST to `/account/` on the configured origin. It previously served
   fast downloads only. Without a key, search stays anonymous.
 - `get_limits` reports `member_key_configured` and `member_session` for the
-  Anna's Archive source.
-- Anna's Archive pages with no result rows and no recognised "No files found."
+  Hyperanna source.
+- Hyperanna pages with no result rows and no recognised "No files found."
   marker now return an "Unrecognised page" error instead of empty results,
   including for anonymous users.
 
@@ -106,7 +106,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   40 KiB/s floor up to a 3600s ceiling (or a higher configured base); the long
   bridge default is now 3900s.
   MD5, destination leases, receipts and keyed-source quota semantics are retained.
-- The shared long timer also extends Z-Library's EAPI acquisition transfer window
+- The shared long timer also extends Hyperlibrary's EAPI acquisition transfer window
   from about 2235s to 3735s by default, even without size scaling. Its per-read
   timeout remains 60s; shorter caller/owner limits and cancellation still apply.
 - Source mirror walks share a `BOOK_SOURCE_WALK_BUDGET` deadline (default 165s)
@@ -135,7 +135,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   wait and label incomplete answers. File rows group only equal catalogue MD5;
   source-neutral fit ordering and selectable copies replace the routing block.
 - `exact` checks title-query and author phrases separately on every source.
-  Native Z-Library filters remain transmitted, with local examined-window
+  Native Hyperlibrary filters remain transmitted, with local examined-window
   evidence for all active predicates and up to 50 candidates per source.
 - Search cursor replays are retained snapshots, including single-flight
   memoized one-source refills. Whole-search LRU eviction and a 20-window bound
@@ -197,11 +197,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fail closed on receipt permission/I/O errors and symlink/nonregular sidecars,
   preserving provenance instead of starting a transfer. Retryable LibGen download
   failures are quota-safe even after issuance; no download automatically retries.
-- Share the in-memory Z-Library session owner across reads and fresh acquisitions,
+- Share the in-memory Hyperlibrary session owner across reads and fresh acquisitions,
   requesting authentication only after held-lease receipt checks and durable intent.
   Receipt hits bypass credentials/cooldown/pending login; granted transfers never
   replay after authentication rejection. `ZLIBRARY_SESSION_MODE` now defaults to
-  `memory`; 1.4.0 authenticated Z-Library per call. Set `per-call` to retain per-call
+  `memory`; 1.4.0 authenticated Hyperlibrary per call. Set `per-call` to retain per-call
   authentication instead of session reuse.
 - Downloads return `path`, `bytes`, flags and `record`; full book records and all
   processing arguments are no longer MCP inputs. Even a saved false processing
@@ -328,7 +328,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Each provider has its own circuit breaker: Z-Library, LibGen and Anna's Archive
+- Each provider has its own circuit breaker: Hyperlibrary, LibGen and Hyperanna
   (ADR-011). An outage at one no longer refuses the others, and an ordered
   `["annas","libgen"]` search reaches LibGen while Anna's is down. 1.4.0 ran one
   breaker for every bridge call.
@@ -336,7 +336,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   "keyless" into *keyed fast_download*, *operator-cookie slow_download*, and
   *machine-solved challenge*. The ambiguity had caused approved work to be recorded as
   cancelled. "Keyless" is now a banned term; prefer "key-free" (#98).
-- **Anna's Archive has exactly one supported download route: keyed `fast_download`.**
+- **Hyperanna has exactly one supported download route: keyed `fast_download`.**
   The operator-cookie route is dead rather than deferred — DDoS-Guard binds the challenge
   cookie to the issuing IP inside `__ddg9_`, so a transplanted cookie is rejected
   byte-for-byte identically to no cookie at all (#84). Guardrails for that route (#97)
@@ -372,8 +372,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.4.0] - 2026-08-10
 
-Z-Library is no longer the only source that can deliver a file. LibGen search
-results are now downloadable, so hitting the Z-Library daily limit has a
+Hyperlibrary is no longer the only source that can deliver a file. LibGen search
+results are now downloadable, so hitting the Hyperlibrary daily limit has a
 fallback — a step toward VISION.md invariant 4 ("sources are adapters; no
 source is privileged").
 
@@ -386,10 +386,10 @@ source is privileged").
   mirror can hand out a valid key while the CDN node behind it is dead, so
   each candidate is verified with a ranged request that rejects an expired-key
   bounce to `/ads.php`, an HTML error page served as HTTP 200, and a truncated
-  body. **LibGen downloads require no Z-Library credentials.**
+  body. **LibGen downloads require no Hyperlibrary credentials.**
 - The server now starts without `ZLIBRARY_EMAIL`/`ZLIBRARY_PASSWORD`. Missing
   credentials are a stderr warning rather than a fatal exit, so a LibGen-only
-  install works out of the box; Z-Library tools still error clearly when
+  install works out of the box; Hyperlibrary tools still error clearly when
   called. Previously the process exited 1 at startup, which would have made
   the new unlimited source unreachable on a bare install.
 - `libgen:download` probe in `npm run doctor` and the scheduled upstream check,
@@ -400,7 +400,7 @@ source is privileged").
 
 - **Security: `annas-archive.is` removed from `ANNAS_TRUSTED_HOSTS`.** That
   list authorizes attaching `ANNAS_SECRET_KEY`, which the fast-download API
-  passes as a URL query parameter. The host is not Anna's Archive:
+  passes as a URL query parameter. The host is not Hyperanna:
   `/dyn/api/fast_download.json` returns 404 there versus 401 on the genuine
   `.gl`, and it serves a secret-key "recovery" form. Anyone who set
   `ANNAS_BASE_URL` to it would have disclosed their key.
@@ -433,7 +433,7 @@ source is privileged").
 
 ### Known limitations
 
-- Keyless Anna's Archive downloads are **not supported and will not be**. The
+- Keyless Hyperanna downloads are **not supported and will not be**. The
   `/slow_download/` route is gated by a DDoS-Guard browser challenge that the
   project states is there to stop bots and scrapers. Anna's keyless *search*
   works normally; keyed `fast_download` remains the supported download path.
@@ -460,7 +460,7 @@ source is privileged").
 ### Changed
 
 - Upstream contract check now distinguishes network-level blocks from drift: a
-  DiamWall wall or bare 403 (what GitHub-hosted runners get from every Z-Library
+  DiamWall wall or bare 403 (what GitHub-hosted runners get from every Hyperlibrary
   domain) reports as `BLOCK` instead of `FAIL`, does not file the rolling drift
   issue, and skips the credentialed live suite rather than burning login
   attempts (~10/hour/IP) against a wall. Only a probe from an unblocked network
@@ -546,7 +546,7 @@ source is privileged").
 
 ### Added
 
-- Scheduled **Upstream Contract Check** workflow: probes Z-Library, Anna's Archive, and
+- Scheduled **Upstream Contract Check** workflow: probes Hyperlibrary, Hyperanna, and
   LibGen response shapes daily, runs the credentialed integration suite, and files a
   rolling `upstream-drift` issue on failure.
 - `npm run doctor` — the same probe for users, to distinguish an upstream outage from a
@@ -627,8 +627,8 @@ source is privileged").
 - Region-level DPI targeting for mixed-quality PDF pages
 - Unified body text detection pipeline with confidence scoring
 - Non-body content separation (headers, footers, footnotes isolated from body text)
-- Anna's Archive integration as alternative book source with automatic LibGen fallback
-- `search_multi_source` tool for cross-source searching (Anna's Archive and LibGen)
+- Hyperanna integration as alternative book source with automatic LibGen fallback
+- `search_multi_source` tool for cross-source searching (Hyperanna and LibGen)
 - Source attribution in multi-source search results
 
 ### Changed
@@ -652,7 +652,7 @@ source is privileged").
 ### Added
 
 - 13 MCP tools: `search_books`, `full_text_search`, `search_by_term`, `search_by_author`, `search_advanced`, `search_multi_source`, `get_recent_books`, `get_book_metadata`, `fetch_booklist`, `download_book_to_file`, `process_document_for_rag`, `get_download_limits`, `get_download_history`
-- EAPI migration for all Z-Library operations (replacing web scraping)
+- EAPI migration for all Hyperlibrary operations (replacing web scraping)
 - MCP SDK upgrade to 1.25.3 with `McpServer` API
 - Python bridge decomposition (4968-line monolith split into 31 focused modules)
 - RAG processing pipeline for EPUB, PDF, and TXT documents
@@ -666,7 +666,7 @@ source is privileged").
 
 ### Changed
 
-- Migrated from web scraping to Z-Library EAPI for all operations
+- Migrated from web scraping to Hyperlibrary EAPI for all operations
 - Upgraded to MCP SDK 1.25.x with new `McpServer` registration API
 - Python monolith `rag_processing.py` decomposed into `lib/rag/` module tree with facade re-exports
 - Bare `except` clauses replaced with specific exception handling throughout Python codebase

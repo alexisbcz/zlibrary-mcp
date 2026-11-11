@@ -202,11 +202,11 @@ export async function start(opts: { testing?: boolean } = {}) {
         if (login.notice) logger.warn(login.notice);
         if (!login.configured)
           logger.warn(
-            'Z-Library account is not configured; run zlibrary login. LibGen remains available.',
+            'Hyperlibrary account is not configured; run zlibrary login. LibGen remains available.',
           );
       } catch {
         logger.warn(
-          'Z-Library login metadata is unavailable; check setup and private permissions. LibGen remains available.',
+          'Hyperlibrary login metadata is unavailable; check setup and private permissions. LibGen remains available.',
         );
       }
     }

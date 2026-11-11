@@ -105,7 +105,7 @@ if __name__ == "__main__":
     if results:
         print(f"\n{'=' * 50}")
         print("SUCCESS: LibGen search works")
-        print("Results can be used for comparison with Anna's Archive")
+        print("Results can be used for comparison with Hyperanna")
     else:
         print(f"\n{'=' * 50}")
         print("FAILED: LibGen search failed or returned no results")

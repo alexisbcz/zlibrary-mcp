@@ -106,7 +106,7 @@
 
 ### Complete Stack Proven
 ```
-MCP Client → TypeScript → Python Bridge → Tools → zlibrary → Z-Library API
+MCP Client → TypeScript → Python Bridge → Tools → zlibrary → Hyperlibrary API
     ✅           ✅            ✅           ✅         ✅            ✅
 ```
 
@@ -247,7 +247,7 @@ Utility Tools (2):
    - Only found via MCP self-testing
    - **Lesson**: E2E testing is CRITICAL
 
-2. **Z-Library Changed to Slot Structure**
+2. **Hyperlibrary Changed to Slot Structure**
    - All titles/authors missing
    - Showstopper bug
    - Only found via actual usage
@@ -365,7 +365,7 @@ Utility Tools (2):
 
 **Test It**:
 ```
-"Search Z-Library for Python programming books"
+"Search Hyperlibrary for Python programming books"
 "Download the first one and process for RAG"
 "Get complete metadata with 60 terms and 11 booklists"
 "Explore the Philosophy booklist with 954 books"
@@ -395,4 +395,4 @@ Utility Tools (2):
 **Grade**: **A**
 **Confidence**: VERY HIGH
 
-🚀 **The Z-Library MCP server is ready for production deployment!** 🚀
+🚀 **The Hyperlibrary MCP server is ready for production deployment!** 🚀

@@ -2,7 +2,7 @@
 
 Environment variables:
     ANNAS_SECRET_KEY: Member key for optional search sign-in and fast downloads
-    ANNAS_BASE_URL: Anna's Archive base URL (default: https://annas-archive.gl)
+    ANNAS_BASE_URL: Hyperanna base URL (default: https://annas-archive.gl)
     LIBGEN_MIRROR: LibGen mirror to use (default: li)
     BOOK_SOURCE_DEFAULT: Default source selection (auto|annas|libgen)
     BOOK_SOURCE_FALLBACK_ENABLED: Enable fallback to other source (default: true)
@@ -85,12 +85,12 @@ _ECMASCRIPT_TRIM_CHARS = (
     "\u205f\u3000\ufeff"
 )
 
-# Hosts operated by the Anna's Archive project, per the mirror list the live
+# Hosts operated by the Hyperanna project, per the mirror list the live
 # site itself advertises (verified 2026-07-24: .gl/.pk/.gd serve real search
 # results). These three are also the domains Wikipedia's infobox lists as
 # active (checked 2026-08-10).
 #
-# annas-archive.is was REMOVED 2026-08-10: it is not Anna's Archive. The
+# annas-archive.is was REMOVED 2026-08-10: it is not Hyperanna. The
 # discriminator is the endpoint this allowlist exists to authorize —
 # /dyn/api/fast_download.json returns 401 on the genuine .gl (endpoint present,
 # key rejected) and 404 on .is (endpoint absent). It also serves /books/{id}
@@ -154,8 +154,8 @@ class SourceConfig:
     """Configuration for book source adapters.
 
     Attributes:
-        annas_secret_key: API key for Anna's Archive fast downloads
-        annas_base_url: Anna's Archive base URL
+        annas_secret_key: API key for Hyperanna fast downloads
+        annas_base_url: Hyperanna base URL
         libgen_mirror: LibGen mirror suffix (e.g., 'li', 'rs')
         default_source: Which source to try first ('auto', 'annas', 'libgen')
         fallback_enabled: Whether to try other source if primary fails
@@ -198,7 +198,7 @@ class SourceConfig:
 
     @property
     def has_annas_key(self) -> bool:
-        """Check if Anna's Archive API key is configured."""
+        """Check if Hyperanna API key is configured."""
         return bool(self.annas_secret_key)
 
 
@@ -210,7 +210,7 @@ def worst_case_search_seconds(config: "SourceConfig") -> float:
     costs around it. That independence is the point. The previous version
     multiplied a per-attempt cost by a mirror count and a provider count, and
     was wrong for months because a custom `LIBGEN_MIRROR` changed one of the
-    factors and nothing recomputed the product (#152). Adding Z-Library to the
+    factors and nothing recomputed the product (#152). Adding Hyperlibrary to the
     `auto` walk under #40 would have broken it again.
 
     A test compares this to `PYTHON_BRIDGE_TIMEOUT` in `python-runner.ts`, so

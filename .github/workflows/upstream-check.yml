@@ -1,7 +1,7 @@
 name: Upstream Contract Check
 
 # Every capability in this server rests on undocumented third-party surfaces:
-# Z-Library's EAPI JSON endpoints, Anna's Archive HTML, and LibGen. None of them
+# Hyperlibrary's EAPI JSON endpoints, Hyperanna HTML, and LibGen. None of them
 # publish a contract or a changelog, and all of them rotate domains. The unit
 # suite mocks every one of those calls, so it stays green for months after the
 # real integrations break — which is how a server ships as "working" and users
@@ -100,7 +100,7 @@ jobs:
         continue-on-error: true
         env:
           # Empty repository variable means the default. Set to zlibrary to
-          # retain warning-only behaviour for Anna's Archive and LibGen.
+          # retain warning-only behaviour for Hyperanna and LibGen.
           UPSTREAM_RELIED_SOURCES: ${{ vars.UPSTREAM_RELIED_SOURCES || 'zlibrary,libgen' }}
         run: |
           command_token="$(python3 -c 'import secrets; print(secrets.token_hex(32))')"
@@ -130,7 +130,7 @@ jobs:
               if day.isoformat() != value or day > datetime.now(timezone.utc).date():
                   continue
               status = row.get("status") if row.get("status") in ("blocked", "changed") else "changed"
-              print(f"::warning::Anna's Archive probe is {status}; first seen {value} (UTC); warning-only alert policy.")
+              print(f"::warning::Hyperanna probe is {status}; first seen {value} (UTC); warning-only alert policy.")
           PY
       - uses: actions/upload-artifact@v7
         if: always()
@@ -176,7 +176,7 @@ jobs:
           # Processing corpus is preserved separately; acquisition tests need no LFS PDFs.
           lfs: false
       - uses: ./.github/actions/setup
-      - name: Run integration-marked tests against live Z-Library
+      - name: Run integration-marked tests against live Hyperlibrary
         id: live
         env:
           ZLIBRARY_TEST_SESSION_VALUES: ${{ runner.temp }}/zlibrary-live-sessions.jsonl
@@ -203,18 +203,18 @@ jobs:
           raise SystemExit(0 if sys.argv[1] in domains else 1)
           PY
           then
-            echo "::warning::Z-Library probe domain is not configured — live suite skipped."
+            echo "::warning::Hyperlibrary probe domain is not configured — live suite skipped."
             echo "status=unknown" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           if [ "$ZLIB_BLOCKED" = "true" ]; then
-            echo "::warning::Z-Library reachability probe reported a block on $ZLIB_PROBE_DOMAIN — live suite skipped. Run npm run doctor from another network to distinguish an IP refusal from a domain-wide wall."
+            echo "::warning::Hyperlibrary reachability probe reported a block on $ZLIB_PROBE_DOMAIN — live suite skipped. Run npm run doctor from another network to distinguish an IP refusal from a domain-wide wall."
             echo "status=blocked" >> "$GITHUB_OUTPUT"
             echo "blocked=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           if [ "$ZLIB_BLOCKED" != "false" ]; then
-            echo "::warning::Z-Library reachability block state is unknown — live suite skipped without logging in."
+            echo "::warning::Hyperlibrary reachability block state is unknown — live suite skipped without logging in."
             echo "status=unknown" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -397,7 +397,7 @@ jobs:
               `- live integration job: **${process.env.LIVE_STATUS || process.env.LIVE_RESULT}**`,
               ...(noAccount ? ['- live suite not run: no CI account configured'] : []),
               ...(process.env.ZLIB_BLOCKED === 'true'
-                ? [`- Z-Library reachability probe reported an anti-bot wall on ${process.env.ZLIB_PROBE_DOMAIN}; live suite skipped.`]
+                ? [`- Hyperlibrary reachability probe reported an anti-bot wall on ${process.env.ZLIB_PROBE_DOMAIN}; live suite skipped.`]
                 : []),
               `- run: ${runUrl}`,
               '',

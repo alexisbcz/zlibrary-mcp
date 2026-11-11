@@ -453,7 +453,7 @@
           "uniqueItems": true
         },
         "exact": {
-          "description": "Local per-field phrase check on every source; also sent to Z-Library.",
+          "description": "Local per-field phrase check on every source; also sent to Hyperlibrary.",
           "type": "boolean"
         },
         "year_from": {
